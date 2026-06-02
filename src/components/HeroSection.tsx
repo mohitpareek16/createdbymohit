@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Button from './Button'
 import WordsPullUp from './WordsPullUp'
 
-const NAV_LINKS = ['Work', 'Content', 'Course', 'About']
+const ANCHOR_LINKS = ['Work', 'Content', 'About']
 
 export default function HeroSection() {
   const [scrolled, setScrolled] = useState(false)
@@ -28,11 +29,11 @@ export default function HeroSection() {
           scrolled ? 'bg-white/90 backdrop-blur-xl border-b border-[#D8D4CB]' : 'bg-transparent'
         }`}
       >
-        <a href="#" className="font-mondwest text-lg font-semibold text-[#051A24] tracking-tight">
+        <Link to="/" className="font-mondwest text-lg font-semibold text-[#051A24] tracking-tight">
           <em>Created</em> By Mohit
-        </a>
+        </Link>
         <nav className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map(l => (
+          {ANCHOR_LINKS.map(l => (
             <a
               key={l}
               href={`#${l.toLowerCase()}`}
@@ -41,6 +42,12 @@ export default function HeroSection() {
               {l}
             </a>
           ))}
+          <Link
+            to="/courses"
+            className="text-sm text-[#273C46] hover:text-[#051A24] transition-colors font-mono uppercase tracking-wider text-[11px]"
+          >
+            Courses
+          </Link>
           <Button variant="primary" href="#course" className="text-xs px-5 py-2.5">
             Join Waitlist
           </Button>

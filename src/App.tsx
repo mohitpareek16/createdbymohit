@@ -1,31 +1,14 @@
-import HeroSection from './components/HeroSection'
-import MarqueeSection from './components/MarqueeSection'
-import StatsBento from './components/StatsBento'
-import WorkSection from './components/WorkSection'
-import ContentSection from './components/ContentSection'
-import CourseSection from './components/CourseSection'
-import AboutSection from './components/AboutSection'
-import TestimonialCarousel from './components/TestimonialCarousel'
-import PricingSection from './components/PricingSection'
-import PartnerSection from './components/PartnerSection'
-import Footer from './components/Footer'
-import BottomNav from './components/BottomNav'
+import { Routes, Route } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import CourseCatalog from './pages/CourseCatalog'
+import CourseDetail from './pages/CourseDetail'
 
 export default function App() {
   return (
-    <main>
-      <HeroSection />
-      <MarqueeSection />
-      <StatsBento />
-      <WorkSection />
-      <ContentSection />
-      <CourseSection />
-      <AboutSection />
-      <TestimonialCarousel />
-      <PricingSection />
-      <PartnerSection />
-      <Footer />
-      <BottomNav />
-    </main>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/courses" element={<CourseCatalog />} />
+      <Route path="/courses/:slug" element={<CourseDetail />} />
+    </Routes>
   )
 }
