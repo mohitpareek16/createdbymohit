@@ -1,19 +1,9 @@
-import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import Nav from './Nav'
 import Button from './Button'
 import WordsPullUp from './WordsPullUp'
 
-const NAV_LINKS = ['Work', 'Content', 'Course', 'About']
-
 export default function HeroSection() {
-  const [scrolled, setScrolled] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
   const fadeUp = (delay: number) => ({
     initial: { opacity: 0, y: 24 },
     animate: { opacity: 1, y: 0 },
@@ -22,30 +12,7 @@ export default function HeroSection() {
 
   return (
     <>
-      {/* NAV */}
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-5 transition-all duration-300 ${
-          scrolled ? 'bg-white/90 backdrop-blur-xl border-b border-[#D8D4CB]' : 'bg-transparent'
-        }`}
-      >
-        <a href="#" className="font-mondwest text-lg font-semibold text-[#051A24] tracking-tight">
-          <em>Created</em> By Mohit
-        </a>
-        <nav className="hidden md:flex items-center gap-8">
-          {NAV_LINKS.map(l => (
-            <a
-              key={l}
-              href={`#${l.toLowerCase()}`}
-              className="text-sm text-[#273C46] hover:text-[#051A24] transition-colors font-mono uppercase tracking-wider text-[11px]"
-            >
-              {l}
-            </a>
-          ))}
-          <Button variant="primary" href="#course" className="text-xs px-5 py-2.5">
-            Join Waitlist
-          </Button>
-        </nav>
-      </header>
+      <Nav />
 
       {/* HERO */}
       <section className="min-h-[100svh] pt-28 pb-16 px-6 md:px-10">

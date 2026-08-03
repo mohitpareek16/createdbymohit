@@ -1,31 +1,47 @@
-import HeroSection from './components/HeroSection'
-import MarqueeSection from './components/MarqueeSection'
-import StatsBento from './components/StatsBento'
-import WorkSection from './components/WorkSection'
-import ContentSection from './components/ContentSection'
-import CourseSection from './components/CourseSection'
-import AboutSection from './components/AboutSection'
-import TestimonialCarousel from './components/TestimonialCarousel'
-import PricingSection from './components/PricingSection'
-import PartnerSection from './components/PartnerSection'
-import Footer from './components/Footer'
-import BottomNav from './components/BottomNav'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+import CustomCursor from './components/CustomCursor'
+import IntroScreen from './components/IntroScreen'
+import NewsletterModal from './components/NewsletterModal'
+import ScrollToTop from './components/ScrollToTop'
+import PageWrapper from './components/PageWrapper'
+import HomePage from './pages/HomePage'
+import AboutPage from './pages/AboutPage'
+import WorkPage from './pages/WorkPage'
+import CaseStudy from './pages/CaseStudy'
+import CourseCatalog from './pages/CourseCatalog'
+import CourseDetail from './pages/CourseDetail'
+import ContactPage from './pages/ContactPage'
+import BookPage from './pages/BookPage'
+import ServicesPage from './pages/ServicesPage'
+
+function AnimatedRoutes() {
+  const location = useLocation()
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageWrapper><HomePage /></PageWrapper>} />
+        <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
+        <Route path="/work" element={<PageWrapper><WorkPage /></PageWrapper>} />
+        <Route path="/work/:slug" element={<PageWrapper><CaseStudy /></PageWrapper>} />
+        <Route path="/courses" element={<PageWrapper><CourseCatalog /></PageWrapper>} />
+        <Route path="/courses/:slug" element={<PageWrapper><CourseDetail /></PageWrapper>} />
+        <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
+        <Route path="/book" element={<PageWrapper><BookPage /></PageWrapper>} />
+        <Route path="/services" element={<PageWrapper><ServicesPage /></PageWrapper>} />
+      </Routes>
+    </AnimatePresence>
+  )
+}
 
 export default function App() {
   return (
-    <main>
-      <HeroSection />
-      <MarqueeSection />
-      <StatsBento />
-      <WorkSection />
-      <ContentSection />
-      <CourseSection />
-      <AboutSection />
-      <TestimonialCarousel />
-      <PricingSection />
-      <PartnerSection />
-      <Footer />
-      <BottomNav />
-    </main>
+    <>
+      <IntroScreen />
+      <NewsletterModal />
+      <CustomCursor />
+      <ScrollToTop />
+      <AnimatedRoutes />
+    </>
   )
 }
