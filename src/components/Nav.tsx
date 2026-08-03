@@ -27,7 +27,7 @@ export default function Nav() {
   }, [])
 
   const mobileLinks = [
-    { label: 'Work',    href: isHome ? '#work'    : '/#work',    type: 'a' },
+    { label: 'Work',    href: '/work',                            type: 'link' },
     { label: 'Content', href: isHome ? '#content' : '/#content', type: 'a' },
     { label: 'About',   href: '/about',                           type: 'link' },
     { label: 'Courses', href: '/courses',                         type: 'link' },
@@ -45,7 +45,7 @@ export default function Nav() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
-          <a href={isHome ? '#work' : '/#work'} className={navLinkClass}>Work</a>
+          <Link to="/work" className={navLinkClass}>Work</Link>
           <a href={isHome ? '#content' : '/#content'} className={navLinkClass}>Content</a>
           <Link to="/about" className={navLinkClass}>About</Link>
           <Link to="/courses" className={navLinkClass}>Courses</Link>

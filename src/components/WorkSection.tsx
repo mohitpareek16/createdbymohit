@@ -1,20 +1,24 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import WordsPullUp from './WordsPullUp'
 
 const PROJECTS = [
   {
     name: 'evr',
+    slug: 'evr',
     desc: 'From idea to millions raised for a web3 AI product',
     gif: 'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
   },
   {
     name: 'Automation Machines',
+    slug: 'automation-machines',
     desc: 'Streamlining industrial automation with modern UX',
     gif: 'https://motionsites.ai/assets/hero-automation-machines-preview-DlTveRIN.gif',
   },
   {
     name: 'xPortfolio',
+    slug: 'xportfolio',
     desc: 'Modern portfolio management platform',
     gif: 'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
   },
@@ -41,16 +45,21 @@ function ProjectItem({ project, index }: { project: typeof PROJECTS[0]; index: n
           </h3>
           <p className="text-sm text-[#051A24]/60 mt-1">{project.desc}</p>
         </div>
-        <span className="font-mono text-xs text-[#8A8780] pb-1 hover:text-[#C41E3A] transition-colors cursor-pointer">
+        <Link
+          to={`/work/${project.slug}`}
+          className="font-mono text-xs text-[#8A8780] pb-1 hover:text-[#C41E3A] transition-colors"
+        >
           Case Study →
-        </span>
+        </Link>
       </div>
-      <img
-        src={project.gif}
-        alt={project.name}
-        className="w-full rounded-2xl shadow-lg object-cover"
-        style={{ maxHeight: 580 }}
-      />
+      <Link to={`/work/${project.slug}`} className="block group">
+        <img
+          src={project.gif}
+          alt={project.name}
+          className="w-full rounded-2xl shadow-lg object-cover group-hover:opacity-90 transition-opacity duration-300"
+          style={{ maxHeight: 580 }}
+        />
+      </Link>
     </motion.div>
   )
 }
