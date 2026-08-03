@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { ThemeProvider } from './context/ThemeContext'
 import CustomCursor from './components/CustomCursor'
 import IntroScreen from './components/IntroScreen'
 import NewsletterModal from './components/NewsletterModal'
@@ -14,6 +15,11 @@ import CourseDetail from './pages/CourseDetail'
 import ContactPage from './pages/ContactPage'
 import BookPage from './pages/BookPage'
 import ServicesPage from './pages/ServicesPage'
+import BlogList from './pages/BlogList'
+import BlogPost from './pages/BlogPost'
+import StartingCorePage from './pages/StartingCorePage'
+import TestimonialsPage from './pages/TestimonialsPage'
+import MediaPage from './pages/MediaPage'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -29,6 +35,11 @@ function AnimatedRoutes() {
         <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
         <Route path="/book" element={<PageWrapper><BookPage /></PageWrapper>} />
         <Route path="/services" element={<PageWrapper><ServicesPage /></PageWrapper>} />
+        <Route path="/blog" element={<PageWrapper><BlogList /></PageWrapper>} />
+        <Route path="/blog/:slug" element={<PageWrapper><BlogPost /></PageWrapper>} />
+        <Route path="/starting-core" element={<PageWrapper><StartingCorePage /></PageWrapper>} />
+        <Route path="/testimonials" element={<PageWrapper><TestimonialsPage /></PageWrapper>} />
+        <Route path="/media" element={<PageWrapper><MediaPage /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
   )
@@ -36,12 +47,12 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <>
+    <ThemeProvider>
       <IntroScreen />
       <NewsletterModal />
       <CustomCursor />
       <ScrollToTop />
       <AnimatedRoutes />
-    </>
+    </ThemeProvider>
   )
 }

@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import Button from './Button'
+import ThemeToggle from './ThemeToggle'
 
 const navLinkClass =
   'text-[#273C46] hover:text-[#051A24] transition-colors font-mono uppercase tracking-wider text-[11px]'
@@ -38,7 +39,9 @@ export default function Nav() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-5 transition-all duration-300 ${
-          scrolled ? 'bg-white/90 backdrop-blur-xl border-b border-[#D8D4CB]' : 'bg-transparent'
+          scrolled
+            ? 'bg-white/90 dark:bg-[#0D1117]/90 backdrop-blur-xl border-b border-[#D8D4CB] dark:border-[#21262D]'
+            : 'bg-transparent'
         }`}
       >
         <Link to="/" className="font-mondwest text-lg font-semibold text-[#051A24] tracking-tight">
@@ -50,6 +53,7 @@ export default function Nav() {
           <Link to="/services" className={navLinkClass}>Services</Link>
           <a href={isHome ? '#content' : '/#content'} className={navLinkClass}>Content</a>
           <Link to="/about" className={navLinkClass}>About</Link>
+          <ThemeToggle />
           <Button variant="primary" href="/contact" className="text-xs px-5 py-2.5">
             Start a project
           </Button>

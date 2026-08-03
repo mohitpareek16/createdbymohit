@@ -1,21 +1,24 @@
+import { Link } from 'react-router-dom'
+
 export default function Footer() {
   const links: Record<string, Array<{ label: string; href: string; external?: boolean }>> = {
-    Navigate: [
-      { label: 'Work', href: '#work' },
-      { label: 'Content', href: '#content' },
-      { label: 'Course', href: '#course' },
-      { label: 'About', href: '#about' },
+    Work: [
+      { label: 'Case Studies', href: '/work' },
+      { label: 'Services', href: '/services' },
+      { label: 'Starting Core', href: '/starting-core' },
+      { label: 'Book a Call', href: '/book' },
+    ],
+    Learn: [
+      { label: 'Courses', href: '/courses' },
+      { label: 'Writing', href: '/blog' },
+      { label: 'Testimonials', href: '/testimonials' },
+      { label: 'Press & Media', href: '/media' },
     ],
     Social: [
       { label: 'Instagram', href: 'https://www.instagram.com/createdbymohit/', external: true },
       { label: 'YouTube', href: 'https://www.youtube.com/@createdbymohit', external: true },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mohit-pareek-b8a676204', external: true },
       { label: 'Dribbble', href: 'https://dribbble.com/mohit_pareek16', external: true },
-    ],
-    Contact: [
-      { label: 'hello@createdbymohit.com', href: 'mailto:hello@createdbymohit.com' },
-      { label: 'Course Waitlist', href: '#course' },
-      { label: 'Hire Mohit', href: 'mailto:hello@createdbymohit.com' },
     ],
   }
 
@@ -45,14 +48,20 @@ export default function Footer() {
               <ul className="flex flex-col gap-3">
                 {items.map(item => (
                   <li key={item.label}>
-                    <a
-                      href={item.href}
-                      target={item.external ? '_blank' : undefined}
-                      rel={item.external ? 'noopener noreferrer' : undefined}
-                      className="text-sm text-[#273C46] hover:text-[#C41E3A] transition-colors"
-                    >
-                      {item.label}
-                    </a>
+                    {item.external ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-[#273C46] hover:text-[#C41E3A] transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link to={item.href} className="text-sm text-[#273C46] hover:text-[#C41E3A] transition-colors">
+                        {item.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -125,6 +125,63 @@ img { max-width: 100%; display: block; }
 ::-webkit-scrollbar-track { background: #f5f5f5; }
 ::-webkit-scrollbar-thumb { background: #051A24; border-radius: 2px; }
 
+/* ─── Dark mode ─────────────────────────────────────────────── */
+html.dark { color-scheme: dark; }
+
+html.dark body {
+  background: #0D1117;
+  color: #E8E3DC;
+}
+
+html.dark ::-webkit-scrollbar-track { background: #161B22; }
+html.dark ::-webkit-scrollbar-thumb { background: #30363D; }
+
+html.dark ::selection { background: #C41E3A; color: #fff; }
+
+/* Backgrounds: light → dark */
+html.dark .bg-white            { background-color: #0D1117 !important; }
+html.dark .bg-\[\#F5F3EE\]    { background-color: #131B23 !important; }
+html.dark .bg-\[\#F7F5F2\]    { background-color: #131B23 !important; }
+html.dark .bg-cream            { background-color: #131B23 !important; }
+html.dark .bg-gray-50          { background-color: #161B22 !important; }
+html.dark .hover\:bg-gray-50:hover { background-color: #161B22 !important; }
+html.dark .hover\:bg-\[\#F5F3EE\]:hover { background-color: #161B22 !important; }
+
+/* Text: dark ink → light */
+html.dark .text-\[\#051A24\]   { color: #E8E3DC !important; }
+html.dark .text-\[\#273C46\]   { color: #9BA5AF !important; }
+html.dark .text-\[\#8A8780\]   { color: #5B6472 !important; }
+html.dark .text-\[\#C8C4BC\]   { color: #3D4A54 !important; }
+html.dark .text-ink            { color: #E8E3DC !important; }
+html.dark .text-muted          { color: #9BA5AF !important; }
+
+/* Opacity text variants */
+html.dark .text-\[\#051A24\]\/45 { color: rgb(232 227 220 / 45%) !important; }
+html.dark .text-\[\#051A24\]\/55 { color: rgb(232 227 220 / 55%) !important; }
+html.dark .text-\[\#051A24\]\/60 { color: rgb(232 227 220 / 60%) !important; }
+html.dark .text-\[\#051A24\]\/65 { color: rgb(232 227 220 / 65%) !important; }
+html.dark .text-\[\#051A24\]\/70 { color: rgb(232 227 220 / 70%) !important; }
+html.dark .text-\[\#051A24\]\/80 { color: rgb(232 227 220 / 80%) !important; }
+
+/* Borders */
+html.dark .border-\[\#D8D4CB\] { border-color: #21262D !important; }
+html.dark .border-line         { border-color: #21262D !important; }
+html.dark .divide-\[\#D8D4CB\] > * + * { border-color: #21262D !important; }
+
+/* Form inputs in light sections */
+html.dark input:not([class*="bg-"]),
+html.dark select:not([class*="bg-"]),
+html.dark textarea:not([class*="bg-"]) {
+  background-color: #161B22 !important;
+  border-color: #30363D !important;
+  color: #E8E3DC !important;
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder { color: #3D4A54 !important; }
+
+/* BottomNav */
+html.dark .bg-white.rounded-full { background-color: #161B22 !important; }
+
 /* Partner section image trail */
 .trail-image {
   position: fixed;
