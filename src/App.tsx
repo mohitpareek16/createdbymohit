@@ -1,6 +1,7 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import CustomCursor from './components/CustomCursor'
+import IntroScreen from './components/IntroScreen'
 import ScrollToTop from './components/ScrollToTop'
 import PageWrapper from './components/PageWrapper'
 import HomePage from './pages/HomePage'
@@ -33,6 +34,7 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <>
+      <IntroScreen />
       <CustomCursor />
       <ScrollToTop />
       <AnimatedRoutes />

@@ -1,6 +1,7 @@
 import { Sparkles, ArrowUpRight, Layers, Wand2, BookOpen, Brush, PenTool, Globe, Box, Aperture, Camera, Type, Palette, Code, type LucideIcon } from 'lucide-react'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+import CountUp from './CountUp'
 
 const TOOLS_ROW1 = [
   { icon: Layers, label: 'Figma' },
@@ -126,7 +127,7 @@ export default function StatsBento() {
             <motion.div {...card(0.15)} className="rounded-3xl bg-[#C41E3A] p-8 flex flex-col justify-between" style={{ minHeight: 180 }}>
               <span className="font-mono text-[11px] tracking-[0.12em] uppercase text-white/60">Designs delivered</span>
               <div>
-                <div className="font-mondwest text-6xl md:text-7xl text-white leading-none">5,000+</div>
+                <CountUp value="5,000+" className="font-mondwest text-6xl md:text-7xl text-white leading-none" />
               </div>
             </motion.div>
           </div>
@@ -154,7 +155,7 @@ export default function StatsBento() {
               <div className="flex gap-3 mb-6">
                 {[['50+', 'Clients'], ['6+', 'Years'], ['1M+', 'Followers']].map(([num, label]) => (
                   <div key={label} className="flex-1 bg-white/5 rounded-2xl px-3 py-3 text-center relative z-10">
-                    <div className="font-mondwest text-2xl text-white leading-none">{num}</div>
+                    <CountUp value={num} className="font-mondwest text-2xl text-white leading-none" />
                     <div className="font-mono text-[10px] text-white/50 uppercase tracking-wider mt-1">{label}</div>
                   </div>
                 ))}
