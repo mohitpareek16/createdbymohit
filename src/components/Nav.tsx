@@ -28,9 +28,9 @@ export default function Nav() {
 
   const mobileLinks = [
     { label: 'Work',    href: '/work',                            type: 'link' },
-    { label: 'Content', href: isHome ? '#content' : '/#content', type: 'a' },
     { label: 'About',   href: '/about',                           type: 'link' },
     { label: 'Courses', href: '/courses',                         type: 'link' },
+    { label: 'Contact', href: '/contact',                         type: 'link' },
   ]
 
   return (
@@ -49,7 +49,7 @@ export default function Nav() {
           <a href={isHome ? '#content' : '/#content'} className={navLinkClass}>Content</a>
           <Link to="/about" className={navLinkClass}>About</Link>
           <Link to="/courses" className={navLinkClass}>Courses</Link>
-          <Button variant="primary" href="mailto:hello@createdbymohit.com" className="text-xs px-5 py-2.5">
+          <Button variant="primary" href="/contact" className="text-xs px-5 py-2.5">
             Start a project
           </Button>
         </nav>

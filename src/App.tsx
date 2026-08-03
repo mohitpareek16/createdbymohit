@@ -9,6 +9,8 @@ import WorkPage from './pages/WorkPage'
 import CaseStudy from './pages/CaseStudy'
 import CourseCatalog from './pages/CourseCatalog'
 import CourseDetail from './pages/CourseDetail'
+import ContactPage from './pages/ContactPage'
+import BookPage from './pages/BookPage'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -21,6 +23,8 @@ function AnimatedRoutes() {
         <Route path="/work/:slug" element={<PageWrapper><CaseStudy /></PageWrapper>} />
         <Route path="/courses" element={<PageWrapper><CourseCatalog /></PageWrapper>} />
         <Route path="/courses/:slug" element={<PageWrapper><CourseDetail /></PageWrapper>} />
+        <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
+        <Route path="/book" element={<PageWrapper><BookPage /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
   )

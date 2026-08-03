@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 type Variant = 'primary' | 'secondary' | 'tertiary'
 
@@ -27,6 +28,9 @@ export default function Button({ variant = 'primary', children, href, onClick, c
   const cls = `inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-sm font-medium transition-all duration-200 cursor-pointer ${bases[variant]} ${className}`
   const style = { boxShadow: shadows[variant] }
 
+  if (href && href.startsWith('/')) {
+    return <Link to={href} className={cls} style={style}>{children}</Link>
+  }
   if (href) {
     return (
       <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} className={cls} style={style}>
