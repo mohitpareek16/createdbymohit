@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import CustomCursor from './components/CustomCursor'
 import IntroScreen from './components/IntroScreen'
+import NewsletterModal from './components/NewsletterModal'
 import ScrollToTop from './components/ScrollToTop'
 import PageWrapper from './components/PageWrapper'
 import HomePage from './pages/HomePage'
@@ -12,6 +13,7 @@ import CourseCatalog from './pages/CourseCatalog'
 import CourseDetail from './pages/CourseDetail'
 import ContactPage from './pages/ContactPage'
 import BookPage from './pages/BookPage'
+import ServicesPage from './pages/ServicesPage'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -26,6 +28,7 @@ function AnimatedRoutes() {
         <Route path="/courses/:slug" element={<PageWrapper><CourseDetail /></PageWrapper>} />
         <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
         <Route path="/book" element={<PageWrapper><BookPage /></PageWrapper>} />
+        <Route path="/services" element={<PageWrapper><ServicesPage /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
   )
@@ -35,6 +38,7 @@ export default function App() {
   return (
     <>
       <IntroScreen />
+      <NewsletterModal />
       <CustomCursor />
       <ScrollToTop />
       <AnimatedRoutes />
