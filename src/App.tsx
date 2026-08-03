@@ -1,14 +1,31 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
+import CustomCursor from './components/CustomCursor'
+import ScrollToTop from './components/ScrollToTop'
+import PageWrapper from './components/PageWrapper'
 import HomePage from './pages/HomePage'
 import CourseCatalog from './pages/CourseCatalog'
 import CourseDetail from './pages/CourseDetail'
 
+function AnimatedRoutes() {
+  const location = useLocation()
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageWrapper><HomePage /></PageWrapper>} />
+        <Route path="/courses" element={<PageWrapper><CourseCatalog /></PageWrapper>} />
+        <Route path="/courses/:slug" element={<PageWrapper><CourseDetail /></PageWrapper>} />
+      </Routes>
+    </AnimatePresence>
+  )
+}
+
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/courses" element={<CourseCatalog />} />
-      <Route path="/courses/:slug" element={<CourseDetail />} />
-    </Routes>
+    <>
+      <CustomCursor />
+      <ScrollToTop />
+      <AnimatedRoutes />
+    </>
   )
 }
