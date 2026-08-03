@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { Clock, BookOpen, Users, Star, ArrowRight, Lock } from 'lucide-react'
 import { getPublishedCourses, type Course } from '../data/courses'
 import WordsPullUp from '../components/WordsPullUp'
+import Nav from '../components/Nav'
 
 function CourseCard({ course, index }: { course: Course; index: number }) {
   return (
@@ -120,25 +121,9 @@ export default function CourseCatalog() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Nav */}
-      <header className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-10 py-5 bg-white/90 backdrop-blur-xl border-b border-[#D8D4CB]">
-        <Link to="/" className="font-mondwest text-lg font-semibold text-[#051A24] tracking-tight">
-          <em>Created</em> By Mohit
-        </Link>
-        <nav className="hidden md:flex items-center gap-8">
-          {['Work', 'Content', 'About'].map(l => (
-            <Link
-              key={l}
-              to={`/#${l.toLowerCase()}`}
-              className="font-mono text-[11px] uppercase tracking-widest text-[#273C46] hover:text-[#051A24] transition-colors"
-            >
-              {l}
-            </Link>
-          ))}
-        </nav>
-      </header>
+      <Nav />
 
-      <main className="px-6 md:px-10 py-16 md:py-24 max-w-[1320px] mx-auto">
+      <main className="px-6 md:px-10 pt-32 pb-16 md:pb-24 max-w-[1320px] mx-auto">
         {/* Header */}
         <div className="mb-16">
           <div className="font-mono text-[11px] tracking-widest uppercase text-[#8A8780] mb-4">

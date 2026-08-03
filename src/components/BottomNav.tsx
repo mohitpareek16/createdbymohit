@@ -10,8 +10,15 @@ export default function BottomNav() {
       <Link to="/" className="font-mondwest text-2xl font-semibold text-[#051A24] leading-none">M</Link>
       <div className="w-px h-5 bg-[#D8D4CB]" />
       <Link
+        to="/about"
+        className="font-mono text-[10px] uppercase tracking-widest text-[#273C46] hover:text-[#051A24] transition-colors"
+      >
+        About
+      </Link>
+      <div className="w-px h-5 bg-[#D8D4CB]" />
+      <Link
         to="/courses"
-        className="font-mono text-[10px] uppercase tracking-widest text-[#273C46] hover:text-accent transition-colors"
+        className="font-mono text-[10px] uppercase tracking-widest text-[#273C46] hover:text-[#051A24] transition-colors"
       >
         Courses
       </Link>

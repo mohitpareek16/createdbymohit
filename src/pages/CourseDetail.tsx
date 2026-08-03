@@ -7,6 +7,7 @@ import {
 } from 'lucide-react'
 import { getCourse, type Module } from '../data/courses'
 import WordsPullUp from '../components/WordsPullUp'
+import Nav from '../components/Nav'
 
 // ── Curriculum accordion module ──────────────────────────────
 function CurriculumModule({ mod, index }: { mod: Module; index: number }) {
@@ -179,30 +180,10 @@ export default function CourseDetail() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Nav */}
-      <header className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-10 py-5 bg-white/90 backdrop-blur-xl border-b border-[#D8D4CB]">
-        <Link to="/" className="font-mondwest text-lg font-semibold text-[#051A24] tracking-tight">
-          <em>Created</em> By Mohit
-        </Link>
-        <div className="flex items-center gap-4">
-          <Link to="/courses" className="font-mono text-[11px] uppercase tracking-widest text-[#273C46] hover:text-[#051A24] transition-colors hidden md:block">
-            ← All Courses
-          </Link>
-          {!course.comingSoon && course.paymentLink && (
-            <a
-              href={course.paymentLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#051A24] text-white rounded-full px-5 py-2.5 text-xs font-medium hover:bg-accent transition-colors"
-            >
-              Enroll — {course.currency === 'INR' ? '₹' : '$'}{course.price.toLocaleString()}
-            </a>
-          )}
-        </div>
-      </header>
+      <Nav />
 
       {/* Hero */}
-      <div className="bg-[#051A24] pt-16 pb-20 px-6 md:px-10">
+      <div className="bg-[#051A24] pt-32 pb-20 px-6 md:px-10">
         <div className="max-w-[1320px] mx-auto grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 items-start">
           <div>
             {/* Breadcrumb */}

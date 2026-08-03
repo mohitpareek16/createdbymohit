@@ -4,6 +4,7 @@ import CustomCursor from './components/CustomCursor'
 import ScrollToTop from './components/ScrollToTop'
 import PageWrapper from './components/PageWrapper'
 import HomePage from './pages/HomePage'
+import AboutPage from './pages/AboutPage'
 import CourseCatalog from './pages/CourseCatalog'
 import CourseDetail from './pages/CourseDetail'
 
@@ -13,6 +14,7 @@ function AnimatedRoutes() {
     <AnimatePresence mode="wait" initial={false}>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<PageWrapper><HomePage /></PageWrapper>} />
+        <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
         <Route path="/courses" element={<PageWrapper><CourseCatalog /></PageWrapper>} />
         <Route path="/courses/:slug" element={<PageWrapper><CourseDetail /></PageWrapper>} />
       </Routes>
