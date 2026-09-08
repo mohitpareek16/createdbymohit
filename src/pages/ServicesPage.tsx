@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
 import Nav from '../components/Nav'
+import SEO from '../components/SEO'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 
 const SERVICES = [
   {
@@ -193,6 +193,11 @@ export default function ServicesPage() {
 
   return (
     <main>
+      <SEO
+        title="Design Services — Product Design, Audits & Sprints | Mohit Pareek"
+        description="Four ways to work with Mohit Pareek: product design, design sprint, design audit, and fractional design lead. Based in India, working with startups globally."
+        canonical="/services"
+      />
       <Nav />
 
       {/* ── HERO ── */}
@@ -297,7 +302,6 @@ export default function ServicesPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

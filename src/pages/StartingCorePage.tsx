@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import Nav from '../components/Nav'
+import SEO from '../components/SEO'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 
 const WORK = [
   { title: 'evr', category: 'Product Design', desc: 'Carbon footprint tracking for conscious consumers.', accent: '#2D1B8B', slug: 'evr' },
@@ -37,6 +37,11 @@ export default function StartingCorePage() {
 
   return (
     <main>
+      <SEO
+        title="AI Automation Agency for Businesses | Starting Core"
+        description="Starting Core is an AI automation agency founded by Mohit Pareek. We build custom AI workflows, agents, and automation systems for businesses in India — eliminating manual work and scaling operations."
+        canonical="/starting-core"
+      />
       <Nav />
 
       {/* ── HERO ── */}
@@ -255,7 +260,6 @@ export default function StartingCorePage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

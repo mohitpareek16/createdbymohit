@@ -2,8 +2,8 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Check, Clock, ArrowRight, Mail } from 'lucide-react'
 import Nav from '../components/Nav'
+import SEO from '../components/SEO'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 
 const CALL_TYPES = [
   {
@@ -189,6 +189,11 @@ export default function BookPage() {
 
   return (
     <main>
+      <SEO
+        title="Book a Call | Mohit Pareek · Starting Core"
+        description="Book a 30-minute call with Mohit Pareek to discuss your project, get a design audit, or explore AI automation for your business."
+        canonical="/book"
+      />
       <Nav />
 
       {/* ── HERO ── */}
@@ -302,7 +307,6 @@ export default function BookPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

@@ -12,10 +12,10 @@ const STATS = [
 ]
 
 const STORY_PARAGRAPHS = [
-  "I grew up in Jaipur with a habit of filling notebooks with logos, interfaces, and layouts that didn't exist yet. I didn't know it was called UI/UX. I just knew something about making things look right felt deeply satisfying.",
-  "In 2018 I picked up Figma, found the internet, and realized I could turn that obsession into a career. Six years later I've shipped products that raised funding, launched brands that actually converted, and built systems that let small teams move like big ones.",
-  "I founded Starting Core as a way to bring senior-level design thinking to founders who needed it most — startups at the critical moment where design makes or breaks the next round.",
-  "Everything I build is grounded in a single conviction: great design is invisible. You shouldn't notice it. You should just find yourself moving through a product without friction, making decisions that feel obvious — that's the craft.",
+  "I grew up in Jaipur filling notebooks with logos, interfaces, and layouts that didn't exist yet. Back then I just called it drawing. Later I found out it was a career.",
+  "I started posting on LinkedIn about design when most people my age were posting about college fests. I wrote about UI/UX, startup design, and what I was learning — not because I had it figured out, but because writing forced me to think. The audience came after.",
+  "My first real lesson: being a jack of all trades sounds good until you realize companies hire for depth, not breadth. I stopped trying to do everything and went deep on product design. That decision changed everything.",
+  "I founded Starting Core because founders at the critical seed-to-series-A moment were getting junior design help on senior-design problems. I wanted to change that — not with a deck about process, but with shipped work that moved numbers.",
 ]
 
 export default function AboutSection() {
@@ -195,19 +195,33 @@ export default function AboutSection() {
               ))}
             </div>
 
-            {/* Decorative quote */}
-            <blockquote
-              className="mt-10 font-mondwest text-white/30 italic"
-              style={{ fontSize: 'clamp(18px, 2.5vw, 26px)', lineHeight: 1.5 }}
+            {/* Featured LinkedIn post context */}
+            <div
+              className="mt-10 p-6 rounded-2xl"
+              style={{ border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(196,30,58,0.06)' }}
             >
-              "Great design isn't noticed. It's felt."
-            </blockquote>
-            <p
-              className="mt-3 font-mono text-white/25 uppercase"
-              style={{ fontSize: '9px', letterSpacing: '0.16em' }}
-            >
-              — Mohit Pareek · Designer, India
-            </p>
+              <p
+                className="font-mono uppercase text-[#C41E3A] mb-3"
+                style={{ fontSize: '9px', letterSpacing: '0.16em' }}
+              >
+                From LinkedIn
+              </p>
+              <p
+                className="text-white/60 italic leading-relaxed"
+                style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', lineHeight: 1.65 }}
+              >
+                "I feel sad that companies tell students: you study here, we won't hire you. But the same companies have bad design, bad UX, bad products. The problem isn't the college. The problem is they never invested in design."
+              </p>
+              <a
+                href="https://www.linkedin.com/in/mohit-pareek-b8a676204"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-4 font-mono text-white/30 hover:text-white/60 transition-colors uppercase"
+                style={{ fontSize: '9px', letterSpacing: '0.14em' }}
+              >
+                Follow on LinkedIn →
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -9,39 +9,57 @@ export interface LinkedInArticle {
 
 export const LINKEDIN_ARTICLES: LinkedInArticle[] = [
   {
-    id: 'indian-startups-design',
-    title: 'Why Indian Startups Underinvest in Design',
-    date: 'Aug 2026',
+    id: 'clicks-to-conversions',
+    title: 'From Clicks to Conversions: How a User-Friendly Website Boosts Sales',
+    date: '2024',
     excerpt:
-      'Most Indian founders treat design as decoration — something you do after the product "works." This is why their products don\'t convert, retain, or raise.',
-    linkedinUrl: '#',
-    category: 'Design Strategy',
+      'Most websites get traffic but fail to convert. The gap between a click and a sale is almost always a design problem — not a marketing problem.',
+    linkedinUrl: 'https://www.linkedin.com/pulse/from-clicks-conversions-how-user-friendly-website-boosts-pareek-wxudc',
+    category: 'UX Strategy',
   },
   {
-    id: 'portfolio-review-method',
-    title: 'The Portfolio Review Method That Actually Works',
-    date: 'Jul 2026',
+    id: 'airbnb-story',
+    title: 'The Insane Story of Airbnb',
+    date: '2024',
     excerpt:
-      'After reviewing 300+ designer portfolios I noticed the same mistake. It\'s not about how many projects you have — it\'s about how you frame the thinking.',
-    linkedinUrl: '#',
+      'Airbnb was rejected by every investor. They sold cereal boxes to survive. Then design saved the company — here\'s the full story.',
+    linkedinUrl: 'https://www.linkedin.com/pulse/insane-story-airbnb-mohit-pareek',
+    category: 'Case Study',
+  },
+  {
+    id: 'remote-work-uiux',
+    title: 'Current and Future Trends in Remote Work — Where UI/UX Stands',
+    date: '2024',
+    excerpt:
+      'Remote work didn\'t just change where we work — it changed what software has to do. Here\'s where design fits into the distributed future.',
+    linkedinUrl: 'https://www.linkedin.com/pulse/current-future-trends-remote-work-where-ui-ux-stands-mohit-pareek',
+    category: 'Industry',
+  },
+  {
+    id: '11-things-stop-designer',
+    title: '11 Things That Stop a Designer From Becoming Great',
+    date: '2024',
+    excerpt:
+      'Skill is rarely what holds designers back. It\'s mindset, habits, and the wrong metrics. Here are the 11 patterns I see again and again.',
+    linkedinUrl: 'https://www.linkedin.com/pulse/11-things-stop-designer-become-great-mohit-pareek',
     category: 'Career',
   },
   {
-    id: 'stop-charging-hour',
-    title: 'Stop Charging by the Hour',
-    date: 'Jun 2026',
+    id: 'design-superpowers',
+    title: 'Unlocking Design Superpowers: A Journey Through the Eyes of an Experienced UI/UX Designer',
+    date: '2024',
     excerpt:
-      'Hourly billing punishes expertise and rewards inefficiency. Here\'s the pricing model that changed how I run my studio — and why it works better for clients too.',
-    linkedinUrl: '#',
-    category: 'Business',
+      'After years of shipping products, the skills that matter most aren\'t the ones I expected. A candid look at what actually makes you dangerous as a designer.',
+    linkedinUrl: 'https://www.linkedin.com/pulse/unlocking-design-superpowers-journey-through-eyes-uiux-mohit-pareek',
+    category: 'Craft',
   },
   {
-    id: 'design-systems-when-why',
-    title: 'Design Systems: When and Why',
-    date: 'May 2026',
+    id: 'threads-vs-twitter',
+    title: 'Threads vs. Twitter: A Comparative Analysis of 5 Key Design Aspects',
+    date: '2023',
     excerpt:
-      'A design system is a multiplier — but only if you\'re already shipping at scale. Here\'s the honest framework for deciding if you actually need one.',
-    linkedinUrl: '#',
-    category: 'Systems',
+      'When Meta launched Threads, it was the first serious design challenge to Twitter in years. I broke down exactly how the two apps compare across five design dimensions.',
+    linkedinUrl: 'https://www.linkedin.com/pulse/threads-from-instagram-vs-twitter-comparative-analysis-mohit-pareek',
+    category: 'Analysis',
   },
 ]

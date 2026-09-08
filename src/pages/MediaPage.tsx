@@ -2,8 +2,8 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ArrowUpRight, Mic, Radio, BookOpen, Award } from 'lucide-react'
 import Nav from '../components/Nav'
+import SEO from '../components/SEO'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 
 const PRESS = [
   {
@@ -122,6 +122,11 @@ export default function MediaPage() {
 
   return (
     <main>
+      <SEO
+        title="Press & Media | Mohit Pareek"
+        description="Press coverage, podcast appearances, and speaking engagements by Mohit Pareek — founder of Starting Core and design lead at createdbymohit.com."
+        canonical="/media"
+      />
       <Nav />
 
       {/* ── HERO ── */}
@@ -294,7 +299,6 @@ export default function MediaPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

@@ -20,6 +20,11 @@ import BlogPost from './pages/BlogPost'
 import StartingCorePage from './pages/StartingCorePage'
 import TestimonialsPage from './pages/TestimonialsPage'
 import MediaPage from './pages/MediaPage'
+import WebsiteCase from './pages/WebsiteCase'
+import FaqIndex from './pages/FaqIndex'
+import FaqPost from './pages/FaqPost'
+import GlossaryIndex from './pages/GlossaryIndex'
+import GlossaryPost from './pages/GlossaryPost'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -29,6 +34,7 @@ function AnimatedRoutes() {
         <Route path="/" element={<PageWrapper><HomePage /></PageWrapper>} />
         <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
         <Route path="/work" element={<PageWrapper><WorkPage /></PageWrapper>} />
+        <Route path="/work/site/:slug" element={<PageWrapper><WebsiteCase /></PageWrapper>} />
         <Route path="/work/:slug" element={<PageWrapper><CaseStudy /></PageWrapper>} />
         <Route path="/courses" element={<PageWrapper><CourseCatalog /></PageWrapper>} />
         <Route path="/courses/:slug" element={<PageWrapper><CourseDetail /></PageWrapper>} />
@@ -40,6 +46,10 @@ function AnimatedRoutes() {
         <Route path="/starting-core" element={<PageWrapper><StartingCorePage /></PageWrapper>} />
         <Route path="/testimonials" element={<PageWrapper><TestimonialsPage /></PageWrapper>} />
         <Route path="/media" element={<PageWrapper><MediaPage /></PageWrapper>} />
+        <Route path="/faq" element={<PageWrapper><FaqIndex /></PageWrapper>} />
+        <Route path="/faq/:slug" element={<PageWrapper><FaqPost /></PageWrapper>} />
+        <Route path="/glossary" element={<PageWrapper><GlossaryIndex /></PageWrapper>} />
+        <Route path="/glossary/:slug" element={<PageWrapper><GlossaryPost /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
   )

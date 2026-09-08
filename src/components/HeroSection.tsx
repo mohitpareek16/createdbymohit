@@ -167,7 +167,7 @@ export default function HeroSection() {
                     className="w-2 h-2 rounded-full bg-[#C41E3A] flex-shrink-0"
                     style={{ animation: 'heroPulse 2.2s infinite' }}
                   />
-                  Available Q3 2026
+                  Open for Projects
                 </span>
                 <span
                   className="font-mono text-[10px] uppercase tracking-widest text-white/40"
