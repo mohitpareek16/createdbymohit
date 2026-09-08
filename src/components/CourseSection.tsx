@@ -1,7 +1,9 @@
-import { useState, useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Check } from 'lucide-react'
-import WordsPullUp from './WordsPullUp'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const CURRICULUM = [
   'Visual hierarchy & design psychology',
@@ -14,70 +16,119 @@ const CURRICULUM = [
 export default function CourseSection() {
   const [email, setEmail] = useState('')
   const [joined, setJoined] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const sectionRef = useRef<HTMLElement>(null)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const children = contentRef.current?.children
+      if (children && children.length > 0) {
+        gsap.fromTo(
+          Array.from(children),
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section id="course" className="relative bg-[#051A24] py-20 md:py-28 px-6 md:px-10 overflow-hidden">
+    <section
+      id="course"
+      ref={sectionRef}
+      className="relative py-20 md:py-28 px-6 md:px-10 overflow-hidden"
+      style={{
+        background: '#0D0D0D',
+        borderTop: '1px solid rgba(255,255,255,0.06)',
+      }}
+    >
       {/* Glow */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#C41E3A]/15 rounded-full blur-[120px] pointer-events-none -translate-y-1/2 translate-x-1/2" />
+      <div
+        className="absolute top-0 right-0 pointer-events-none"
+        style={{
+          width: '500px',
+          height: '500px',
+          background: 'rgba(196,30,58,0.12)',
+          borderRadius: '50%',
+          filter: 'blur(100px)',
+          transform: 'translate(30%, -30%)',
+        }}
+      />
 
-      <div ref={ref} className="max-w-[1320px] mx-auto relative">
+      <div ref={contentRef} className="max-w-[1200px] mx-auto relative">
         {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6 }}
-          className="flex items-center gap-3 font-mono text-[11px] tracking-widest uppercase text-[#C41E3A] mb-8"
+        <div
+          className="flex items-center gap-3 font-mono uppercase text-[#C41E3A] mb-8 opacity-0"
+          style={{ fontSize: '10px', letterSpacing: '0.18em' }}
         >
-          <span className="w-6 h-px bg-[#C41E3A]" />
-          Launching soon · 2026
-        </motion.div>
+          <span style={{ width: '24px', height: '1px', background: '#C41E3A', display: 'inline-block' }} />
+          LAUNCHING SOON · 2026
+        </div>
 
         {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[clamp(36px,6.5vw,100px)] leading-[0.92] tracking-tight text-white mb-10 max-w-[14ch]"
+        <h2
+          className="text-white font-bold uppercase tracking-tight mb-10 max-w-[15ch] opacity-0"
+          style={{
+            fontSize: 'clamp(36px, 6vw, 88px)',
+            lineHeight: 0.92,
+            letterSpacing: '-0.02em',
+          }}
         >
-          The UI/UX{' '}
-          <em className="font-mondwest text-[#C41E3A] not-italic">masterclass</em>{' '}
-          I wish I had.
-        </motion.h2>
+          THE UI/UX MASTERCLASS I WISH I HAD.
+        </h2>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-12 md:gap-16 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-12 md:gap-16 items-start opacity-0">
           {/* Left */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <p className="text-white/65 text-base md:text-lg leading-relaxed mb-8 max-w-[52ch]">
-              A <strong className="text-white font-medium">complete UI/UX course</strong> built from six years of shipping products and 5,000+ designs. No fluff — just the{' '}
-              <strong className="text-white font-medium">psychology, principles and process</strong> that separate designers who get hired from designers who get scrolled past.
+          <div>
+            <p
+              className="text-white/55 leading-relaxed mb-8"
+              style={{ fontSize: 'clamp(15px, 1.6vw, 18px)', lineHeight: 1.75 }}
+            >
+              A complete UI/UX course built from six years of shipping products and 5,000+ designs. No fluff — just the{' '}
+              <strong className="text-white font-medium">psychology, principles and process</strong>{' '}
+              that separate designers who get hired from designers who get scrolled past.
             </p>
             <div className="flex flex-col gap-4">
               {CURRICULUM.map((item) => (
-                <div key={item} className="flex items-center gap-3 text-white/75 text-sm">
-                  <span className="w-5 h-5 rounded-full bg-[#C41E3A]/20 flex items-center justify-center flex-none">
+                <div key={item} className="flex items-center gap-3 text-white/65 text-sm">
+                  <span
+                    className="w-5 h-5 rounded-full flex items-center justify-center flex-none"
+                    style={{ background: 'rgba(196,30,58,0.18)' }}
+                  >
                     <Check className="w-3 h-3 text-[#C41E3A]" strokeWidth={2.5} />
                   </span>
                   {item}
                 </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Right - waitlist form */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.3, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="bg-white/5 border border-white/10 rounded-3xl p-8"
+          <div
+            style={{
+              border: '1px solid rgba(255,255,255,0.1)',
+              borderRadius: '20px',
+              padding: '32px',
+              background: 'rgba(255,255,255,0.03)',
+            }}
           >
-            <label className="block font-mono text-[11px] tracking-widest uppercase text-[#8A8780] mb-4">
+            <label
+              className="block font-mono uppercase text-white/35 mb-4"
+              style={{ fontSize: '9px', letterSpacing: '0.2em' }}
+            >
               Be first on the waitlist
             </label>
             <div className="flex gap-2 mb-4">
@@ -86,20 +137,37 @@ export default function CourseSection() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="your@email.com"
-                className="flex-1 bg-transparent border border-white/20 rounded-full px-5 py-3 text-white text-sm placeholder-white/30 outline-none focus:border-[#C41E3A] transition-colors"
+                className="flex-1 bg-transparent text-white text-sm placeholder-white/25 outline-none focus:border-[#C41E3A] transition-colors"
+                style={{
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  borderRadius: '9999px',
+                  padding: '10px 18px',
+                }}
               />
               <button
                 onClick={() => { if (email) setJoined(true) }}
                 disabled={joined}
-                className="bg-[#C41E3A] text-white rounded-full px-6 py-3 text-sm font-medium hover:bg-[#C41E3A]/80 transition-colors disabled:opacity-70 whitespace-nowrap"
+                className="text-white text-sm font-medium transition-colors"
+                style={{
+                  background: joined ? 'rgba(196,30,58,0.5)' : '#C41E3A',
+                  borderRadius: '9999px',
+                  padding: '10px 22px',
+                  border: 'none',
+                  cursor: joined ? 'default' : 'pointer',
+                  whiteSpace: 'nowrap',
+                  opacity: joined ? 0.7 : 1,
+                }}
               >
                 {joined ? "You're in ✓" : 'Join'}
               </button>
             </div>
-            <p className="font-mono text-[11px] text-white/40 leading-relaxed">
+            <p
+              className="font-mono text-white/30 leading-relaxed"
+              style={{ fontSize: '9px', letterSpacing: '0.1em', lineHeight: 1.7 }}
+            >
               Early access · Founding-member pricing · One email a week, never spam.
             </p>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
