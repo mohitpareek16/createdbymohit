@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 
 const SERVICES = [
   {
@@ -297,7 +296,6 @@ export default function ServicesPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

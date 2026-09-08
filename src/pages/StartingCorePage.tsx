@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 
 const WORK = [
   { title: 'evr', category: 'Product Design', desc: 'Carbon footprint tracking for conscious consumers.', accent: '#2D1B8B', slug: 'evr' },
@@ -255,7 +254,6 @@ export default function StartingCorePage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

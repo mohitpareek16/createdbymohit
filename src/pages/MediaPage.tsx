@@ -3,7 +3,6 @@ import { motion, useInView } from 'framer-motion'
 import { ArrowUpRight, Mic, Radio, BookOpen, Award } from 'lucide-react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 
 const PRESS = [
   {
@@ -294,7 +293,6 @@ export default function MediaPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

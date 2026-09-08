@@ -4,7 +4,6 @@ import { motion, useScroll, useSpring, useInView } from 'framer-motion'
 import { ArrowLeft, ArrowRight, Clock } from 'lucide-react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 import { getPost, getNextPost } from '../data/blog'
 
 function ScrollProgress() {
@@ -158,7 +157,6 @@ export default function BlogPost() {
       )}
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

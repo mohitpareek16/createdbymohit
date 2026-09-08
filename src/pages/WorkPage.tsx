@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 import { getAllProjects, type Project } from '../data/projects'
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -153,7 +152,6 @@ export default function WorkPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

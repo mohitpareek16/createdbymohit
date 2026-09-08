@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 
 type InquiryType = 'project' | 'review' | 'consultation' | 'other'
 
@@ -312,7 +311,6 @@ export default function ContactPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

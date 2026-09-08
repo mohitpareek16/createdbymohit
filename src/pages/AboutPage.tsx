@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useInView, MotionValue } from 'framer-motion'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 import Button from '../components/Button'
 
 // ── Scroll-linked word reveal ────────────────────────────────────
@@ -416,7 +415,6 @@ export default function AboutPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

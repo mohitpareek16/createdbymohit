@@ -226,7 +226,7 @@ export default function Nav() {
             </a>
             <span className="flex items-center gap-2 font-mono text-white/25" style={{ fontSize: '9px', letterSpacing: '0.12em' }}>
               <span className="w-1.5 h-1.5 rounded-full bg-[#C41E3A]" />
-              AVAILABLE Q3 2026
+              OPEN FOR PROJECTS
             </span>
           </div>
         </div>

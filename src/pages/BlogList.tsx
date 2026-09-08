@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 import { getAllPosts } from '../data/blog'
 
 const POSTS = getAllPosts()
@@ -112,7 +111,6 @@ export default function BlogList() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

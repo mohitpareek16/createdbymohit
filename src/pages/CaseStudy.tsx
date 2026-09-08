@@ -4,7 +4,6 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, ArrowLeft } from 'lucide-react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 import { getProject, getNextProject } from '../data/projects'
 
 // ── Scroll progress bar ───────────────────────────────────────
@@ -285,7 +284,6 @@ export default function CaseStudy() {
       )}
 
       <Footer />
-      <BottomNav />
     </div>
   )
 }

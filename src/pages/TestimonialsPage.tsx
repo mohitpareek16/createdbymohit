@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 
 const TESTIMONIALS = [
   {
@@ -220,7 +219,6 @@ export default function TestimonialsPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }

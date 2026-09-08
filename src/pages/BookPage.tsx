@@ -3,7 +3,6 @@ import { motion, useInView } from 'framer-motion'
 import { Check, Clock, ArrowRight, Mail } from 'lucide-react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import BottomNav from '../components/BottomNav'
 
 const CALL_TYPES = [
   {
@@ -302,7 +301,6 @@ export default function BookPage() {
       </section>
 
       <Footer />
-      <BottomNav />
     </main>
   )
 }
