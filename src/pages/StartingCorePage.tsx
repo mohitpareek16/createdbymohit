@@ -15,11 +15,11 @@ const WORK = [
 const VALUES = [
   {
     title: 'Fewer, better decisions',
-    desc: 'Startups don't fail because they ran out of ideas. They fail because they couldn't decide fast enough. We help teams move from debate to direction.',
+    desc: "Startups don't fail because they ran out of ideas. They fail because they couldn't decide fast enough. We help teams move from debate to direction.",
   },
   {
     title: 'Craft without ceremony',
-    desc: 'Good design doesn't require a 6-week process. It requires clear thinking and a high bar. We maintain both.',
+    desc: "Good design doesn't require a 6-week process. It requires clear thinking and a high bar. We maintain both.",
   },
   {
     title: 'Embedded, not external',
@@ -27,7 +27,7 @@ const VALUES = [
   },
   {
     title: 'Outcomes over outputs',
-    desc: 'Screens are a means to an end. We track whether the thing we made actually worked — and we'll tell you if we think something won't.',
+    desc: "Screens are a means to an end. We track whether the thing we made actually worked — and we'll tell you if we think something won't.",
   },
 ]
 

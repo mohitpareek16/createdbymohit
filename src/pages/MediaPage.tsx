@@ -15,7 +15,7 @@ const PRESS = [
   },
   {
     outlet: 'Design+Code',
-    headline: '"The portfolio review method that's actually getting designers hired"',
+    headline: '“The portfolio review method that’s actually getting designers hired”',
     date: 'April 2026',
     href: '#',
     type: 'Interview',
@@ -102,7 +102,7 @@ const SPEAKING = [
   },
   {
     event: 'ProductFest 2025',
-    talk: 'Design Sprints in the Real World: What Works, What Doesn't',
+    talk:"Design Sprints in the Real World: What Works, What Doesn't",
     location: 'Jaipur, India',
     date: 'November 2025',
     type: 'Talk',

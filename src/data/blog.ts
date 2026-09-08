@@ -146,7 +146,7 @@ Raise your prices every year whether you feel ready or not. The market moves up.
   },
   {
     slug: 'design-systems-for-startups',
-    title: 'Design Systems for Startups That Think They Don't Need One',
+    title:"Design Systems for Startups That Think They Don't Need One",
     subtitle: "You don't need a design system. Until you do. Then you needed it two years ago.",
     category: 'Design',
     readTime: '6 min read',
@@ -184,7 +184,7 @@ Design and engineering alignment gets dramatically easier. The design system is 
 
 You don't need to boil the ocean. Start with:
 
-**Color tokens.** Name them semantically, not by value. Not `#2563EB` but `color-primary`. Not `#6B7280` but `color-muted`. Now when your brand changes, you change one value.
+**Color tokens.** Name them semantically, not by value. Not "#2563EB" but "color-primary". Not "#6B7280" but "color-muted". Now when your brand changes, you change one value.
 
 **Type scale.** Pick 5 sizes. H1, H2, H3, body, caption. Set the weights. Done. You can add to it, but never from below.
 
