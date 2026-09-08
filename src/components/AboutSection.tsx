@@ -1,106 +1,214 @@
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
-import WordsPullUp from './WordsPullUp'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const PRINCIPLES = [
-  {
-    no: '01',
-    title: 'Visual Bookmarking',
-    desc: "Users don't read interfaces — they scan and memorise shapes, positions, weights. Design for muscle memory, not for reading.",
-  },
-  {
-    no: '02',
-    title: 'Gestural Interaction',
-    desc: 'The best interactions feel like extensions of the body. Swipe, hold, release. Reduce taps. Reduce thought.',
-  },
-  {
-    no: '03',
-    title: 'Cognitive Load',
-    desc: "Every element on a screen is a tax on attention. The goal of design isn't to add — it's to subtract until what remains is inevitable.",
-  },
-  {
-    no: '04',
-    title: 'Business + Beauty',
-    desc: 'Aesthetic without outcome is decoration. Outcome without aesthetic is forgotten. The job is both — always.',
-  },
+gsap.registerPlugin(ScrollTrigger)
+
+const STATS = [
+  { value: '6+', label: 'Years of Practice' },
+  { value: '80+', label: 'Projects Shipped' },
+  { value: '5K+', label: 'Designs Created' },
+  { value: '₹50L+', label: 'Value Generated' },
+]
+
+const STORY_PARAGRAPHS = [
+  "I grew up in Jaipur with a habit of filling notebooks with logos, interfaces, and layouts that didn't exist yet. I didn't know it was called UI/UX. I just knew something about making things look right felt deeply satisfying.",
+  "In 2018 I picked up Figma, found the internet, and realized I could turn that obsession into a career. Six years later I've shipped products that raised funding, launched brands that actually converted, and built systems that let small teams move like big ones.",
+  "I founded Starting Core as a way to bring senior-level design thinking to founders who needed it most — startups at the critical moment where design makes or breaks the next round.",
+  "Everything I build is grounded in a single conviction: great design is invisible. You shouldn't notice it. You should just find yourself moving through a product without friction, making decisions that feel obvious — that's the craft.",
 ]
 
 export default function AboutSection() {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const sectionRef = useRef<HTMLElement>(null)
+  const labelRef = useRef<HTMLDivElement>(null)
+  const headlineRef = useRef<HTMLHeadingElement>(null)
+  const textRef = useRef<HTMLDivElement>(null)
+  const statsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Label
+      gsap.fromTo(
+        labelRef.current,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
+
+      // Headline
+      gsap.fromTo(
+        headlineRef.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          delay: 0.1,
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
+
+      // Text paragraphs
+      const paras = textRef.current?.querySelectorAll('p')
+      if (paras && paras.length > 0) {
+        gsap.fromTo(
+          paras,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: 'power3.out',
+            stagger: 0.12,
+            scrollTrigger: {
+              trigger: textRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
+
+      // Stats
+      const statItems = statsRef.current?.querySelectorAll('.stat-item')
+      if (statItems && statItems.length > 0) {
+        gsap.fromTo(
+          statItems,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: 'power3.out',
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: statsRef.current,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+          }
+        )
+      }
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
-    <section id="about" className="py-20 md:py-28 px-6 md:px-10">
-      <div className="max-w-[1320px] mx-auto">
-        {/* Section head */}
-        <div className="flex items-end justify-between mb-16">
-          <div>
-            <div className="font-mono text-[11px] tracking-widest uppercase text-[#8A8780] mb-3">03 — About</div>
-            <h2 className="text-[clamp(36px,5.5vw,72px)] leading-[0.95] tracking-tight text-[#051A24]">
-              <WordsPullUp
-                segments={[
-                  { text: 'A short' },
-                  { text: 'philosophy.', className: 'font-mondwest text-[#C41E3A]' },
-                ]}
-              />
-            </h2>
-          </div>
-          <div className="hidden md:block text-right font-mono text-[11px] text-[#8A8780] uppercase tracking-wider">
-            Designer · Educator<br />Founder · Starting Core
-          </div>
+    <section
+      id="about"
+      ref={sectionRef}
+      className="py-20 md:py-28 px-6 md:px-10"
+      style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#0A0A0A' }}
+    >
+      <div className="max-w-[1200px] mx-auto">
+        {/* Label */}
+        <div ref={labelRef} className="mb-6 opacity-0">
+          <p
+            className="font-mono uppercase tracking-widest text-white/40"
+            style={{ fontSize: '10px', letterSpacing: '0.18em' }}
+          >
+            <span style={{ marginRight: '0.5em', opacity: 0.5 }}>··</span>
+            MY STORY
+          </p>
         </div>
 
-        <div ref={ref} className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-16 md:gap-24 items-start">
-          {/* Left - sticky photo */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="md:sticky md:top-[120px]"
-          >
-            <div className="relative overflow-hidden rounded-2xl border border-[#D8D4CB]" style={{ aspectRatio: '4/5' }}>
-              <img
-                src="/mohit-pareek.jpg"
-                alt="Mohit Pareek"
-                className="w-full h-full object-cover object-top"
-              />
-              {/* Caption overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/60 to-transparent">
-                <p className="font-mondwest text-white text-lg italic">— Mohit Pareek</p>
-                <p className="font-mono text-white/60 text-[11px] mt-1 uppercase tracking-wider">Designer, India</p>
-              </div>
-            </div>
-          </motion.div>
+        {/* Headline */}
+        <h2
+          ref={headlineRef}
+          className="text-white font-bold uppercase tracking-tight mb-14 md:mb-16 opacity-0"
+          style={{
+            fontSize: 'clamp(28px, 5vw, 64px)',
+            lineHeight: 1.05,
+            letterSpacing: '-0.02em',
+            maxWidth: '22ch',
+          }}
+        >
+          FROM DOODLING IN NOTEBOOKS TO DESIGNING FOR STARTUPS.
+        </h2>
 
-          {/* Right - content */}
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.15, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <blockquote className="font-mondwest text-[clamp(24px,3.5vw,42px)] leading-[1.15] text-[#051A24] mb-12">
-              "Great design isn't <em className="text-[#C41E3A]">noticed.</em> It's felt. The user shouldn't think about the interface — they should think about{' '}
-              <em className="text-[#C41E3A]">what they came to do.</em>"
-            </blockquote>
+        {/* Two-column layout */}
+        <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-14 md:gap-20 items-start">
+          {/* Left: story paragraphs */}
+          <div ref={textRef} className="flex flex-col gap-6">
+            {STORY_PARAGRAPHS.map((para, i) => (
+              <p
+                key={i}
+                className="text-white/55 leading-relaxed opacity-0"
+                style={{ fontSize: 'clamp(15px, 1.5vw, 18px)', lineHeight: 1.75 }}
+              >
+                {para}
+              </p>
+            ))}
 
-            <div className="flex flex-col divide-y divide-[#D8D4CB] border-t border-[#D8D4CB]">
-              {PRINCIPLES.map((p, i) => (
-                <motion.div
-                  key={p.no}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.25 + i * 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="grid grid-cols-[64px_1fr] gap-5 py-7 hover:bg-[#F5F3EE] -mx-4 px-4 rounded-xl transition-colors duration-200"
+            <a
+              href="/about"
+              className="bracket-link self-start mt-4"
+            >
+              [ READ FULL STORY ]
+            </a>
+          </div>
+
+          {/* Right: stat grid */}
+          <div ref={statsRef}>
+            <div
+              className="grid grid-cols-2 gap-px"
+              style={{ border: '1px solid rgba(255,255,255,0.07)', borderRadius: '16px', overflow: 'hidden' }}
+            >
+              {STATS.map((stat) => (
+                <div
+                  key={stat.label}
+                  className="stat-item opacity-0 p-6 md:p-8"
+                  style={{
+                    background: '#111111',
+                    borderRight: '1px solid rgba(255,255,255,0.07)',
+                    borderBottom: '1px solid rgba(255,255,255,0.07)',
+                  }}
                 >
-                  <span className="font-mono text-[11px] text-[#8A8780] pt-1 tracking-wider">{p.no}</span>
-                  <div>
-                    <h4 className="font-mondwest text-xl text-[#051A24] mb-2">{p.title}</h4>
-                    <p className="text-sm text-[#051A24]/65 leading-relaxed max-w-[54ch]">{p.desc}</p>
-                  </div>
-                </motion.div>
+                  <p
+                    className="font-bold text-white leading-none mb-2"
+                    style={{ fontSize: 'clamp(36px, 5vw, 56px)', letterSpacing: '-0.03em' }}
+                  >
+                    {stat.value}
+                  </p>
+                  <p
+                    className="font-mono text-white/35 uppercase"
+                    style={{ fontSize: '9px', letterSpacing: '0.16em', lineHeight: 1.5 }}
+                  >
+                    {stat.label}
+                  </p>
+                </div>
               ))}
             </div>
-          </motion.div>
+
+            {/* Decorative quote */}
+            <blockquote
+              className="mt-10 font-mondwest text-white/30 italic"
+              style={{ fontSize: 'clamp(18px, 2.5vw, 26px)', lineHeight: 1.5 }}
+            >
+              "Great design isn't noticed. It's felt."
+            </blockquote>
+            <p
+              className="mt-3 font-mono text-white/25 uppercase"
+              style={{ fontSize: '9px', letterSpacing: '0.16em' }}
+            >
+              — Mohit Pareek · Designer, India
+            </p>
+          </div>
         </div>
       </div>
     </section>

@@ -1,31 +1,56 @@
 import { Link } from 'react-router-dom'
-import Button from './Button'
 
 export default function BottomNav() {
   return (
     <div
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4 bg-white rounded-full px-6 py-2.5"
-      style={{ boxShadow: '0 4px 32px rgba(0,0,0,0.12), 0 0 0 0.5px rgba(0,0,0,0.06)' }}
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-4"
+      style={{
+        background: 'rgba(17,17,17,0.92)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        border: '1px solid rgba(255,255,255,0.1)',
+        borderRadius: '9999px',
+        padding: '10px 20px',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+      }}
     >
-      <Link to="/" className="font-mondwest text-2xl font-semibold text-[#051A24] leading-none">M</Link>
-      <div className="w-px h-5 bg-[#D8D4CB]" />
+      <Link
+        to="/"
+        className="font-mondwest text-white leading-none"
+        style={{ fontSize: '18px', letterSpacing: '-0.01em' }}
+      >
+        M
+      </Link>
+      <div style={{ width: '1px', height: '16px', background: 'rgba(255,255,255,0.12)' }} />
       <Link
         to="/about"
-        className="font-mono text-[10px] uppercase tracking-widest text-[#273C46] hover:text-[#051A24] transition-colors"
+        className="font-mono text-white/50 hover:text-white transition-colors uppercase"
+        style={{ fontSize: '10px', letterSpacing: '0.12em' }}
       >
         About
       </Link>
-      <div className="w-px h-5 bg-[#D8D4CB]" />
+      <div style={{ width: '1px', height: '16px', background: 'rgba(255,255,255,0.12)' }} />
       <Link
-        to="/courses"
-        className="font-mono text-[10px] uppercase tracking-widest text-[#273C46] hover:text-[#051A24] transition-colors"
+        to="/work"
+        className="font-mono text-white/50 hover:text-white transition-colors uppercase"
+        style={{ fontSize: '10px', letterSpacing: '0.12em' }}
       >
-        Courses
+        Work
       </Link>
-      <div className="w-px h-5 bg-[#D8D4CB]" />
-      <Button variant="primary" href="mailto:hello@createdbymohit.com" className="px-5 py-2 text-xs">
-        Start a project
-      </Button>
+      <div style={{ width: '1px', height: '16px', background: 'rgba(255,255,255,0.12)' }} />
+      <a
+        href="mailto:hello@createdbymohit.com"
+        className="font-mono text-white uppercase transition-all"
+        style={{
+          fontSize: '9px',
+          letterSpacing: '0.14em',
+          background: '#C41E3A',
+          borderRadius: '9999px',
+          padding: '6px 14px',
+        }}
+      >
+        Hire Me
+      </a>
     </div>
   )
 }

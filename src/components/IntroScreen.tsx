@@ -27,7 +27,7 @@ export default function IntroScreen() {
 
   return (
     <AnimatePresence>
-      {phase !== 'done' && (
+      {(
         <motion.div
           key="intro"
           className="fixed inset-0 z-[99999] bg-[#C41E3A] flex flex-col items-center justify-center overflow-hidden"

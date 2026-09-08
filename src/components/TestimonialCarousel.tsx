@@ -1,150 +1,241 @@
 import { useState, useEffect, useRef } from 'react'
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
-import { useInView } from 'framer-motion'
-import WordsPullUp from './WordsPullUp'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const TESTIMONIALS = [
+gsap.registerPlugin(ScrollTrigger)
+
+interface Testimonial {
+  quote: string
+  name: string
+  role: string
+  company: string
+}
+
+const TESTIMONIALS: Testimonial[] = [
   {
-    quote: "Mohit transformed our app from confusing to intuitive. Our user retention jumped 60% after his redesign. He has a rare ability to see the product from the user's eyes.",
+    quote:
+      "Mohit transformed our app from confusing to intuitive. Our user retention jumped 60% after his redesign. He has a rare ability to see the product from the user's eyes.",
     name: 'Rahul Mehta',
-    role: 'CEO · FinVibe',
-    avatar: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+    role: 'CEO',
+    company: 'FinVibe',
   },
   {
-    quote: "Working with Mohit was a masterclass in design thinking. He doesn't just make things look good — he makes them work. Every decision has intent.",
+    quote:
+      "Working with Mohit was a masterclass in design thinking. He doesn't just make things look good — he makes them work. Every decision has intent and business rationale.",
     name: 'Priya Singh',
-    role: 'Founder · EduPath',
-    avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+    role: 'Founder',
+    company: 'EduPath',
   },
   {
-    quote: "Every pixel has a purpose with Mohit. The attention to detail is unmatched. We shipped faster than ever and the quality didn't suffer one bit.",
-    name: 'Arjun Kapoor',
-    role: 'Head of Product · Taskly',
-    avatar: 'https://images.pexels.com/photos/697509/pexels-photo-697509.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-  },
-  {
-    quote: "We raised $2M after the rebrand. Mohit's design work was central to our fundraising story — investors kept asking about our product experience.",
+    quote:
+      "We raised $2M after the rebrand. Mohit's design work was central to our fundraising story — investors kept asking about our product experience.",
     name: 'Sarah Chen',
-    role: 'Co-founder · NexGate',
-    avatar: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
-  },
-  {
-    quote: "Mohit is the rare designer who understands both the craft and the business. He elevated our product and our team's thinking simultaneously.",
-    name: 'David Park',
-    role: 'VP Design · Paradigm',
-    avatar: 'https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=100&h=100&fit=crop',
+    role: 'Co-founder',
+    company: 'NexGate',
   },
 ]
 
 export default function TestimonialCarousel() {
   const [current, setCurrent] = useState(0)
-  const [paused, setPaused] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const sectionRef = useRef<HTMLElement>(null)
+  const quoteRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const total = TESTIMONIALS.length
 
+  // Section reveal
   useEffect(() => {
-    if (paused) return
-    const t = setInterval(() => setCurrent(c => (c + 1) % total), 3500)
-    return () => clearInterval(t)
-  }, [paused, total])
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        containerRef.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        }
+      )
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [])
 
-  const prev = () => setCurrent(c => (c - 1 + total) % total)
-  const next = () => setCurrent(c => (c + 1) % total)
+  // Fade transition on change
+  const goTo = (idx: number) => {
+    if (!quoteRef.current) return
+    gsap.to(quoteRef.current, {
+      opacity: 0,
+      y: -10,
+      duration: 0.25,
+      ease: 'power2.in',
+      onComplete: () => {
+        setCurrent(idx)
+        gsap.fromTo(
+          quoteRef.current,
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
+        )
+      },
+    })
+  }
+
+  const prev = () => goTo((current - 1 + total) % total)
+  const next = () => goTo((current + 1) % total)
+
+  const t = TESTIMONIALS[current]
 
   return (
     <section
-      ref={ref}
-      className="py-20 px-6 md:px-10 overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      ref={sectionRef}
+      id="testimonials"
+      className="py-20 md:py-28 px-6 md:px-10"
+      style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#0A0A0A' }}
     >
-      {/* Header */}
-      <div className="max-w-[1320px] mx-auto mb-12">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <h2 className="text-[clamp(32px,5vw,72px)] leading-[0.95] tracking-tight text-[#051A24]">
-            <WordsPullUp
-              segments={[
-                { text: 'What' },
-                { text: 'builders', className: 'font-mondwest text-[#C41E3A]' },
-                { text: 'say' },
-              ]}
-            />
-          </h2>
-          <div className="flex items-center gap-3">
-            <div className="flex gap-1">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className="w-5 h-5 fill-black text-black" strokeWidth={0} />
-              ))}
-            </div>
-            <span className="font-mono text-sm text-[#273C46]">Clutch 5/5</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Carousel */}
-      <div className="max-w-[1320px] mx-auto">
-        <div className="relative overflow-hidden">
-          <div
-            className="flex gap-6 transition-transform duration-[800ms]"
+      <div className="max-w-[1200px] mx-auto">
+        {/* Header */}
+        <div className="mb-12 md:mb-16">
+          <p
+            className="font-mono uppercase tracking-widest text-white/40 mb-4"
+            style={{ fontSize: '10px', letterSpacing: '0.18em' }}
+          >
+            <span style={{ marginRight: '0.5em', opacity: 0.5 }}>··</span>
+            TESTIMONIALS
+          </p>
+          <h2
+            className="uppercase font-bold tracking-tight text-white"
             style={{
-              transform: `translateX(calc(-${current} * (427.5px + 24px)))`,
-              transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+              fontSize: 'clamp(36px, 6vw, 80px)',
+              lineHeight: 0.92,
+              letterSpacing: '-0.02em',
             }}
           >
-            {[...TESTIMONIALS, ...TESTIMONIALS, ...TESTIMONIALS].map((t, i) => (
-              <div
-                key={i}
-                className="flex-none bg-white rounded-[32px] md:rounded-[40px] px-6 md:pl-10 md:pr-16 py-8 flex flex-col gap-5"
-                style={{
-                  width: 'min(427.5px, calc(100vw - 48px))',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
-                }}
-              >
-                <svg width="28" height="22" viewBox="0 0 28 22" fill="none">
-                  <path
-                    d="M0 22V13.4C0 9.73 0.9 6.7 2.7 4.3C4.53 1.87 7.13 0.3 10.5 0L11.6 2.3C9.53 2.83 7.87 3.9 6.6 5.5C5.33 7.07 4.7 8.87 4.7 10.9H9V22H0ZM16.4 22V13.4C16.4 9.73 17.3 6.7 19.1 4.3C20.93 1.87 23.53 0.3 26.9 0L28 2.3C25.93 2.83 24.27 3.9 23 5.5C21.73 7.07 21.1 8.87 21.1 10.9H25.4V22H16.4Z"
-                    fill="#051A24"
-                    fillOpacity="0.1"
-                  />
-                </svg>
-                <p className="text-base text-[#0D212C] leading-relaxed flex-1">{t.quote}</p>
-                <div className="flex items-center gap-3 pt-4 border-t border-[#D8D4CB]">
-                  <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover flex-none" />
-                  <div>
-                    <div className="text-sm font-semibold text-[#051A24]">{t.name}</div>
-                    <div className="text-xs text-[#8A8780]">→ {t.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+            WHAT<br />BUILDERS SAY.
+          </h2>
         </div>
 
-        {/* Controls */}
-        <div className="flex items-center gap-3 mt-8">
-          <button
-            onClick={prev}
-            className="w-12 h-12 rounded-full border border-[#0D212C]/20 flex items-center justify-center hover:bg-[#051A24] hover:text-white hover:border-[#051A24] transition-all"
+        {/* Testimonial container */}
+        <div ref={containerRef} className="opacity-0">
+          {/* Large quote mark */}
+          <div
+            className="font-mondwest text-white/10 select-none leading-none mb-4"
+            style={{ fontSize: 'clamp(80px, 14vw, 180px)', lineHeight: 0.8 }}
+            aria-hidden
           >
-            <ChevronLeft className="w-5 h-5" strokeWidth={1.5} />
-          </button>
-          <button
-            onClick={next}
-            className="w-12 h-12 rounded-full border border-[#0D212C]/20 flex items-center justify-center hover:bg-[#051A24] hover:text-white hover:border-[#051A24] transition-all"
-          >
-            <ChevronRight className="w-5 h-5" strokeWidth={1.5} />
-          </button>
-          <div className="flex gap-1.5 ml-2">
-            {TESTIMONIALS.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className={`w-1.5 rounded-full transition-all duration-300 ${
-                  i === current % total ? 'bg-[#051A24] h-4' : 'bg-[#D8D4CB] h-1.5'
-                }`}
+            "
+          </div>
+
+          {/* Quote text */}
+          <div ref={quoteRef} style={{ minHeight: 'clamp(120px, 20vw, 200px)' }}>
+            <blockquote
+              className="text-white font-bold leading-relaxed"
+              style={{
+                fontSize: 'clamp(18px, 2.8vw, 34px)',
+                lineHeight: 1.4,
+                maxWidth: '900px',
+              }}
+            >
+              "{t.quote}"
+            </blockquote>
+
+            <div className="mt-6 flex items-center gap-4">
+              <div
+                className="w-8 h-px"
+                style={{ background: 'rgba(255,255,255,0.3)' }}
               />
-            ))}
+              <div>
+                <p
+                  className="font-mono uppercase tracking-wider text-white/80"
+                  style={{ fontSize: '11px', letterSpacing: '0.14em' }}
+                >
+                  {t.name}
+                </p>
+                <p
+                  className="font-mono text-white/40 mt-0.5"
+                  style={{ fontSize: '10px', letterSpacing: '0.1em' }}
+                >
+                  {t.role} · {t.company}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <div className="flex items-center gap-5 mt-10 md:mt-12">
+            {/* Prev/Next */}
+            <button
+              onClick={prev}
+              className="w-11 h-11 rounded-full flex items-center justify-center transition-all"
+              style={{
+                border: '1px solid rgba(255,255,255,0.15)',
+                color: 'rgba(255,255,255,0.6)',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget
+                el.style.borderColor = 'rgba(255,255,255,0.4)'
+                el.style.color = '#fff'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget
+                el.style.borderColor = 'rgba(255,255,255,0.15)'
+                el.style.color = 'rgba(255,255,255,0.6)'
+              }}
+              aria-label="Previous"
+            >
+              ←
+            </button>
+            <button
+              onClick={next}
+              className="w-11 h-11 rounded-full flex items-center justify-center transition-all"
+              style={{
+                border: '1px solid rgba(255,255,255,0.15)',
+                color: 'rgba(255,255,255,0.6)',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget
+                el.style.borderColor = 'rgba(255,255,255,0.4)'
+                el.style.color = '#fff'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget
+                el.style.borderColor = 'rgba(255,255,255,0.15)'
+                el.style.color = 'rgba(255,255,255,0.6)'
+              }}
+              aria-label="Next"
+            >
+              →
+            </button>
+
+            {/* Dot indicators */}
+            <div className="flex items-center gap-2 ml-2">
+              {TESTIMONIALS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  style={{
+                    width: i === current ? '24px' : '6px',
+                    height: '6px',
+                    borderRadius: '3px',
+                    background: i === current ? '#ffffff' : 'rgba(255,255,255,0.2)',
+                    transition: 'width 0.3s ease, background 0.3s ease',
+                    border: 'none',
+                    cursor: 'pointer',
+                  }}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Counter */}
+            <span
+              className="ml-auto font-mono text-white/30"
+              style={{ fontSize: '10px', letterSpacing: '0.1em' }}
+            >
+              {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+            </span>
           </div>
         </div>
       </div>

@@ -50,7 +50,7 @@ const SERVICES = [
     id: 'design-audit',
     index: '03',
     title: 'Design Audit',
-    tagline: 'Find what's hurting your product — and fix it.',
+    tagline: "Find what's hurting your product — and fix it.",
     description:
       'A deep review of your existing product across usability, visual consistency, conversion, and information architecture. You get a prioritised action list and a written report, not just a list of problems.',
     deliverables: [
@@ -72,7 +72,7 @@ const SERVICES = [
     title: 'Fractional Design Lead',
     tagline: 'Senior design thinking without the full-time hire.',
     description:
-      'I join your team part-time as your design lead — setting direction, mentoring junior designers, running design reviews, and shipping product. Ideal for startups that need design leadership but aren't ready for a full-time CDO.',
+      "I join your team part-time as your design lead — setting direction, mentoring junior designers, running design reviews, and shipping product. Ideal for startups that need design leadership but aren't ready for a full-time CDO.",
     deliverables: [
       '2–3 days per week dedicated to your product',
       'Design strategy & roadmap ownership',
@@ -89,8 +89,8 @@ const SERVICES = [
 ]
 
 const PROCESS = [
-  { step: '01', title: 'Discovery call', desc: 'We talk through what you're building, where you are, and what you actually need. No pressure, no pitch.' },
-  { step: '02', title: 'Proposal', desc: 'I send a scoped proposal within 48 hours — what we'll do, what it costs, and when we'll be done.' },
+  { step: '01', title: 'Discovery call', desc: "We talk through what you're building, where you are, and what you actually need. No pressure, no pitch." },
+  { step: '02', title: 'Proposal', desc: "I send a scoped proposal within 48 hours — what we'll do, what it costs, and when we'll be done." },
   { step: '03', title: 'Kickoff', desc: 'Contracts signed, tools set up, kick-off call done. We move fast from here.' },
   { step: '04', title: 'Weekly cadence', desc: 'Every week: async updates, one sync call, design feedback collected and shipped.' },
 ]

@@ -159,7 +159,7 @@ const PRINCIPLES = [
     short: 'Aesthetic without outcome is decoration. Outcome without aesthetic is forgotten.',
     expanded:
       "The false dichotomy of design: beautiful vs. functional. The reality is that beauty is functional. Aesthetic quality correlates with perceived trustworthiness, willingness to pay, and time-on-product. A product that looks like it was built with care signals that it works with care. The job is always both — and always at the same time.",
-    example: 'Apple's product pages. Notion's onboarding. Airbnb's listing pages. None of them chose between beauty and conversion. They built products where the two reinforce each other.',
+    example: "Apple's product pages. Notion's onboarding. Airbnb's listing pages. None of them chose between beauty and conversion. They built products where the two reinforce each other.",
   },
 ]
 

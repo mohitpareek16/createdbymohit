@@ -13,7 +13,7 @@ const CALL_TYPES = [
     price: '₹999',
     tagline: 'Get honest, actionable feedback on your design portfolio.',
     description:
-      'We go through your portfolio together — what's working, what's holding you back, and how to position yourself for the roles or clients you actually want.',
+      "We go through your portfolio together — what's working, what's holding you back, and how to position yourself for the roles or clients you actually want.",
     includes: [
       'Portfolio structure & narrative review',
       'Visual quality & craft assessment',
@@ -30,7 +30,7 @@ const CALL_TYPES = [
     price: '₹1,499',
     tagline: 'Figure out where to go next and how to get there.',
     description:
-      'Whether you're stuck, switching, or scaling, we'll talk through your path — skills to build, opportunities to pursue, how to price your work, and how to stop undercharging.',
+      "Whether you're stuck, switching, or scaling, we'll talk through your path — skills to build, opportunities to pursue, how to price your work, and how to stop undercharging.",
     includes: [
       'Career path & positioning strategy',
       'Skill gap analysis',
@@ -45,9 +45,9 @@ const CALL_TYPES = [
     title: 'Startup Design Review',
     duration: '60 min',
     price: '₹2,499',
-    tagline: 'Find what's hurting your product and what to fix first.',
+    tagline: "Find what's hurting your product and what to fix first.",
     description:
-      'A focused review of your product's current design. We identify UX bottlenecks, conversion killers, and the highest-ROI changes you can make without a full redesign.',
+      "A focused review of your product's current design. We identify UX bottlenecks, conversion killers, and the highest-ROI changes you can make without a full redesign.",
     includes: [
       'Core user flow review',
       'Conversion bottleneck identification',
@@ -81,17 +81,17 @@ const HOW_IT_WORKS = [
   {
     step: '01',
     title: 'Pick your call type',
-    desc: 'Choose the session that matches what you need. If you're not sure, go with Portfolio Review or Career Guidance.',
+    desc: "Choose the session that matches what you need. If you're not sure, go with Portfolio Review or Career Guidance.",
   },
   {
     step: '02',
     title: 'Send a booking request',
-    desc: 'Email me with your preferred time and a short note about what you want to cover. I'll confirm within 24 hours.',
+    desc: "Email me with your preferred time and a short note about what you want to cover. I'll confirm within 24 hours.",
   },
   {
     step: '03',
     title: 'Prepare your materials',
-    desc: 'I'll send a short prep guide before the call. The more context you bring, the more useful the session will be.',
+    desc: "I'll send a short prep guide before the call. The more context you bring, the more useful the session will be.",
   },
   {
     step: '04',
@@ -271,7 +271,7 @@ export default function BookPage() {
             },
             {
               q: 'What platform do we use?',
-              a: 'Google Meet or Zoom — your choice. I'll send a link with the calendar invite.',
+              a: "Google Meet or Zoom — your choice. I'll send a link with the calendar invite.",
             },
             {
               q: 'Can I record the call?',
@@ -279,11 +279,11 @@ export default function BookPage() {
             },
             {
               q: 'What if I need to reschedule?',
-              a: 'Just email me at least 24 hours before. I'll find another time that works.',
+              a: "Just email me at least 24 hours before. I'll find another time that works.",
             },
             {
               q: 'Do you offer refunds?',
-              a: 'If you need to cancel with less than 12 hours notice, the session is forfeited. Otherwise I'm happy to reschedule or refund.',
+              a: "If you need to cancel with less than 12 hours notice, the session is forfeited. Otherwise I'm happy to reschedule or refund.",
             },
           ].map((item, i) => (
             <motion.div
