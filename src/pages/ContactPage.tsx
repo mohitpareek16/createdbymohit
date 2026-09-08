@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
 import Nav from '../components/Nav'
+import SEO from '../components/SEO'
 import Footer from '../components/Footer'
 
 type InquiryType = 'project' | 'review' | 'consultation' | 'other'
@@ -98,6 +99,11 @@ export default function ContactPage() {
 
   return (
     <main>
+      <SEO
+        title="Start a Project | Mohit Pareek · Starting Core"
+        description="Get in touch to discuss a project, design audit, or AI automation system. Mohit Pareek responds to every message within 48 hours."
+        canonical="/contact"
+      />
       <Nav />
 
       {/* ── HERO ── */}

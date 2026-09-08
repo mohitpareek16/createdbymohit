@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Nav from '../components/Nav'
+import SEO from '../components/SEO'
 import Footer from '../components/Footer'
 
 const TESTIMONIALS = [
@@ -128,6 +129,11 @@ export default function TestimonialsPage() {
 
   return (
     <main>
+      <SEO
+        title="Client Testimonials | Mohit Pareek · Starting Core"
+        description="What clients say about working with Mohit Pareek and Starting Core — design, automation, and product work for startups and businesses across India."
+        canonical="/testimonials"
+      />
       <Nav />
 
       {/* ── HERO ── */}

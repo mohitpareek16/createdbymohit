@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import Nav from '../components/Nav'
+import SEO from '../components/SEO'
 import Footer from '../components/Footer'
 
 const WORK = [
@@ -36,6 +37,11 @@ export default function StartingCorePage() {
 
   return (
     <main>
+      <SEO
+        title="AI Automation Agency for Businesses | Starting Core"
+        description="Starting Core is an AI automation agency founded by Mohit Pareek. We build custom AI workflows, agents, and automation systems for businesses in India — eliminating manual work and scaling operations."
+        canonical="/starting-core"
+      />
       <Nav />
 
       {/* ── HERO ── */}

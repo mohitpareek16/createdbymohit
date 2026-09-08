@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useInView, MotionValue } from 'framer-motion'
 import Nav from '../components/Nav'
+import SEO from '../components/SEO'
 import Footer from '../components/Footer'
 import Button from '../components/Button'
 
@@ -205,6 +206,11 @@ export default function AboutPage() {
 
   return (
     <main>
+      <SEO
+        title="About Mohit Pareek — Designer & Founder of Starting Core"
+        description="Mohit Pareek is a designer and entrepreneur from India. Founder of Starting Core, an AI automation agency. 6+ years building products and brands for startups across India."
+        canonical="/about"
+      />
       <Nav />
 
       {/* ── HERO ── */}

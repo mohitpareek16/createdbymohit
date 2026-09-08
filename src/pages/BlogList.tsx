@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Nav from '../components/Nav'
+import SEO from '../components/SEO'
 import Footer from '../components/Footer'
 import { getAllPosts } from '../data/blog'
 
@@ -65,6 +66,11 @@ export default function BlogList() {
 
   return (
     <main>
+      <SEO
+        title="Blog — Design, AI & Automation | Mohit Pareek"
+        description="Articles on product design, AI automation for businesses, and building brands that work — by Mohit Pareek, founder of Starting Core."
+        canonical="/blog"
+      />
       <Nav />
 
       {/* ── HERO ── */}

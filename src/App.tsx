@@ -21,6 +21,10 @@ import StartingCorePage from './pages/StartingCorePage'
 import TestimonialsPage from './pages/TestimonialsPage'
 import MediaPage from './pages/MediaPage'
 import WebsiteCase from './pages/WebsiteCase'
+import FaqIndex from './pages/FaqIndex'
+import FaqPost from './pages/FaqPost'
+import GlossaryIndex from './pages/GlossaryIndex'
+import GlossaryPost from './pages/GlossaryPost'
 
 function AnimatedRoutes() {
   const location = useLocation()
@@ -42,6 +46,10 @@ function AnimatedRoutes() {
         <Route path="/starting-core" element={<PageWrapper><StartingCorePage /></PageWrapper>} />
         <Route path="/testimonials" element={<PageWrapper><TestimonialsPage /></PageWrapper>} />
         <Route path="/media" element={<PageWrapper><MediaPage /></PageWrapper>} />
+        <Route path="/faq" element={<PageWrapper><FaqIndex /></PageWrapper>} />
+        <Route path="/faq/:slug" element={<PageWrapper><FaqPost /></PageWrapper>} />
+        <Route path="/glossary" element={<PageWrapper><GlossaryIndex /></PageWrapper>} />
+        <Route path="/glossary/:slug" element={<PageWrapper><GlossaryPost /></PageWrapper>} />
       </Routes>
     </AnimatePresence>
   )

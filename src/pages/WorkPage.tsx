@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import Nav from '../components/Nav'
+import SEO from '../components/SEO'
 import Footer from '../components/Footer'
 import { getAllProjects, type Project } from '../data/projects'
 import { getAllWebsites, type WebsiteProject } from '../data/websites'
@@ -124,6 +125,11 @@ export default function WorkPage() {
 
   return (
     <main>
+      <SEO
+        title="Work & Case Studies | Mohit Pareek · Starting Core"
+        description="Case studies and client work by Mohit Pareek — 30+ websites and digital products built for startups, agencies, and businesses across India and beyond."
+        canonical="/work"
+      />
       <Nav />
 
       {/* Hero */}

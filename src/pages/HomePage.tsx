@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async'
 import HeroSection from '../components/HeroSection'
 import MarqueeSection from '../components/MarqueeSection'
 import WorkSection from '../components/WorkSection'
@@ -11,6 +12,14 @@ import Footer from '../components/Footer'
 export default function HomePage() {
   return (
     <main style={{ background: '#0A0A0A', minHeight: '100vh' }}>
+      <Helmet>
+        <title>Mohit Pareek — Founder, Starting Core (AI Automation Agency) | India</title>
+        <meta name="description" content="Mohit Pareek is an entrepreneur and designer from India. Founder of Starting Core — an AI automation agency that helps businesses eliminate manual work and scale operations." />
+        <link rel="canonical" href="https://createdbymohit.com/" />
+        <meta property="og:title" content="Mohit Pareek — Founder, Starting Core (AI Automation Agency)" />
+        <meta property="og:description" content="Entrepreneur and designer from India. Founder of Starting Core — AI automation for businesses." />
+        <meta property="og:url" content="https://createdbymohit.com/" />
+      </Helmet>
       <HeroSection />
       <MarqueeSection />
       <WorkSection />
