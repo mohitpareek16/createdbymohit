@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 
 const NAV_LINKS = [
-  { label: 'ABOUT', href: '/about' },
-  { label: 'PROJECTS', href: '/work' },
+  { label: 'ABOUT',    href: '/about' },
+  { label: 'WORK',     href: '/work' },
   { label: 'SERVICES', href: '/services' },
-  { label: 'COURSES', href: '/courses' },
+  { label: 'BLOG',     href: '/blog' },
 ]
 
 export default function Nav() {
@@ -186,11 +186,12 @@ export default function Nav() {
             }}
           >
             {[
-              { label: 'Work', href: '/work' },
+              { label: 'Work',     href: '/work' },
               { label: 'Services', href: '/services' },
-              { label: 'About', href: '/about' },
-              { label: 'Courses', href: '/courses' },
-              { label: 'Contact', href: '/contact' },
+              { label: 'About',    href: '/about' },
+              { label: 'Blog',     href: '/blog' },
+              { label: 'Courses',  href: '/courses' },
+              { label: 'Contact',  href: '/contact' },
             ].map((item) => (
               <Link
                 key={item.label}
