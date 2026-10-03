@@ -17,7 +17,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden"
-      style={{ background: '#0A0A0A', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
 
       {/* Decorative giant background text */}
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none select-none overflow-hidden" aria-hidden>
