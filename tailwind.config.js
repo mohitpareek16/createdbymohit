@@ -15,6 +15,8 @@ export default {
       fontFamily: {
         mondwest: ['"PP Mondwest"', 'Georgia', '"Times New Roman"', 'serif'],
         montreal: ['"PP Neue Montreal"', 'system-ui', 'sans-serif'],
+        syne:     ['Syne', 'system-ui', 'sans-serif'],
+        inter:    ['Inter', '"PP Neue Montreal"', 'system-ui', 'sans-serif'],
       },
       keyframes: {
         marquee: {

@@ -25,12 +25,17 @@
 
 /* ─── Design tokens ─────────────────────────────────────────── */
 :root {
-  --bg:      #0A0A0A;
-  --surface: #111111;
-  --border:  rgba(255, 255, 255, 0.08);
-  --accent:  #C41E3A;
-  --text:    #FFFFFF;
-  --muted:   rgba(255, 255, 255, 0.45);
+  --bg:           #0A0A0A;
+  --surface:      #111111;
+  --border:       rgba(255, 255, 255, 0.08);
+  --accent:       #C41E3A;
+  --text:         #FFFFFF;
+  --muted:        rgba(255, 255, 255, 0.45);
+
+  /* Font system — swap per :lang() for multilingual support */
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-body:    'Inter', 'PP Neue Montreal', system-ui, sans-serif;
+  --font-mono:    ui-monospace, 'SF Mono', 'Fira Code', monospace;
 }
 
 * {
@@ -45,7 +50,7 @@ html {
 }
 
 body {
-  font-family: 'PP Neue Montreal', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-family: var(--font-body);
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -77,6 +82,18 @@ img { max-width: 100%; display: block; }
 .font-mondwest {
   font-family: 'PP Mondwest', Georgia, 'Times New Roman', serif;
 }
+.font-syne {
+  font-family: var(--font-display);
+}
+.font-inter {
+  font-family: var(--font-body);
+}
+
+/* Language-specific font overrides for multilingual support */
+:lang(hi) { font-family: 'Noto Sans Devanagari', var(--font-body); }
+:lang(ar) { font-family: 'Noto Sans Arabic', var(--font-body); direction: rtl; }
+:lang(zh) { font-family: 'Noto Sans SC', var(--font-body); }
+:lang(ja) { font-family: 'Noto Sans JP', var(--font-body); }
 
 /* ─── Noise overlay for dark cards ──────────────────────────── */
 .noise-card {
