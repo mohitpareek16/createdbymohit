@@ -25,12 +25,12 @@
 
 /* ─── Design tokens ─────────────────────────────────────────── */
 :root {
-  --bg:           #0A0A0A;
-  --surface:      #111111;
-  --border:       rgba(255, 255, 255, 0.08);
+  --bg:           #000000;
+  --surface:      #0D0D0D;
+  --border:       rgba(255, 255, 255, 0.07);
   --accent:       #C41E3A;
   --text:         #FFFFFF;
-  --muted:        rgba(255, 255, 255, 0.45);
+  --muted:        rgba(255, 255, 255, 0.40);
 
   /* Font system — swap per :lang() for multilingual support */
   --font-display: 'Syne', system-ui, sans-serif;
@@ -168,6 +168,8 @@ img { max-width: 100%; display: block; }
   display: block;
 }
 
+.clip-reveal { clip-path: inset(0% 0% 100% 0%); }
+
 .overflow-clip {
   overflow: hidden;
 }
@@ -222,21 +224,12 @@ img { max-width: 100%; display: block; }
 /* ─── Table row hover ────────────────────────────────────────── */
 .work-row {
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  transition: background 0.2s ease, padding-left 0.2s ease;
+  transition: background 0.25s ease;
   cursor: pointer;
 }
-.work-row:hover {
-  background: rgba(255, 255, 255, 0.03);
-}
-.work-row:hover .row-arrow {
-  opacity: 1;
-  transform: translateX(0);
-}
-.row-arrow {
-  opacity: 0;
-  transform: translateX(-8px);
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
+.work-row:hover { background: rgba(255, 255, 255, 0.025); }
+.work-row:hover .row-arrow { opacity: 1; transform: translateX(0); }
+.row-arrow { opacity: 0; transform: translateX(-12px); transition: opacity 0.25s ease, transform 0.25s ease; }
 
 /* ─── Hero pulse animation ───────────────────────────────────── */
 @keyframes heroPulse {

@@ -55,7 +55,7 @@ export default function AboutSection() {
   return (
     <section id="about" ref={sectionRef}
       className="py-20 md:py-28 px-6 md:px-10"
-      style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#0A0A0A' }}>
+      style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#000' }}>
       <div className="max-w-[1200px] mx-auto">
 
         {/* Label */}
