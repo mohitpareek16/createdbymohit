@@ -93,7 +93,7 @@ export default function TestimonialCarousel() {
       ref={sectionRef}
       id="testimonials"
       className="py-20 md:py-28 px-6 md:px-10"
-      style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#0A0A0A' }}
+      style={{ borderTop: 'none', background: '#0C0C0A' }}
     >
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}

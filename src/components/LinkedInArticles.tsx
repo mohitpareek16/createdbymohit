@@ -42,21 +42,21 @@ export default function LinkedInArticles() {
       id="linkedin"
       ref={sectionRef}
       className="py-20 md:py-28 px-6 md:px-10"
-      style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+      style={{ borderTop: '1px solid var(--border)', background: 'var(--bg)' }}
     >
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}
         <div ref={headerRef} className="mb-12 md:mb-16 opacity-0">
           <p
-            className="font-mono uppercase tracking-widest text-white/40 mb-4"
-            style={{ fontSize: '10px', letterSpacing: '0.18em' }}
+            className="font-mono uppercase tracking-widest mb-4"
+            style={{ fontSize: '10px', letterSpacing: '0.18em', color: 'var(--muted)' }}
           >
-            LinkedIn Articles
+            <span style={{ marginRight: '0.5em', color: 'var(--accent)' }}>··</span>LinkedIn Articles
           </p>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
             <h2
-              className="uppercase font-bold tracking-tight text-white"
-              style={{ fontSize: 'clamp(36px, 6vw, 80px)', lineHeight: 0.92, letterSpacing: '-0.02em' }}
+              className="uppercase font-bold tracking-tight"
+              style={{ fontSize: 'clamp(36px, 6vw, 80px)', lineHeight: 0.92, letterSpacing: '-0.02em', color: 'var(--text)' }}
             >
               LATEST<br />THINKING.
             </h2>
@@ -89,21 +89,21 @@ export default function LinkedInArticles() {
                 width: 'min(300px, 80vw)',
                 flexShrink: 0,
                 // All sizes
-                border: '1px solid rgba(255,255,255,0.08)',
+                border: '1px solid var(--border)',
                 borderRadius: '16px',
                 padding: '24px',
-                background: '#111111',
+                background: 'var(--surface)',
                 transition: 'border-color 0.2s ease, background 0.2s ease',
               }}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement
-                el.style.borderColor = 'rgba(255,255,255,0.18)'
-                el.style.background = '#161616'
+                el.style.borderColor = 'var(--border-strong)'
+                el.style.background = 'var(--surface-2)'
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget as HTMLElement
-                el.style.borderColor = 'rgba(255,255,255,0.08)'
-                el.style.background = '#111111'
+                el.style.borderColor = 'var(--border)'
+                el.style.background = 'var(--surface)'
               }}
             >
               <div className="flex items-center justify-between mb-4">
@@ -114,30 +114,30 @@ export default function LinkedInArticles() {
                   {article.category}
                 </span>
                 <span
-                  className="font-mono text-white/30"
-                  style={{ fontSize: '9px', letterSpacing: '0.1em' }}
+                  className="font-mono"
+                  style={{ fontSize: '9px', letterSpacing: '0.1em', color: 'var(--muted)' }}
                 >
                   {article.date}
                 </span>
               </div>
 
               <h3
-                className="text-white font-bold mb-3 leading-tight group-hover:text-white/90 transition-colors"
-                style={{ fontSize: 'clamp(14px, 1.5vw, 17px)', lineHeight: 1.3 }}
+                className="font-syne font-bold mb-3 leading-tight transition-colors"
+                style={{ fontSize: 'clamp(14px, 1.5vw, 17px)', lineHeight: 1.3, color: 'var(--text)' }}
               >
                 {article.title}
               </h3>
 
               <p
-                className="text-white/40 leading-relaxed mb-6"
-                style={{ fontSize: '13px', lineHeight: 1.6 }}
+                className="leading-relaxed mb-6"
+                style={{ fontSize: '13px', lineHeight: 1.6, color: 'var(--muted)' }}
               >
                 {article.excerpt}
               </p>
 
               <span
-                className="font-mono text-white/40 group-hover:text-white/70 transition-colors"
-                style={{ fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase' }}
+                className="font-mono transition-colors"
+                style={{ fontSize: '9px', letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--muted)' }}
               >
                 READ ON LINKEDIN →
               </span>
@@ -147,8 +147,8 @@ export default function LinkedInArticles() {
 
         {/* Mobile scroll hint */}
         <p
-          className="mt-4 font-mono text-white/25 text-center md:hidden"
-          style={{ fontSize: '9px', letterSpacing: '0.12em' }}
+          className="mt-4 font-mono text-center md:hidden"
+          style={{ fontSize: '9px', letterSpacing: '0.12em', color: 'var(--subtle)' }}
         >
           ← SCROLL TO SEE MORE →
         </p>

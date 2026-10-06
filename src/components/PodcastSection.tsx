@@ -77,16 +77,16 @@ export default function PodcastSection() {
       id="podcast"
       ref={sectionRef}
       className="py-20 md:py-28 px-6 md:px-10"
-      style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: '#0A0A0A' }}
+      style={{ borderTop: 'none', background: '#0C0C0A' }}
     >
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}
         <div ref={headerRef} className="mb-12 opacity-0">
           <p
-            className="font-mono uppercase tracking-widest text-white/40 mb-4"
-            style={{ fontSize: '10px', letterSpacing: '0.18em' }}
+            className="font-mono uppercase mb-4"
+            style={{ fontSize: '10px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.45)' }}
           >
-            YouTube · Podcast
+            <span style={{ marginRight: '0.5em', color: '#C41E3A' }}>··</span>YouTube · Podcast
           </p>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
             <h2
@@ -99,14 +99,19 @@ export default function PodcastSection() {
               href={YOUTUBE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="bracket-link self-start md:self-end"
+              className="self-start md:self-end font-mono uppercase transition-colors"
+              style={{
+                fontSize: '10px', letterSpacing: '0.15em',
+                border: '1px solid rgba(255,255,255,0.2)', borderRadius: '9999px',
+                padding: '10px 20px', color: '#fff',
+              }}
             >
               [ YOUTUBE CHANNEL ]
             </a>
           </div>
           <p
-            className="mt-5 text-white/40 max-w-[52ch] leading-relaxed"
-            style={{ fontSize: 'clamp(14px, 1.5vw, 16px)' }}
+            className="mt-4"
+            style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', color: 'rgba(255,255,255,0.45)' }}
           >
             Design conversations — real talk about the industry, careers, and building products that matter. 6 episodes and counting.
           </p>

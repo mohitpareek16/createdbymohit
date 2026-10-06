@@ -16,53 +16,73 @@ export default function Footer() {
   ]
 
   return (
-    <footer className="relative overflow-hidden"
-      style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+    <footer style={{ background: '#0C0C0A', position: 'relative', overflow: 'hidden' }}>
 
-      {/* Decorative giant background text */}
-      <div className="absolute bottom-0 left-0 right-0 pointer-events-none select-none overflow-hidden" aria-hidden>
-        <p className="font-syne text-white uppercase whitespace-nowrap leading-none"
-          style={{ fontSize: 'clamp(120px, 22vw, 320px)', fontWeight: 800, opacity: 0.04,
-                   transform: 'translateY(30%)', lineHeight: 0.85, letterSpacing: '-0.03em' }}>
+      {/* Giant watermark */}
+      <div aria-hidden style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0,
+        pointerEvents: 'none', overflow: 'hidden',
+      }}>
+        <p className="font-syne uppercase whitespace-nowrap leading-none text-white"
+          style={{
+            fontSize: 'clamp(100px, 20vw, 300px)',
+            fontWeight: 800, opacity: 0.035,
+            transform: 'translateY(30%)', letterSpacing: '-0.03em',
+          }}>
           MOHIT
         </p>
       </div>
 
-      <div className="relative z-10 px-6 md:px-10 pt-20 md:pt-28 pb-8">
-        <div className="max-w-[1200px] mx-auto">
+      <div style={{ position: 'relative', zIndex: 1, padding: 'clamp(64px,8vw,112px) 24px 32px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-          {/* Big CTA heading */}
-          <h2 className="font-syne uppercase text-white mb-3"
-            style={{ fontSize: 'clamp(40px, 8vw, 100px)', lineHeight: 0.88,
-                     letterSpacing: '-0.03em', fontWeight: 800, maxWidth: '18ch' }}>
+          {/* CTA */}
+          <h2 className="font-syne uppercase text-white mb-4"
+            style={{
+              fontSize: 'clamp(36px, 7.5vw, 96px)',
+              lineHeight: 0.9, letterSpacing: '-0.035em',
+              fontWeight: 800, maxWidth: '16ch',
+            }}>
             LET'S SOLVE<br />YOUR SPECIFIC<br />
             <span style={{ color: '#C41E3A' }}>PROBLEM.</span>
           </h2>
 
-          <p className="text-white/40 mb-8 max-w-[44ch]"
-            style={{ fontSize: 'clamp(14px, 1.4vw, 17px)', lineHeight: 1.65 }}>
+          <p style={{
+            fontSize: 'clamp(14px, 1.4vw, 17px)', lineHeight: 1.65,
+            color: 'rgba(255,255,255,0.4)', maxWidth: '44ch', marginBottom: '32px',
+          }}>
             Every company is different. So is the solution. Tell us what's broken and we'll figure out the right fix together.
           </p>
 
-          <Link to="/contact" className="bracket-link inline-flex mb-16 md:mb-20">
+          <Link to="/contact" className="inline-flex mb-16 md:mb-20 font-mono uppercase transition-all"
+            style={{
+              fontSize: '10px', letterSpacing: '0.15em',
+              border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: '9999px', padding: '12px 24px',
+              color: '#fff',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#0C0C0A' }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#fff' }}>
             [ GET IN TOUCH ]
           </Link>
 
           {/* Divider */}
-          <div className="mb-12" style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.08)' }} />
+          <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', marginBottom: '48px' }} />
 
-          {/* Three columns */}
+          {/* 3 columns */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-16 mb-14">
             <div>
-              <p className="font-mono text-white/30 uppercase mb-5" style={{ fontSize: '9px', letterSpacing: '0.2em' }}>
+              <p className="font-mono uppercase mb-5 text-white/30" style={{ fontSize: '9px', letterSpacing: '0.2em' }}>
                 Navigation
               </p>
               <ul className="flex flex-col gap-3">
                 {internalLinks.map(item => (
                   <li key={item.label}>
                     <Link to={item.href}
-                      className="font-mono text-white/50 hover:text-white transition-colors"
-                      style={{ fontSize: '11px', letterSpacing: '0.12em' }}>
+                      className="font-mono text-white/45 transition-colors uppercase"
+                      style={{ fontSize: '11px', letterSpacing: '0.12em' }}
+                      onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
+                      onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}>
                       [{item.label}]
                     </Link>
                   </li>
@@ -70,15 +90,17 @@ export default function Footer() {
               </ul>
             </div>
             <div>
-              <p className="font-mono text-white/30 uppercase mb-5" style={{ fontSize: '9px', letterSpacing: '0.2em' }}>
+              <p className="font-mono uppercase mb-5 text-white/30" style={{ fontSize: '9px', letterSpacing: '0.2em' }}>
                 Social
               </p>
               <ul className="flex flex-col gap-3">
                 {socialLinks.map(item => (
                   <li key={item.label}>
                     <a href={item.href} target="_blank" rel="noopener noreferrer"
-                      className="font-mono text-white/50 hover:text-white transition-colors"
-                      style={{ fontSize: '11px', letterSpacing: '0.12em' }}>
+                      className="font-mono text-white/45 transition-colors uppercase"
+                      style={{ fontSize: '11px', letterSpacing: '0.12em' }}
+                      onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
+                      onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}>
                       [{item.label}]
                     </a>
                   </li>
@@ -86,19 +108,20 @@ export default function Footer() {
               </ul>
             </div>
             <div className="col-span-2 md:col-span-1">
-              <p className="font-mono text-white/30 uppercase mb-5" style={{ fontSize: '9px', letterSpacing: '0.2em' }}>
+              <p className="font-mono uppercase mb-5 text-white/30" style={{ fontSize: '9px', letterSpacing: '0.2em' }}>
                 Get in Touch
               </p>
               <a href="mailto:hello@createdbymohit.com"
-                className="font-mono text-white/50 hover:text-white transition-colors block mb-2"
-                style={{ fontSize: '11px', letterSpacing: '0.1em' }}>
+                className="font-mono text-white/45 transition-colors block mb-2 uppercase"
+                style={{ fontSize: '11px', letterSpacing: '0.1em' }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}>
                 hello@createdbymohit.com
               </a>
               <div className="flex items-center gap-2 mt-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C41E3A] flex-shrink-0"
+                <span className="w-1.5 h-1.5 rounded-full bg-[#C41E3A]"
                   style={{ animation: 'heroPulse 2.2s infinite' }} />
-                <span className="font-mono text-white/30 uppercase"
-                  style={{ fontSize: '9px', letterSpacing: '0.14em' }}>
+                <span className="font-mono uppercase text-white/30" style={{ fontSize: '9px', letterSpacing: '0.14em' }}>
                   Open for New Projects · 2026
                 </span>
               </div>
@@ -108,10 +131,10 @@ export default function Footer() {
           {/* Bottom bar */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-6"
             style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-            <span className="font-mono text-white/25" style={{ fontSize: '9px', letterSpacing: '0.12em' }}>
+            <span className="font-mono text-white/20" style={{ fontSize: '9px', letterSpacing: '0.12em' }}>
               © 2026 Mohit Pareek · createdbymohit.com
             </span>
-            <span className="font-mono text-white/25 uppercase" style={{ fontSize: '9px', letterSpacing: '0.12em' }}>
+            <span className="font-mono uppercase text-white/20" style={{ fontSize: '9px', letterSpacing: '0.12em' }}>
               DESIGNED &amp; BUILT IN INDIA
             </span>
           </div>
