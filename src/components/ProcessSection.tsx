@@ -8,66 +8,66 @@ const STEPS = [
   {
     num: '01',
     word: 'AUDIT',
-    sub: 'Understand everything first',
-    body: "Before we write a single line of code, we map your entire operation. Every workflow, every tool, every handoff. Most companies think they have a tech problem. They almost always have a process problem.",
-    accent: false,
+    tagline: 'Understand everything first.',
+    body: 'Before touching any code or AI tool, we map your entire operation. Every workflow, every handoff, every manual step that shouldn\'t be manual. Most agencies skip this. That\'s why their solutions don\'t stick.',
+    red: false,
   },
   {
     num: '02',
     word: 'STRATEGISE',
-    sub: 'Find the exact problem worth solving',
-    body: "Not every bottleneck is worth automating. Not every process needs custom software. We identify the highest-leverage problems and build a plan that fits your stage, team, and budget.",
-    accent: true,
+    tagline: 'Define the exact fix.',
+    body: 'After the audit we know the real problem — not the symptom. We define exactly what needs to be built, why, and how. No bloated proposals. No unnecessary features. Just the right scope.',
+    red: true,
   },
   {
     num: '03',
     word: 'BUILD',
-    sub: 'Custom, not off-the-shelf',
-    body: "Your company is different from every other company we've worked with. The solution has to be too. No templates. No filler. We build exactly what you need.",
-    accent: false,
+    tagline: 'Custom, not copy-pasted.',
+    body: 'We build only what you actually need — whether that\'s a custom integration, an AI agent, a full system, or a simple automation. The solution is as unique as the problem.',
+    red: false,
   },
   {
     num: '04',
     word: 'INTEGRATE',
-    sub: 'The right AI for your specific business',
-    body: "Pre-built where it fits. Custom-built where it doesn't. WhatsApp bots, CRM automation, document intelligence, workflow orchestration — whatever solves the actual problem.",
-    accent: true,
+    tagline: 'Fits into how you work.',
+    body: 'We don\'t hand you software and disappear. We integrate the solution into your existing workflows, train your team, and make sure it actually gets used.',
+    red: true,
   },
   {
     num: '05',
     word: 'SCALE',
-    sub: 'Systems that grow with you',
-    body: "We build maintainable, documented, extendable systems. As your business grows, the systems we build grow with it. That's the difference between a vendor and a partner.",
-    accent: false,
+    tagline: 'Built to grow with you.',
+    body: 'The systems we build are designed to scale. When your business grows, your tools grow with it — not against it.',
+    red: false,
   },
 ]
 
 export default function ProcessSection() {
   const sectionRef = useRef<HTMLElement>(null)
-  const stepsRef   = useRef<HTMLDivElement>(null)
+  const stepRefs   = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const steps = stepsRef.current?.querySelectorAll('.pstep')
-      steps?.forEach((step) => {
-        const word    = step.querySelector('.pstep-word')
-        const meta    = step.querySelector('.pstep-meta')
-        const body    = step.querySelector('.pstep-body')
-        const divider = step.querySelector('.pstep-divider')
+      stepRefs.current.forEach((step, i) => {
+        if (!step) return
+        const divider = step.querySelector('.step-divider')
+        const word    = step.querySelector('.step-word')
+        const meta    = step.querySelector('.step-meta')
+        const body    = step.querySelector('.step-body')
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: step,
-            start: 'top 78%',
+            start: 'top 82%',
             toggleActions: 'play none none none',
-          },
+          }
         })
 
-        tl.fromTo(divider, { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: 'power3.out', transformOrigin: 'left' })
-          .fromTo(word,    { clipPath: 'inset(0% 0% 100% 0%)', y: 30 },
-                           { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 0.85, ease: 'power4.out' }, '-=0.1')
-          .fromTo(meta,    { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' }, '-=0.4')
-          .fromTo(body,    { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' }, '-=0.35')
+        tl.fromTo(divider, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: 'power2.out', transformOrigin: 'left' })
+          .fromTo(word, { clipPath: 'inset(0% 0% 100% 0%)', y: 20 },
+            { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 0.7, ease: 'power4.out' }, '-=0.2')
+          .fromTo([meta, body], { opacity: 0, y: 16 },
+            { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out', stagger: 0.08 }, '-=0.3')
       })
     }, sectionRef)
 
@@ -75,95 +75,95 @@ export default function ProcessSection() {
   }, [])
 
   return (
-    <section
-      ref={sectionRef}
-      className="px-6 md:px-12 lg:px-16 py-24 md:py-32"
-      style={{ background: '#000', borderTop: '1px solid rgba(255,255,255,0.06)' }}
-    >
-      <div className="max-w-[1280px] mx-auto">
+    <section ref={sectionRef} id="process"
+      style={{
+        background: 'var(--bg)',
+        padding: 'clamp(72px,8vw,120px) 24px',
+        borderTop: '1px solid var(--border)',
+      }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
 
-        {/* Section label */}
-        <div className="mb-16 md:mb-20 flex items-center gap-4">
-          <div className="h-px w-8 bg-[#C41E3A]" />
-          <p className="font-mono text-white/35 uppercase tracking-widest" style={{ fontSize: '10px', letterSpacing: '0.22em' }}>
-            The Process
-          </p>
-        </div>
+        {/* Label */}
+        <p className="font-mono uppercase mb-12 md:mb-16"
+          style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'var(--muted)' }}>
+          <span style={{ marginRight: '0.5em', color: 'var(--accent)' }}>··</span>HOW WE WORK
+        </p>
 
         {/* Steps */}
-        <div ref={stepsRef}>
-          {STEPS.map((step) => (
-            <div
-              key={step.num}
-              className="pstep"
-            >
-              {/* Top divider */}
-              <div
-                className="pstep-divider"
-                style={{ height: '1px', background: 'rgba(255,255,255,0.08)', marginBottom: '32px', transformOrigin: 'left' }}
-              />
+        {STEPS.map((step, i) => (
+          <div key={step.num}
+            ref={el => { stepRefs.current[i] = el }}
+            style={{ paddingBottom: 'clamp(40px, 5vw, 64px)' }}>
 
-              {/* Step layout: num + word + content */}
-              <div
-                className="grid gap-6 pb-12 md:pb-16"
-                style={{ gridTemplateColumns: 'clamp(40px,5vw,70px) 1fr clamp(220px,28%,400px)' }}
-              >
-                {/* Number */}
-                <div className="pt-2">
-                  <span className="font-mono text-white/25" style={{ fontSize: '11px', letterSpacing: '0.1em' }}>
-                    {step.num}
-                  </span>
-                </div>
+            {/* Divider */}
+            <div className="step-divider" style={{
+              height: '1px',
+              background: step.red ? 'var(--accent)' : 'var(--border-strong)',
+              marginBottom: 'clamp(20px, 2.5vw, 32px)',
+              transformOrigin: 'left',
+            }} />
 
-                {/* Big word */}
-                <div className="pstep-word" style={{ clipPath: 'inset(0% 0% 100% 0%)' }}>
-                  <h3
-                    className="font-syne uppercase"
-                    style={{
-                      fontWeight: 800,
-                      fontSize: 'clamp(52px, 8.5vw, 130px)',
-                      lineHeight: 0.88,
-                      letterSpacing: '-0.03em',
-                      color: step.accent ? '#C41E3A' : '#ffffff',
-                    }}
-                  >
-                    {step.word}
-                  </h3>
-                </div>
+            {/* 3-column grid */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'clamp(40px,5vw,64px) 1fr clamp(200px,26%,380px)',
+              gap: 'clamp(16px, 2.5vw, 40px)',
+              alignItems: 'start',
+            }}
+              className="!grid-cols-[auto_1fr] md:!grid-cols-[clamp(40px,5vw,64px)_1fr_clamp(200px,26%,380px)]">
 
-                {/* Sub + body */}
-                <div className="flex flex-col justify-end gap-3 pb-1">
-                  <p
-                    className="pstep-meta font-syne font-semibold text-white"
-                    style={{ fontSize: 'clamp(14px, 1.4vw, 18px)', lineHeight: 1.25, letterSpacing: '-0.01em' }}
-                  >
-                    {step.sub}
-                  </p>
-                  <p
-                    className="pstep-body text-white/40 leading-relaxed"
-                    style={{ fontSize: 'clamp(13px, 1.1vw, 15px)', lineHeight: 1.75 }}
-                  >
-                    {step.body}
-                  </p>
-                </div>
+              {/* Number */}
+              <span className="font-mono" style={{
+                fontSize: '11px', letterSpacing: '0.1em', color: 'var(--muted)',
+                paddingTop: '6px',
+              }}>
+                {step.num}
+              </span>
+
+              {/* Big word */}
+              <div style={{ overflow: 'hidden' }}>
+                <h3 className="step-word font-syne font-bold uppercase"
+                  style={{
+                    fontSize: 'clamp(48px, 8vw, 120px)',
+                    lineHeight: 0.92,
+                    letterSpacing: '-0.035em',
+                    color: step.red ? 'var(--accent)' : 'var(--text)',
+                    clipPath: 'inset(0% 0% 100% 0%)',
+                  }}>
+                  {step.word}
+                </h3>
+              </div>
+
+              {/* Right: tagline + body */}
+              <div className="step-body hidden md:block" style={{ opacity: 0, paddingTop: '8px' }}>
+                <p className="font-syne font-bold step-meta mb-3"
+                  style={{
+                    fontSize: 'clamp(14px, 1.3vw, 17px)',
+                    color: 'var(--text)',
+                    letterSpacing: '-0.01em',
+                    opacity: 0,
+                  }}>
+                  {step.tagline}
+                </p>
+                <p style={{ fontSize: 'clamp(13px, 1.2vw, 15px)', color: 'var(--muted)', lineHeight: 1.7, maxWidth: '44ch' }}>
+                  {step.body}
+                </p>
               </div>
             </div>
-          ))}
 
-          {/* Final divider */}
-          <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)' }} />
-        </div>
+            {/* Mobile body */}
+            <div className="md:hidden step-body mt-4 opacity-0" style={{ opacity: 0 }}>
+              <p className="font-syne font-bold step-meta mb-2"
+                style={{ fontSize: '15px', color: 'var(--text)', opacity: 0 }}>
+                {step.tagline}
+              </p>
+              <p style={{ fontSize: '14px', color: 'var(--muted)', lineHeight: 1.7 }}>
+                {step.body}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
-
-      {/* Mobile layout override */}
-      <style>{`
-        @media (max-width: 768px) {
-          .pstep > div[class*="grid"] {
-            grid-template-columns: 1fr !important;
-            gap: 16px !important;
-          }
-        }
-      `}</style>
     </section>
   )
 }

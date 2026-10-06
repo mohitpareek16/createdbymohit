@@ -13,7 +13,7 @@ import Footer              from '../components/Footer'
 
 export default function HomePage() {
   return (
-    <main style={{ background: '#000000', minHeight: '100vh' }}>
+    <main style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <Helmet>
         <title>Mohit Pareek — I Build AI Systems & Custom Software | India</title>
         <meta name="description" content="Mohit Pareek builds AI systems, custom software, and automation tools for businesses. Founder of Starting Core — we audit your business first, then build exactly what you need." />
@@ -24,9 +24,9 @@ export default function HomePage() {
       </Helmet>
       <HeroSection />
       <MarqueeSection />
+      <WorkSection />
       <ProcessSection />
       <ServicesSection />
-      <WorkSection />
       <LinkedInArticles />
       <AboutSection />
       <PodcastSection />

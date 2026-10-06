@@ -3,92 +3,93 @@ import { useEffect, useRef } from 'react'
 export default function CustomCursor() {
   const dotRef  = useRef<HTMLDivElement>(null)
   const ringRef = useRef<HTMLDivElement>(null)
-  const rafRef  = useRef<number>(0)
-
-  const mouse   = useRef({ x: 0, y: 0 })
-  const ring    = useRef({ x: 0, y: 0 })
-  const hovered = useRef(false)
 
   useEffect(() => {
-    // Only on devices with a fine pointer (not mobile)
-    if (!window.matchMedia('(pointer: fine)').matches) return
+    const dot  = dotRef.current
+    const ring = ringRef.current
+    if (!dot || !ring) return
+
+    let mx = -100, my = -100
+    let rx = -100, ry = -100
+    let raf = 0
+
+    const onMove = (e: MouseEvent) => {
+      mx = e.clientX
+      my = e.clientY
+    }
+
+    const lerp = (a: number, b: number, t: number) => a + (b - a) * t
+
+    const tick = () => {
+      dot.style.transform  = `translate(${mx - 3}px, ${my - 3}px)`
+      rx = lerp(rx, mx, 0.1)
+      ry = lerp(ry, my, 0.1)
+      ring.style.transform = `translate(${rx - 19}px, ${ry - 19}px)`
+      raf = requestAnimationFrame(tick)
+    }
+
+    const onEnter = () => {
+      ring.style.transform = ring.style.transform
+      ring.style.width  = '56px'
+      ring.style.height = '56px'
+      ring.style.marginLeft  = '-28px'
+      ring.style.marginTop   = '-28px'
+      ring.style.borderColor = '#C41E3A'
+      ring.style.opacity     = '0.6'
+    }
+
+    const onLeave = () => {
+      ring.style.width  = '38px'
+      ring.style.height = '38px'
+      ring.style.marginLeft  = '0'
+      ring.style.marginTop   = '0'
+      ring.style.borderColor = 'rgba(12,12,10,0.4)'
+      ring.style.opacity     = '1'
+    }
+
+    const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, label, [tabindex]'
 
     const style = document.createElement('style')
     style.textContent = '* { cursor: none !important; }'
     document.head.appendChild(style)
 
-    const onMove = (e: MouseEvent) => {
-      mouse.current.x = e.clientX
-      mouse.current.y = e.clientY
-      if (dotRef.current) {
-        dotRef.current.style.transform =
-          `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`
-      }
-    }
+    document.addEventListener('mousemove', onMove)
 
-    const onOver = (e: MouseEvent) => {
-      const el = e.target as Element
-      const isInteractive = !!el.closest('a, button, [role="button"], input, select, label')
-      hovered.current = isInteractive
-    }
+    document.addEventListener('mouseover', e => {
+      if ((e.target as Element)?.closest(INTERACTIVE)) onEnter()
+    })
+    document.addEventListener('mouseout', e => {
+      if ((e.target as Element)?.closest(INTERACTIVE)) onLeave()
+    })
 
-    window.addEventListener('mousemove', onMove)
-    window.addEventListener('mouseover', onOver)
-
-    // Lerp ring toward mouse
-    const lerp = (a: number, b: number, t: number) => a + (b - a) * t
-
-    const animate = () => {
-      ring.current.x = lerp(ring.current.x, mouse.current.x, 0.10)
-      ring.current.y = lerp(ring.current.y, mouse.current.y, 0.10)
-
-      if (ringRef.current) {
-        const scale = hovered.current ? 1.8 : 1
-        ringRef.current.style.transform =
-          `translate(${ring.current.x}px, ${ring.current.y}px) translate(-50%, -50%) scale(${scale})`
-        ringRef.current.style.borderColor = hovered.current
-          ? '#C41E3A'
-          : 'rgba(255,255,255,0.5)'
-        ringRef.current.style.backgroundColor = hovered.current
-          ? 'rgba(196,30,58,0.08)'
-          : 'transparent'
-      }
-
-      rafRef.current = requestAnimationFrame(animate)
-    }
-    rafRef.current = requestAnimationFrame(animate)
+    raf = requestAnimationFrame(tick)
 
     return () => {
+      document.removeEventListener('mousemove', onMove)
+      cancelAnimationFrame(raf)
       style.remove()
-      cancelAnimationFrame(rafRef.current)
-      window.removeEventListener('mousemove', onMove)
-      window.removeEventListener('mouseover', onOver)
     }
   }, [])
 
   return (
     <>
-      {/* Inner dot — follows exactly */}
-      <div
-        ref={dotRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9999]"
-        style={{
-          width: '5px', height: '5px', borderRadius: '50%',
-          background: '#ffffff', willChange: 'transform',
-        }}
-      />
-      {/* Outer ring — follows with lag */}
-      <div
-        ref={ringRef}
-        className="fixed top-0 left-0 pointer-events-none z-[9998]"
-        style={{
-          width: '38px', height: '38px', borderRadius: '50%',
-          border: '1px solid rgba(255,255,255,0.5)',
-          background: 'transparent',
-          willChange: 'transform',
-          transition: 'border-color 0.25s ease, background-color 0.25s ease, transform 0.15s ease',
-        }}
-      />
+      {/* Dot */}
+      <div ref={dotRef} aria-hidden style={{
+        position: 'fixed', top: 0, left: 0, width: '6px', height: '6px',
+        background: '#C41E3A', borderRadius: '50%',
+        pointerEvents: 'none', zIndex: 99999,
+        transition: 'none',
+        willChange: 'transform',
+      }} />
+      {/* Ring */}
+      <div ref={ringRef} aria-hidden style={{
+        position: 'fixed', top: 0, left: 0, width: '38px', height: '38px',
+        borderRadius: '50%',
+        border: '1px solid rgba(12,12,10,0.4)',
+        pointerEvents: 'none', zIndex: 99998,
+        willChange: 'transform',
+        transition: 'width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease',
+      }} />
     </>
   )
 }

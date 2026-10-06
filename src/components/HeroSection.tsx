@@ -1,193 +1,211 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
-import Nav from './Nav'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const CYCLING_WORDS = [
-  'AI SYSTEMS.',
-  'CUSTOM SOFTWARE.',
-  'AUTOMATION.',
-  'REAL SOLUTIONS.',
-  'YOUR BUSINESS.',
-]
+gsap.registerPlugin(ScrollTrigger)
+
+const WORDS = ['AI SYSTEMS.', 'CUSTOM SOFTWARE.', 'AUTOMATION.', 'REAL SOLUTIONS.', 'YOUR BUSINESS.']
 
 export default function HeroSection() {
-  const containerRef  = useRef<HTMLDivElement>(null)
-  const bottomRef     = useRef<HTMLDivElement>(null)
-  const h1Ref         = useRef<HTMLDivElement>(null)
-  const wordRefs      = useRef<(HTMLSpanElement | null)[]>([])
+  const sectionRef    = useRef<HTMLElement>(null)
+  const h1Ref         = useRef<HTMLHeadingElement>(null)
+  const staticRef     = useRef<HTMLSpanElement>(null)
+  const wordsContRef  = useRef<HTMLDivElement>(null)
+  const wordElemsRef  = useRef<HTMLSpanElement[]>([])
   const scrollLineRef = useRef<HTMLDivElement>(null)
-  const timerRef      = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const metaRef       = useRef<HTMLDivElement>(null)
+  const ctaRef        = useRef<HTMLDivElement>(null)
+  const currentRef    = useRef(0)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Entrance: h1 clip-path reveal from bottom
-      gsap.fromTo(h1Ref.current,
+      // Entrance — reveal h1 from top clip-path
+      const tl = gsap.timeline({ delay: 0.15 })
+
+      tl.fromTo(h1Ref.current,
         { clipPath: 'inset(100% 0% 0% 0%)', y: 40 },
-        { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.1, ease: 'power4.out', delay: 0.1 })
+        { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.1, ease: 'power4.out' })
+        .fromTo(metaRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
+        .fromTo(ctaRef.current,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3')
+        .fromTo(scrollLineRef.current,
+          { opacity: 0, scaleY: 0 },
+          { opacity: 1, scaleY: 1, duration: 0.5, ease: 'power2.out', transformOrigin: 'top center' }, '-=0.2')
 
-      gsap.fromTo(scrollLineRef.current,
-        { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', delay: 0.9 })
+      // Word cycling
+      const words = wordElemsRef.current
+      if (words.length === 0) return
 
-      gsap.fromTo(bottomRef.current,
-        { opacity: 0, y: 16 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: 1.1 })
+      // Initial position: first word visible, rest hidden below
+      gsap.set(words[0], { yPercent: 0, opacity: 1 })
+      words.slice(1).forEach(w => gsap.set(w, { yPercent: 110, opacity: 0 }))
 
-      // Set all words below the clip
-      wordRefs.current.forEach(el => { if (el) gsap.set(el, { yPercent: 115 }) })
+      const cycle = () => {
+        const curr = currentRef.current
+        const next = (curr + 1) % words.length
 
-      const showWord = (idx: number) => {
-        const el = wordRefs.current[idx]
-        if (!el) return
-        gsap.to(el, {
-          yPercent: 0, duration: 0.7, ease: 'power4.out',
+        const tl = gsap.timeline({
           onComplete: () => {
-            timerRef.current = setTimeout(() => {
-              const next = (idx + 1) % CYCLING_WORDS.length
-              gsap.to(el, {
-                yPercent: -115, duration: 0.55, ease: 'power3.in',
-                onComplete: () => {
-                  gsap.set(el, { yPercent: 115 })
-                  showWord(next)
-                },
-              })
-            }, 1800)
-          },
+            currentRef.current = next
+            setTimeout(cycle, 2200)
+          }
         })
+        tl.to(words[curr], { yPercent: -110, opacity: 0, duration: 0.55, ease: 'power3.in' })
+          .fromTo(words[next],
+            { yPercent: 110, opacity: 0 },
+            { yPercent: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
+            '-=0.1')
       }
 
-      timerRef.current = setTimeout(() => showWord(0), 1100)
-    }, containerRef)
+      const timer = setTimeout(cycle, 2800)
+      return () => clearTimeout(timer)
+    }, sectionRef)
 
-    return () => {
-      ctx.revert()
-      if (timerRef.current) clearTimeout(timerRef.current)
-    }
+    return () => ctx.revert()
   }, [])
 
   return (
-    <>
-      <Nav />
-      <section
-        ref={containerRef}
-        className="relative min-h-screen flex flex-col overflow-hidden"
-        style={{ background: '#000000' }}
-      >
-        {/* Fine dot grid texture */}
-        <div
-          className="absolute inset-0 pointer-events-none select-none"
-          aria-hidden
+    <section ref={sectionRef}
+      style={{
+        minHeight: '100svh',
+        background: 'var(--bg)',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '120px 24px 64px',
+        position: 'relative',
+        overflow: 'hidden',
+      }}>
+
+      {/* Dot grid — very subtle */}
+      <div aria-hidden style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none',
+        backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px)',
+        backgroundSize: '44px 44px',
+        opacity: 0.45,
+      }} />
+
+      {/* Red radial glow — top right, light */}
+      <div aria-hidden style={{
+        position: 'absolute', top: '-10%', right: '-5%',
+        width: '60vw', height: '60vw',
+        background: 'radial-gradient(circle, rgba(196,30,58,0.07) 0%, transparent 65%)',
+        pointerEvents: 'none',
+      }} />
+
+      <div style={{ maxWidth: '1200px', width: '100%', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+
+        {/* Label */}
+        <p className="font-mono uppercase mb-8"
+          style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'var(--muted)' }}>
+          <span style={{ marginRight: '0.5em', color: 'var(--accent)' }}>··</span>
+          MOHIT PAREEK · FOUNDER, STARTING CORE
+        </p>
+
+        {/* Headline */}
+        <h1 ref={h1Ref} className="font-syne uppercase"
           style={{
-            backgroundImage:
-              'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
-            backgroundSize: '48px 48px',
-            opacity: 0.4,
-          }}
-        />
-
-        {/* Gradient vignette corners */}
-        <div className="absolute inset-0 pointer-events-none" aria-hidden
-          style={{
-            background:
-              'radial-gradient(ellipse at 0% 0%, rgba(196,30,58,0.06) 0%, transparent 50%), radial-gradient(ellipse at 100% 100%, rgba(255,255,255,0.03) 0%, transparent 50%)',
-          }}
-        />
-
-        {/* Content */}
-        <div className="relative z-10 flex-1 flex flex-col justify-between px-6 md:px-12 lg:px-16 pt-28 pb-0">
-          <div className="flex-1 flex flex-col justify-center">
-
-            {/* "I BUILD" + cycling word ── the main event */}
-            <div ref={h1Ref} style={{ clipPath: 'inset(100% 0% 0% 0%)' }}>
-              <h1
-                className="font-syne text-white uppercase select-none"
+            fontSize: 'clamp(56px, 10.5vw, 160px)',
+            lineHeight: 0.9,
+            letterSpacing: '-0.035em',
+            fontWeight: 800,
+            color: 'var(--text)',
+            clipPath: 'inset(100% 0% 0% 0%)',
+            marginBottom: 'clamp(20px, 2.5vw, 36px)',
+          }}>
+          <span ref={staticRef}>I BUILD </span>
+          {/* Cycling word container — height tied to 0.9em of parent font-size */}
+          <div ref={wordsContRef} style={{
+            display: 'inline-block',
+            verticalAlign: 'bottom',
+            height: '0.92em',
+            overflow: 'hidden',
+            position: 'relative',
+          }}>
+            {WORDS.map((word, i) => (
+              <span key={word}
+                ref={el => { if (el) wordElemsRef.current[i] = el }}
                 style={{
-                  fontWeight: 800,
-                  fontSize: 'clamp(72px, 13.5vw, 200px)',
-                  lineHeight: 0.9,
-                  letterSpacing: '-0.035em',
-                }}
-              >
-                {/* Static line */}
-                <span className="block">I BUILD</span>
-
-                {/* Cycling line ── height = fontSize × lineHeight */}
-                <div
-                  className="relative overflow-hidden"
-                  style={{ height: '0.9em' }}
-                >
-                  {CYCLING_WORDS.map((word, i) => (
-                    <span
-                      key={word}
-                      ref={el => { wordRefs.current[i] = el }}
-                      className="absolute inset-0 flex items-start"
-                      style={{
-                        color: '#C41E3A',
-                        willChange: 'transform',
-                        lineHeight: 'inherit',
-                      }}
-                    >
-                      {word}
-                    </span>
-                  ))}
-                </div>
-              </h1>
-
-              {/* Sub-descriptor */}
-              <p
-                className="font-mono text-white/35 uppercase mt-8 md:mt-10"
-                style={{ fontSize: 'clamp(10px, 1vw, 13px)', letterSpacing: '0.22em' }}
-              >
-                Software Engineer & AI Specialist &nbsp;·&nbsp; Jaipur, India
-              </p>
-            </div>
-
-            {/* Scroll prompt */}
-            <div ref={scrollLineRef} className="flex items-center gap-4 mt-12 md:mt-16">
-              <div className="h-px bg-white/20" style={{ width: '40px' }} />
-              <span className="font-mono text-white/30 uppercase" style={{ fontSize: '10px', letterSpacing: '0.2em' }}>
-                Scroll the story
+                  position: i === 0 ? 'relative' : 'absolute',
+                  left: 0,
+                  top: 0,
+                  display: 'block',
+                  color: 'var(--accent)',
+                  whiteSpace: 'nowrap',
+                }}>
+                {word}
               </span>
-              <div
-                className="h-px bg-white/10 flex-1"
-                style={{ maxWidth: '200px' }}
-              />
+            ))}
+          </div>
+        </h1>
+
+        {/* Meta line */}
+        <div ref={metaRef} className="flex flex-wrap items-center gap-4 mb-12 opacity-0"
+          style={{ opacity: 0 }}>
+          <p style={{ fontSize: 'clamp(15px, 1.6vw, 19px)', color: 'var(--muted)', lineHeight: 1.5, maxWidth: '52ch' }}>
+            Custom development, business audits &amp; AI integration — built for{' '}
+            <span style={{ color: 'var(--text)', fontStyle: 'italic' }}>your specific problem</span>,
+            not a generic template.
+          </p>
+        </div>
+
+        {/* CTA strip */}
+        <div ref={ctaRef} className="flex flex-wrap items-center gap-4 opacity-0" style={{ opacity: 0 }}>
+          <Link to="/contact" className="bracket-link accent" style={{ fontSize: '10px' }}>
+            [ START A PROJECT ]
+          </Link>
+          <Link to="/work" className="bracket-link" style={{ fontSize: '10px' }}>
+            [ SEE OUR WORK ]
+          </Link>
+          <div className="flex items-center gap-2 ml-2">
+            <span className="w-2 h-2 rounded-full bg-[#C41E3A]" style={{ animation: 'heroPulse 2.2s infinite' }} />
+            <span className="font-mono" style={{ fontSize: '9px', letterSpacing: '0.16em', color: 'var(--muted)', textTransform: 'uppercase' }}>
+              Open for Projects · 2026
+            </span>
+          </div>
+        </div>
+
+        {/* Scroll prompt */}
+        <div ref={scrollLineRef} className="hidden md:flex items-center gap-3 mt-16"
+          style={{ opacity: 0, transformOrigin: 'left center' }}>
+          <div style={{ width: '1px', height: '48px', background: 'var(--border-strong)' }} />
+          <p className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '0.2em', color: 'var(--subtle)' }}>
+            Scroll the story
+          </p>
+        </div>
+      </div>
+
+      {/* Bottom stats strip */}
+      <div style={{
+        position: 'absolute', bottom: 0, left: 0, right: 0,
+        borderTop: '1px solid var(--border)',
+        padding: '16px 24px',
+      }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
+          {[
+            { v: '6+', l: 'Years' },
+            { v: '80+', l: 'Projects' },
+            { v: '30+', l: 'AI Systems' },
+            { v: '₹50L+', l: 'Value Built' },
+          ].map(s => (
+            <div key={s.l} className="flex items-baseline gap-2">
+              <span className="font-syne font-bold" style={{ fontSize: 'clamp(18px, 2vw, 26px)', letterSpacing: '-0.03em', color: 'var(--text)' }}>{s.v}</span>
+              <span className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '0.14em', color: 'var(--muted)' }}>{s.l}</span>
             </div>
-          </div>
+          ))}
+          <a href="https://www.linkedin.com/in/mohit-pareek-b8a676204" target="_blank" rel="noopener noreferrer"
+            className="font-mono uppercase transition-colors hidden md:block"
+            style={{ fontSize: '9px', letterSpacing: '0.14em', color: 'var(--muted)' }}
+            onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted)')}>
+            LinkedIn ↗
+          </a>
         </div>
-
-        {/* Bottom bar */}
-        <div
-          ref={bottomRef}
-          className="relative z-10 px-6 md:px-12 lg:px-16 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.06)', opacity: 0 }}
-        >
-          <div className="flex flex-wrap items-center gap-6">
-            <span className="flex items-center gap-2 font-mono uppercase tracking-widest text-white/40"
-              style={{ fontSize: '10px', letterSpacing: '0.18em' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C41E3A]"
-                style={{ animation: 'pulse 2s infinite' }} />
-              Open for Projects
-            </span>
-            <span className="font-mono text-white/25 uppercase"
-              style={{ fontSize: '10px', letterSpacing: '0.14em' }}>
-              Founder, Starting Core
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <a href="mailto:hello@createdbymohit.com" className="bracket-link">[ START A PROJECT ]</a>
-            <Link to="/work" className="bracket-link">[ VIEW WORK ]</Link>
-          </div>
-        </div>
-
-        <style>{`
-          @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50%       { opacity: 0.35; }
-          }
-        `}</style>
-      </section>
-    </>
+      </div>
+    </section>
   )
 }
