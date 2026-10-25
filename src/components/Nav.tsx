@@ -32,11 +32,11 @@ export default function Nav() {
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         padding: '18px 24px',
         transition: 'background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
-        background: scrolled ? 'rgba(247,245,240,0.92)' : 'transparent',
+        background: scrolled ? 'rgba(10,10,10,0.92)' : 'transparent',
         backdropFilter: scrolled ? 'blur(20px)' : 'none',
         WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(0,0,0,0.06)' : '1px solid transparent',
-        boxShadow: scrolled ? '0 1px 24px rgba(0,0,0,0.04)' : 'none',
+        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
+        boxShadow: scrolled ? '0 1px 24px rgba(0,0,0,0.4)' : 'none',
       }}>
         <Link to="/" className="font-mondwest" style={{
           fontSize: '15px', letterSpacing: '-0.01em', lineHeight: 1,

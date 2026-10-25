@@ -126,45 +126,47 @@ export default function WorkPage() {
   return (
     <main>
       <SEO
-        title="Work & Case Studies | Mohit Pareek · Starting Core"
-        description="Case studies and client work by Mohit Pareek — 30+ websites and digital products built for startups, agencies, and businesses across India and beyond."
+        title="Work — 80+ Problems Solved | Starting Core · Mohit Pareek"
+        description="80+ client projects — custom software, AI systems, websites, and automation tools built for businesses across India and beyond. Founder of Starting Core."
         canonical="/work"
       />
       <Nav />
 
       {/* Hero */}
-      <section className="pt-40 pb-16 px-6 md:px-10 border-b border-[#D8D4CB]">
+      <section style={{ paddingTop: 'clamp(120px,15vw,180px)', paddingBottom: 'clamp(48px,5vw,80px)', paddingInline: '24px', borderBottom: '1px solid var(--border)', background: 'var(--bg)' }}>
         <div className="max-w-[1320px] mx-auto" ref={heroRef}>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="font-mono text-[11px] uppercase tracking-widest text-[#8A8780] mb-6"
+            transition={{ duration: 0.45 }}
+            className="font-mono uppercase"
+            style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: '20px' }}
           >
-            Selected Work · 2020 — 2026
-          </motion.div>
+            <span style={{ color: 'var(--accent)', marginRight: '6px' }}>··</span>SELECTED WORK · 2019 — 2026
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 32 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[clamp(48px,8vw,104px)] leading-[0.9] tracking-tight text-[#051A24] mb-6"
+            className="font-syne uppercase"
+            style={{ fontSize: 'clamp(44px,7.5vw,100px)', lineHeight: 0.9, letterSpacing: '-0.035em', fontWeight: 800, color: 'var(--text)', marginBottom: '24px' }}
           >
-            Things I've{' '}
-            <em className="font-mondwest text-[#C41E3A] not-italic">shipped.</em>
+            80+ PROBLEMS.<br />
+            <span style={{ color: 'var(--accent)' }}>DIFFERENT EVERY TIME.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
             animate={heroInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-base text-[#051A24]/60 max-w-[52ch] leading-relaxed"
+            style={{ fontSize: 'clamp(14px,1.4vw,17px)', lineHeight: 1.7, color: 'var(--muted)', maxWidth: '52ch' }}
           >
-            Deep case studies alongside 30+ client websites built end-to-end — from media agencies and EdTech platforms to hospitality, NGOs, and e-commerce.
+            Deep case studies alongside 31 client websites — from EdTech platforms and hospitality brands to NGOs, e-commerce, and VC portals.
           </motion.p>
         </div>
       </section>
 
       {/* ── CASE STUDIES ── */}
-      <section className="py-16 md:py-24 px-6 md:px-10 border-b border-[#D8D4CB]">
+      <section className="py-16 md:py-24 px-6 md:px-10" style={{ borderBottom: '1px solid var(--border)', background: 'var(--bg)' }}>
         <div className="max-w-[1320px] mx-auto">
           <div className="flex items-end justify-between mb-12">
             <div>
@@ -181,7 +183,7 @@ export default function WorkPage() {
       </section>
 
       {/* ── CLIENT WEBSITES ── */}
-      <section className="py-16 md:py-24 px-6 md:px-10">
+      <section className="py-16 md:py-24 px-6 md:px-10" style={{ background: 'var(--surface)' }}>
         <div className="max-w-[1320px] mx-auto">
           <div className="flex items-end justify-between mb-12">
             <div>
@@ -211,22 +213,24 @@ export default function WorkPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-6 md:px-10 bg-[#F5F3EE] border-t border-[#D8D4CB]">
+      <section className="py-20 px-6 md:px-10" style={{ background: 'var(--text)', borderTop: '1px solid var(--border)' }}>
         <div className="max-w-[1320px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
           <div>
-            <div className="font-mono text-[11px] uppercase tracking-widest text-[#8A8780] mb-3">Want to be next?</div>
-            <h2 className="text-[clamp(28px,4vw,52px)] leading-[0.95] tracking-tight text-[#051A24]">
-              Got a product worth{' '}
-              <em className="font-mondwest text-[#C41E3A] not-italic">designing right?</em>
+            <div className="font-mono text-[11px] uppercase tracking-widest mb-3" style={{ color: 'rgba(247,245,240,0.3)' }}>
+              <span style={{ color: 'var(--accent)', marginRight: '6px' }}>··</span>WANT TO BE ON THIS LIST?
+            </div>
+            <h2 className="font-syne uppercase" style={{ fontSize: 'clamp(28px,4vw,56px)', lineHeight: 0.92, letterSpacing: '-0.033em', fontWeight: 800, color: '#F7F5F0' }}>
+              LET'S SOLVE YOUR{' '}
+              <span style={{ color: 'var(--accent)' }}>SPECIFIC PROBLEM.</span>
             </h2>
           </div>
-          <a
-            href="mailto:hello@createdbymohit.com"
-            className="flex-none inline-flex items-center gap-2 bg-[#051A24] text-white rounded-full px-7 py-4 text-sm font-medium hover:bg-[#C41E3A] transition-colors"
+          <Link
+            to="/contact"
+            className="flex-none bracket-link"
+            style={{ borderColor: 'var(--accent)', color: 'var(--accent)', flexShrink: 0 }}
           >
-            Start a project
-            <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
-          </a>
+            [ GET IN TOUCH ]
+          </Link>
         </div>
       </section>
 

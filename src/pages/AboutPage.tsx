@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform, useInView, MotionValue } from 'framer-
 import Nav from '../components/Nav'
 import SEO from '../components/SEO'
 import Footer from '../components/Footer'
-import Button from '../components/Button'
 
 // ── Scroll-linked word reveal ────────────────────────────────────
 function AnimatedWord({
@@ -207,51 +206,51 @@ export default function AboutPage() {
   return (
     <main>
       <SEO
-        title="About Mohit Pareek — Designer & Founder of Starting Core"
-        description="Mohit Pareek is a designer and entrepreneur from India. Founder of Starting Core, an AI automation agency. 6+ years building products and brands for startups across India."
+        title="About Mohit Pareek — Custom Developer & Founder of Starting Core"
+        description="Mohit Pareek builds custom software, AI systems, and automation tools for businesses. Founder of Starting Core. 6+ years, 80+ projects, Jaipur, India."
         canonical="/about"
       />
       <Nav />
 
       {/* ── HERO ── */}
-      <section className="min-h-[60vh] flex items-end pt-40 pb-16 px-6 md:px-10 bg-white">
+      <section className="min-h-[60vh] flex items-end pt-40 pb-16 px-6 md:px-10" style={{ background: 'var(--bg)' }}>
         <div className="max-w-[1320px] mx-auto w-full" ref={heroRef}>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
-            className="font-mono text-[11px] uppercase tracking-widest text-[#8A8780] mb-6 flex items-center gap-3"
+            className="font-mono text-[11px] uppercase tracking-widest mb-6 flex items-center gap-3"
+            style={{ color: 'var(--muted)' }}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C41E3A]" />
-            My Story · Designer · Educator · Founder
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--accent)' }} />
+            My Story · Builder · Educator · Founder
           </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 32 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[clamp(48px,8vw,104px)] leading-[0.9] tracking-tight text-[#051A24] mb-8 max-w-[14ch]"
+            className="font-syne uppercase mb-8 max-w-[14ch]"
+            style={{ fontSize: 'clamp(44px,7.5vw,100px)', lineHeight: 0.9, letterSpacing: '-0.035em', fontWeight: 800, color: 'var(--text)' }}
           >
-            The story{' '}
-            <em className="font-mondwest text-[#C41E3A] not-italic">
-              behind the&nbsp;work.
-            </em>
+            I GREW UP<br />
+            BUILDING{' '}
+            <span style={{ color: 'var(--accent)' }}>THINGS.</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.25, duration: 0.7 }}
-            className="text-base text-[#051A24]/60 max-w-[48ch] leading-relaxed"
+            style={{ fontSize: 'clamp(15px,1.6vw,18px)', lineHeight: 1.7, color: 'var(--muted)', maxWidth: '48ch' }}
           >
-            Six years of building digital products for clients across India and the world.
-            Here's how I got here — and where I'm going next.
+            Mohit Pareek. Jaipur, India. I build custom software, AI systems, and automation tools for businesses with specific problems. Six years. 80+ projects. Founder of Starting Core.
           </motion.p>
         </div>
       </section>
 
       {/* ── BIO + STICKY PHOTO ── */}
-      <section className="py-20 md:py-32 px-6 md:px-10 border-t border-[#D8D4CB]">
+      <section className="py-20 md:py-32 px-6 md:px-10" style={{ borderTop: '1px solid var(--border)', background: 'var(--bg)' }}>
         <div className="max-w-[1320px] mx-auto grid grid-cols-1 md:grid-cols-[360px_1fr] gap-16 lg:gap-24 items-start">
 
           {/* Sticky left */}
@@ -269,60 +268,62 @@ export default function AboutPage() {
             </div>
 
             {/* Info card */}
-            <div className="mt-5 p-5 rounded-2xl border border-[#D8D4CB] bg-[#F5F3EE]">
+            <div className="mt-5 p-5 rounded-2xl" style={{ border: '1px solid var(--border)', background: 'var(--surface)' }}>
               <div className="flex flex-wrap gap-2 mb-4">
-                {['UI Design', 'UX Research', 'Product Strategy', 'Education'].map(tag => (
+                {['Custom Dev', 'AI Systems', 'Automation', 'Design Education'].map(tag => (
                   <span
                     key={tag}
-                    className="font-mono text-[10px] uppercase tracking-widest text-[#051A24]/60 bg-white border border-[#D8D4CB] rounded-full px-3 py-1"
+                    className="font-mono text-[10px] uppercase tracking-widest rounded-full px-3 py-1"
+                    style={{ color: 'var(--muted)', background: 'var(--bg)', border: '1px solid var(--border)' }}
                   >
                     {tag}
                   </span>
                 ))}
               </div>
-              <div className="flex flex-col gap-2 font-mono text-[11px] text-[#8A8780] uppercase tracking-wider">
-                <span>📍 Jaipur, India · Remote</span>
+              <div className="flex flex-col gap-2 font-mono text-[11px] uppercase tracking-wider" style={{ color: 'var(--muted)' }}>
+                <span>Jaipur, Rajasthan · India · Remote</span>
                 <span className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C41E3A]" />
-                  Available · Q3 2026
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--accent)' }} />
+                  Open Q4 2026
                 </span>
               </div>
             </div>
           </div>
 
           {/* Scrolling right — bio text */}
-          <div className="flex flex-col gap-8 text-[clamp(17px,2vw,21px)] leading-[1.7] text-[#051A24]">
+          <div className="flex flex-col gap-8" style={{ fontSize: 'clamp(16px,1.8vw,20px)', lineHeight: 1.7, color: 'var(--text)' }}>
             <ScrollRevealParagraph
-              text="I didn't study design in a classroom. I learned it at 2am watching tutorials, rebuilding apps I loved from scratch inside Figma, failing at the details until they weren't details anymore."
+              text="I started with design. Not in a classroom — at 2am watching tutorials, rebuilding apps I loved from scratch, failing at the details until they stopped being details. The obsession was never about aesthetics. It was about understanding how things work."
             />
             <ScrollRevealParagraph
-              text="My first real project was a logo for a cousin's business. I charged nothing. The second time someone asked, I charged ₹2,000 and felt like a fraud. The third time, I raised my price, delivered better work, and realised the two things were connected."
+              text="My first paid project was a logo for a cousin's business. ₹8,000. I redid it four times. The client said stop — it was perfect after the second version. I've been learning the gap between effort and outcome ever since."
             />
             <ScrollRevealParagraph
-              text="Six years later, I've worked with over 50 clients across India, Southeast Asia, and North America. Fintech apps. SaaS dashboards. E-commerce platforms. Educational products built for millions of users. Every project taught me something the classroom never could."
+              text="Eight years later, I've built for 80+ businesses across India, Southeast Asia, and beyond. E-commerce platforms, EdTech systems, hospitality sites, NGO tools, VC portals, fintech dashboards. Every single one different. Every single one taught me something."
             />
             <ScrollRevealParagraph
-              text="In 2023, I started sharing what I was actually learning — not the curated inspiration, but the real thinking behind the work. Why certain UI patterns build trust. How to structure a design system from scratch. How to price your work without apologising for it."
+              text="When I founded Starting Core, I made a deliberate shift — from building products to solving business problems. The craft is the same. The scope is different. Now we audit first, understand the real bottleneck, and then build the exact thing that fixes it."
             />
             <ScrollRevealParagraph
-              text="That content reached 1M+ designers across Instagram, YouTube, and LinkedIn. Which told me one thing: people are hungry for truth, not just inspiration."
+              text="AI changed everything. Not because it's a silver bullet — but because it made automation accessible. Now a small business in Jaipur can have the same operational efficiency as a company 10 times its size. That's the work I'm most excited about right now."
             />
             <ScrollRevealParagraph
-              text="So I built Starting Core — a studio and education platform designed to do both. To take on projects at the highest level, and to teach others how to get there. That's the work now. That's what I'm building."
-              className="font-medium text-[#051A24]"
+              text="Starting Core is the studio. The courses, the content, the community — that's the teaching side. Both matter. Both are how I'm spending the next decade."
+              className="font-medium"
             />
           </div>
         </div>
       </section>
 
       {/* ── TIMELINE ── */}
-      <section className="py-20 md:py-32 px-6 md:px-10 bg-[#F5F3EE] border-t border-[#D8D4CB]">
+      <section className="py-20 md:py-32 px-6 md:px-10" style={{ background: 'var(--surface)', borderTop: '1px solid var(--border)' }}>
         <div className="max-w-[1320px] mx-auto">
           <div className="mb-16">
-            <div className="font-mono text-[11px] uppercase tracking-widest text-[#8A8780] mb-4">The journey</div>
-            <h2 className="text-[clamp(36px,5.5vw,72px)] leading-[0.95] tracking-tight text-[#051A24]">
-              How I{' '}
-              <em className="font-mondwest text-[#C41E3A] not-italic">got here.</em>
+            <div className="font-mono text-[11px] uppercase tracking-widest mb-4" style={{ color: 'var(--muted)' }}>
+              <span style={{ color: 'var(--accent)', marginRight: '6px' }}>··</span>The journey
+            </div>
+            <h2 className="font-syne uppercase" style={{ fontSize: 'clamp(32px,5vw,64px)', lineHeight: 0.92, letterSpacing: '-0.033em', fontWeight: 800, color: 'var(--text)' }}>
+              HOW I <span style={{ color: 'var(--accent)' }}>GOT HERE.</span>
             </h2>
           </div>
 
@@ -340,14 +341,16 @@ export default function AboutPage() {
       </section>
 
       {/* ── PRINCIPLES ── */}
-      <section className="py-20 md:py-32 px-6 md:px-10 border-t border-[#D8D4CB]">
+      <section className="py-20 md:py-32 px-6 md:px-10" style={{ borderTop: '1px solid var(--border)', background: 'var(--bg)' }}>
         <div className="max-w-[1320px] mx-auto">
           <div className="mb-16 flex items-end justify-between">
             <div>
-              <div className="font-mono text-[11px] uppercase tracking-widest text-[#8A8780] mb-4">How I think</div>
-              <h2 className="text-[clamp(36px,5.5vw,72px)] leading-[0.95] tracking-tight text-[#051A24]">
-                Four principles.{' '}
-                <em className="font-mondwest text-[#C41E3A] not-italic">No exceptions.</em>
+              <div className="font-mono text-[11px] uppercase tracking-widest mb-4" style={{ color: 'var(--muted)' }}>
+                <span style={{ color: 'var(--accent)', marginRight: '6px' }}>··</span>How I think
+              </div>
+              <h2 className="font-syne uppercase" style={{ fontSize: 'clamp(32px,5vw,64px)', lineHeight: 0.92, letterSpacing: '-0.033em', fontWeight: 800, color: 'var(--text)' }}>
+                FOUR PRINCIPLES.{' '}
+                <span style={{ color: 'var(--accent)' }}>NO EXCEPTIONS.</span>
               </h2>
             </div>
           </div>
@@ -361,34 +364,34 @@ export default function AboutPage() {
       </section>
 
       {/* ── STARTING CORE ── */}
-      <section className="bg-[#051A24] py-20 md:py-28 px-6 md:px-10">
+      <section style={{ background: 'var(--text)', padding: 'clamp(72px,8vw,112px) 24px' }}>
         <div className="max-w-[1320px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <div className="font-mono text-[11px] uppercase tracking-widest text-white/40 mb-6">The Studio</div>
-            <h2 className="text-[clamp(36px,5.5vw,64px)] leading-[0.95] tracking-tight text-white mb-6">
-              This is{' '}
-              <em className="font-mondwest text-[#C41E3A] not-italic">Starting Core.</em>
-            </h2>
-            <p className="text-base text-white/60 leading-relaxed mb-8 max-w-[44ch]">
-              A deliberately small studio. I guide the creative vision on every project, backed by a design crew that moves fast without cutting corners. We take on a handful of clients at a time so each one gets the real thing.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Button variant="secondary" href="mailto:hello@createdbymohit.com">
-                Work with us
-              </Button>
+            <div className="font-mono text-[11px] uppercase tracking-widest mb-6" style={{ color: 'rgba(247,245,240,0.4)' }}>
+              <span style={{ color: 'var(--accent)', marginRight: '6px' }}>··</span>THE STUDIO
             </div>
+            <h2 className="font-syne uppercase mb-6" style={{ fontSize: 'clamp(32px,5vw,64px)', lineHeight: 0.92, letterSpacing: '-0.033em', fontWeight: 800, color: '#F7F5F0' }}>
+              THIS IS{' '}
+              <span style={{ color: 'var(--accent)' }}>STARTING CORE.</span>
+            </h2>
+            <p style={{ fontSize: 'clamp(14px,1.4vw,16px)', lineHeight: 1.75, color: 'rgba(247,245,240,0.6)', marginBottom: '32px', maxWidth: '44ch' }}>
+              A boutique development and AI studio. Not an agency. Not a freelancer platform. We audit first, then build exactly what you need — custom software, AI systems, or automation tools.
+            </p>
+            <Link to="/starting-core" className="bracket-link" style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}>
+              [ ABOUT THE STUDIO ]
+            </Link>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             {[
-              { num: '50+', label: 'Clients served' },
-              { num: '6+', label: 'Years of craft' },
-              { num: '1M+', label: 'Community reach' },
-              { num: '₹50k', label: 'Projects start at / mo' },
+              { num: '80+', label: 'Problems solved' },
+              { num: '6+', label: 'Years building' },
+              { num: '30+', label: 'AI systems built' },
+              { num: '₹40k', label: 'Audit starts at' },
             ].map(stat => (
-              <div key={stat.label} className="bg-[#0D212C] rounded-2xl p-6 border border-white/10">
-                <div className="font-mondwest text-3xl text-white mb-1">{stat.num}</div>
-                <div className="font-mono text-[10px] uppercase tracking-widest text-white/40">{stat.label}</div>
+              <div key={stat.label} style={{ background: 'rgba(247,245,240,0.05)', borderRadius: '16px', padding: '24px', border: '1px solid rgba(247,245,240,0.08)' }}>
+                <p className="font-syne" style={{ fontSize: 'clamp(24px,3vw,36px)', fontWeight: 800, letterSpacing: '-0.03em', color: '#F7F5F0', marginBottom: '6px' }}>{stat.num}</p>
+                <p className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '0.14em', color: 'rgba(247,245,240,0.35)' }}>{stat.label}</p>
               </div>
             ))}
           </div>
@@ -396,26 +399,21 @@ export default function AboutPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-24 md:py-32 px-6 md:px-10 text-center border-t border-[#D8D4CB]">
+      <section className="py-24 md:py-32 px-6 md:px-10 text-center" style={{ borderTop: '1px solid var(--border)', background: 'var(--bg)' }}>
         <div className="max-w-[640px] mx-auto">
-          <div className="font-mono text-[11px] uppercase tracking-widest text-[#8A8780] mb-6">What's next</div>
-          <h2 className="text-[clamp(36px,6vw,72px)] leading-[0.95] tracking-tight text-[#051A24] mb-6">
-            Ready to build something{' '}
-            <em className="font-mondwest text-[#C41E3A] not-italic">worth remembering?</em>
+          <div className="font-mono text-[11px] uppercase tracking-widest mb-6" style={{ color: 'var(--muted)' }}>
+            <span style={{ color: 'var(--accent)', marginRight: '6px' }}>··</span>What's next
+          </div>
+          <h2 className="font-syne uppercase mb-6" style={{ fontSize: 'clamp(32px,5.5vw,72px)', lineHeight: 0.92, letterSpacing: '-0.033em', fontWeight: 800, color: 'var(--text)' }}>
+            TELL US WHAT'S{' '}
+            <span style={{ color: 'var(--accent)' }}>BROKEN.</span>
           </h2>
-          <p className="text-base text-[#051A24]/60 leading-relaxed mb-10">
-            Projects start at ₹50,000 per month. I take on a limited number of engagements so every client gets the full Mohit.
+          <p style={{ fontSize: 'clamp(14px,1.4vw,16px)', lineHeight: 1.75, color: 'var(--muted)', marginBottom: '40px' }}>
+            Audits start at ₹40,000. Custom builds from ₹80,000. We take on 2–3 new projects per quarter so every client gets full attention.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button variant="primary" href="mailto:hello@createdbymohit.com">
-              Start a project
-            </Button>
-            <Link
-              to="/courses"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-[#D8D4CB] text-[#051A24] text-sm font-medium hover:border-[#051A24] transition-colors"
-            >
-              Explore courses
-            </Link>
+            <Link to="/contact" className="bracket-link accent">[ START A PROJECT ]</Link>
+            <Link to="/courses" className="bracket-link">[ EXPLORE COURSES ]</Link>
           </div>
         </div>
       </section>

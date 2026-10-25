@@ -9,6 +9,7 @@ import AboutSection        from '../components/AboutSection'
 import PodcastSection      from '../components/PodcastSection'
 import TestimonialCarousel from '../components/TestimonialCarousel'
 import CourseSection       from '../components/CourseSection'
+import FAQSection          from '../components/FAQSection'
 import Footer              from '../components/Footer'
 
 export default function HomePage() {
@@ -32,6 +33,7 @@ export default function HomePage() {
       <PodcastSection />
       <TestimonialCarousel />
       <CourseSection />
+      <FAQSection />
       <Footer />
     </main>
   )

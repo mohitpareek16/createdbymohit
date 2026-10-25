@@ -9,10 +9,10 @@ import Footer from '../components/Footer'
 type InquiryType = 'project' | 'review' | 'consultation' | 'other'
 
 const INQUIRY_TYPES: { id: InquiryType; label: string; desc: string }[] = [
-  { id: 'project',      label: 'New Project',     desc: 'UI/UX design for a product, feature, or rebrand' },
-  { id: 'review',       label: 'Design Review',   desc: 'Expert feedback on your existing product or work' },
-  { id: 'consultation', label: 'Consultation',    desc: 'Strategic design advice for your team or startup' },
-  { id: 'other',        label: 'Something else',  desc: 'Press, partnerships, collaborations, anything else' },
+  { id: 'project',      label: 'Custom Development', desc: 'Build something specific that doesn\'t exist yet' },
+  { id: 'review',       label: 'Business Audit',     desc: 'Map your operation and find what\'s holding you back' },
+  { id: 'consultation', label: 'AI Integration',     desc: 'Add AI or automation to your existing workflows' },
+  { id: 'other',        label: 'Something else',     desc: 'Courses, press, partnerships, general questions' },
 ]
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
@@ -33,7 +33,13 @@ function Input({
       <FieldLabel>{label}</FieldLabel>
       <input
         type={type} name={name} placeholder={placeholder} required={required}
-        className="w-full px-4 py-3.5 rounded-xl border border-[#D8D4CB] bg-white text-[#051A24] text-sm placeholder:text-[#C8C4BC] focus:outline-none focus:border-[#051A24] transition-colors"
+        style={{
+          width: '100%', padding: '14px 16px', borderRadius: '12px',
+          border: '1px solid var(--border-strong)', background: 'var(--surface)',
+          color: 'var(--text)', fontSize: '14px', outline: 'none', transition: 'border-color 0.2s',
+        }}
+        onFocus={e => (e.currentTarget.style.borderColor = 'var(--text)')}
+        onBlur={e => (e.currentTarget.style.borderColor = 'var(--border-strong)')}
       />
     </div>
   )
@@ -45,7 +51,11 @@ function Select({ label, name, options }: { label: string; name: string; options
       <FieldLabel>{label}</FieldLabel>
       <select
         name={name}
-        className="w-full px-4 py-3.5 rounded-xl border border-[#D8D4CB] bg-white text-[#051A24] text-sm focus:outline-none focus:border-[#051A24] transition-colors appearance-none"
+        style={{
+          width: '100%', padding: '14px 16px', borderRadius: '12px',
+          border: '1px solid var(--border-strong)', background: 'var(--surface)',
+          color: 'var(--text)', fontSize: '14px', outline: 'none', appearance: 'none',
+        }}
       >
         <option value="">Select…</option>
         {options.map(o => <option key={o} value={o}>{o}</option>)}
@@ -62,7 +72,13 @@ function Textarea({ label, name, placeholder, required }: {
       <FieldLabel>{label}</FieldLabel>
       <textarea
         name={name} placeholder={placeholder} required={required} rows={5}
-        className="w-full px-4 py-3.5 rounded-xl border border-[#D8D4CB] bg-white text-[#051A24] text-sm placeholder:text-[#C8C4BC] focus:outline-none focus:border-[#051A24] transition-colors resize-none"
+        style={{
+          width: '100%', padding: '14px 16px', borderRadius: '12px',
+          border: '1px solid var(--border-strong)', background: 'var(--surface)',
+          color: 'var(--text)', fontSize: '14px', outline: 'none', resize: 'none', transition: 'border-color 0.2s',
+        }}
+        onFocus={e => (e.currentTarget.style.borderColor = 'var(--text)')}
+        onBlur={e => (e.currentTarget.style.borderColor = 'var(--border-strong)')}
       />
     </div>
   )
@@ -100,8 +116,8 @@ export default function ContactPage() {
   return (
     <main>
       <SEO
-        title="Start a Project | Mohit Pareek · Starting Core"
-        description="Get in touch to discuss a project, design audit, or AI automation system. Mohit Pareek responds to every message within 48 hours."
+        title="Start a Project | Starting Core · Mohit Pareek"
+        description="Tell us what's broken. We audit your business, find the real problem, then build the exact solution. Custom software, AI integration, automation tools. Jaipur, India."
         canonical="/contact"
       />
       <Nav />
@@ -122,19 +138,19 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 32 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[clamp(44px,7.5vw,96px)] leading-[0.9] tracking-tight text-[#051A24] mb-6"
+            className="font-syne uppercase mb-6"
+            style={{ fontSize: 'clamp(40px,6.5vw,88px)', lineHeight: 0.9, letterSpacing: '-0.035em', fontWeight: 800, color: 'var(--text)' }}
           >
-            Let's build something{' '}
-            <em className="font-mondwest text-[#C41E3A] not-italic">worth remembering.</em>
+            TELL US WHAT'S{' '}
+            <span style={{ color: 'var(--accent)' }}>BROKEN.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
             animate={heroInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-base text-[#051A24]/60 max-w-[50ch] leading-relaxed"
+            style={{ fontSize: 'clamp(14px,1.4vw,17px)', lineHeight: 1.7, color: 'var(--muted)', maxWidth: '50ch' }}
           >
-            I take on a limited number of projects each quarter so every client gets the full Mohit.
-            Projects start at ₹50,000/month.
+            We audit first, understand the real problem, then build exactly what fixes it. Audits from ₹40,000. Custom builds from ₹80,000. 2–3 new projects per quarter.
           </motion.p>
         </div>
       </section>
@@ -177,16 +193,17 @@ export default function ContactPage() {
                         key={t.id}
                         type="button"
                         onClick={() => setType(t.id)}
-                        className={`text-left p-5 rounded-2xl border transition-all duration-200 ${
-                          type === t.id
-                            ? 'border-[#051A24] bg-[#051A24] text-white'
-                            : 'border-[#D8D4CB] bg-white text-[#051A24] hover:border-[#051A24]/50'
-                        }`}
+                        style={{
+                          textAlign: 'left', padding: '20px', borderRadius: '16px',
+                          border: type === t.id ? '1px solid var(--accent)' : '1px solid var(--border-strong)',
+                          background: type === t.id ? 'var(--accent)' : 'var(--surface)',
+                          cursor: 'pointer', transition: 'all 0.2s',
+                        }}
                       >
-                        <div className={`font-medium text-sm mb-1.5 ${type === t.id ? 'text-white' : 'text-[#051A24]'}`}>
+                        <div style={{ fontWeight: 500, fontSize: '14px', marginBottom: '6px', color: type === t.id ? '#fff' : 'var(--text)' }}>
                           {t.label}
                         </div>
-                        <div className={`text-xs leading-relaxed ${type === t.id ? 'text-white/55' : 'text-[#051A24]/45'}`}>
+                        <div style={{ fontSize: '12px', lineHeight: 1.5, color: type === t.id ? 'rgba(255,255,255,0.65)' : 'var(--muted)' }}>
                           {t.desc}
                         </div>
                       </button>
@@ -232,11 +249,9 @@ export default function ContactPage() {
                   <div className="flex items-center gap-4 pt-2">
                     <button
                       type="submit"
-                      className="inline-flex items-center gap-2 bg-[#051A24] text-white rounded-full px-7 py-4 text-sm font-medium hover:bg-[#C41E3A] transition-colors"
-                      style={{ boxShadow: '0 1px 2px rgba(5,26,36,0.1), 0 4px 4px rgba(5,26,36,0.09), inset 0 2px 8px rgba(255,255,255,0.05)' }}
+                      className="bracket-link accent"
                     >
-                      Send message
-                      <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+                      [ Send Message ]
                     </button>
                     <span className="text-xs text-[#8A8780]">Opens in your email client</span>
                   </div>
@@ -251,18 +266,18 @@ export default function ContactPage() {
             <div className="p-6 rounded-2xl bg-[#F5F3EE] border border-[#D8D4CB]">
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#C41E3A] animate-pulse" />
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#C41E3A]">
-                  Available Q3 2026
+                <span className="font-mono text-[10px] uppercase tracking-widest" style={{ color: 'var(--accent)' }}>
+                  Open Q4 2026
                 </span>
               </div>
-              <p className="text-sm text-[#051A24]/65 leading-relaxed">
-                Currently accepting new projects starting July 2026. I typically respond to all inquiries within 24 hours.
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
+                Taking 2–3 new projects this quarter. Audits can start within 1 week. I respond to every inquiry within 24–48 hours.
               </p>
             </div>
 
             {/* Direct */}
-            <div className="p-6 rounded-2xl border border-[#D8D4CB]">
-              <div className="font-mono text-[10px] uppercase tracking-widest text-[#8A8780] mb-4">
+            <div className="p-6 rounded-2xl" style={{ border: '1px solid var(--border)' }}>
+              <div className="font-mono text-[10px] uppercase tracking-widest mb-4" style={{ color: 'var(--muted)' }}>
                 Direct contact
               </div>
               <a
