@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useInView } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
 import Nav from '../components/Nav'
 import SEO from '../components/SEO'
 import Footer from '../components/Footer'
@@ -88,33 +87,65 @@ function TestimonialCard({ t, index }: { t: typeof TESTIMONIALS[0]; index: numbe
       initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: (index % 3) * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className={`rounded-2xl border border-[#D8D4CB] p-7 flex flex-col ${isLarge ? 'bg-[#051A24]' : 'bg-white'}`}
+      style={{
+        borderRadius: '16px',
+        border: isLarge ? '1px solid rgba(247,245,240,0.08)' : '1px solid var(--border)',
+        padding: '28px',
+        display: 'flex',
+        flexDirection: 'column',
+        background: isLarge ? 'var(--text)' : 'var(--surface)',
+      }}
     >
-      <div className="mb-4">
-        <span className={`inline-block font-mono text-[9px] uppercase tracking-widest px-2.5 py-1 rounded-full border ${
-          isLarge
-            ? 'text-[#C41E3A] border-[#C41E3A]/30'
-            : 'text-[#8A8780] border-[#D8D4CB]'
-        }`}>
+      <div style={{ marginBottom: '16px' }}>
+        <span className="font-mono uppercase" style={{
+          display: 'inline-block',
+          fontSize: '9px',
+          letterSpacing: '0.15em',
+          padding: '4px 10px',
+          borderRadius: '999px',
+          border: isLarge ? '1px solid rgba(196,30,58,0.3)' : '1px solid var(--border)',
+          color: isLarge ? 'var(--accent)' : 'var(--muted)',
+        }}>
           {t.category}
         </span>
       </div>
 
-      <blockquote className={`flex-1 leading-relaxed mb-6 ${
-        isSmall ? 'text-sm' : isLarge ? 'text-lg' : 'text-base'
-      } ${isLarge ? 'text-white/85' : 'text-[#051A24]/80'}`}>
+      <blockquote style={{
+        flex: 1,
+        lineHeight: 1.7,
+        marginBottom: '24px',
+        fontSize: isSmall ? '14px' : isLarge ? '17px' : '15px',
+        color: isLarge ? 'rgba(247,245,240,0.82)' : 'var(--text)',
+        fontStyle: 'normal',
+      }}>
         "{t.quote}"
       </blockquote>
 
-      <div className={`flex items-center gap-3 pt-5 border-t ${isLarge ? 'border-white/10' : 'border-[#D8D4CB]'}`}>
-        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-medium flex-shrink-0 ${
-          isLarge ? 'bg-white/10 text-white' : 'bg-[#F5F3EE] text-[#051A24]'
-        }`}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '12px',
+        paddingTop: '20px',
+        borderTop: isLarge ? '1px solid rgba(247,245,240,0.08)' : '1px solid var(--border)',
+      }}>
+        <div style={{
+          width: '32px',
+          height: '32px',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '12px',
+          fontWeight: 500,
+          flexShrink: 0,
+          background: isLarge ? 'rgba(247,245,240,0.08)' : 'var(--surface-2)',
+          color: isLarge ? '#F7F5F0' : 'var(--text)',
+        }}>
           {t.name.charAt(0)}
         </div>
         <div>
-          <div className={`text-sm font-medium ${isLarge ? 'text-white' : 'text-[#051A24]'}`}>{t.name}</div>
-          <div className={`text-xs ${isLarge ? 'text-white/40' : 'text-[#8A8780]'}`}>
+          <div style={{ fontSize: '14px', fontWeight: 500, color: isLarge ? '#F7F5F0' : 'var(--text)' }}>{t.name}</div>
+          <div style={{ fontSize: '12px', color: isLarge ? 'rgba(247,245,240,0.35)' : 'var(--muted)' }}>
             {t.role} · {t.company}
           </div>
         </div>
@@ -128,55 +159,58 @@ export default function TestimonialsPage() {
   const heroInView = useInView(heroRef, { once: true })
 
   return (
-    <main>
+    <main style={{ background: 'var(--bg)' }}>
       <SEO
-        title="Client Testimonials | Mohit Pareek · Starting Core"
-        description="What clients say about working with Mohit Pareek and Starting Core — design, automation, and product work for startups and businesses across India."
+        title="Client Testimonials — What People Say | Starting Core · Mohit Pareek"
+        description="Founders, CTOs, and product leads who've worked with Starting Core on custom development, AI integration, and business audits. Real results, real quotes."
         canonical="/testimonials"
       />
       <Nav />
 
       {/* ── HERO ── */}
-      <section className="pt-40 pb-16 px-6 md:px-10 border-b border-[#D8D4CB]">
+      <section style={{ paddingTop: 'clamp(120px,15vw,180px)', paddingBottom: 'clamp(48px,5vw,80px)', paddingInline: '24px', borderBottom: '1px solid var(--border)', background: 'var(--bg)' }}>
         <div className="max-w-[1320px] mx-auto" ref={heroRef}>
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="font-mono text-[11px] uppercase tracking-widest text-[#8A8780] mb-6"
+            transition={{ duration: 0.45 }}
+            className="font-mono uppercase"
+            style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: '20px' }}
           >
-            Client feedback · Social proof
-          </motion.div>
+            <span style={{ color: 'var(--accent)', marginRight: '6px' }}>··</span>CLIENT FEEDBACK · SOCIAL PROOF
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 32 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[clamp(44px,7.5vw,96px)] leading-[0.9] tracking-tight text-[#051A24] mb-6"
+            className="font-syne uppercase"
+            style={{ fontSize: 'clamp(44px,7.5vw,96px)', lineHeight: 0.9, letterSpacing: '-0.035em', fontWeight: 800, color: 'var(--text)', marginBottom: '24px' }}
           >
-            What clients{' '}
-            <em className="font-mondwest text-[#C41E3A] not-italic">actually say.</em>
+            WHAT PEOPLE{' '}
+            <span style={{ color: 'var(--accent)' }}>SAY.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
             animate={heroInView ? { opacity: 1 } : {}}
             transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-base text-[#051A24]/60 max-w-[50ch] leading-relaxed"
+            style={{ fontSize: 'clamp(14px,1.4vw,17px)', lineHeight: 1.7, color: 'var(--muted)', maxWidth: '50ch' }}
           >
-            Founders, product leads, and designers who've worked with me directly.
-            No PR-polished quotes — what they told me.
+            Founders, product leads, and business owners who've worked with us directly. No PR polish — exactly what they said.
           </motion.p>
         </div>
       </section>
 
       {/* ── LOGOS ── */}
-      <section className="py-10 px-6 md:px-10 border-b border-[#D8D4CB] overflow-hidden">
+      <section style={{ padding: '28px 24px', borderBottom: '1px solid var(--border)', background: 'var(--surface)', overflow: 'hidden' }}>
         <div className="max-w-[1320px] mx-auto">
-          <div className="flex flex-wrap items-center gap-x-10 gap-y-4">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#8A8780] flex-shrink-0">
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '32px 40px' }}>
+            <span className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '0.18em', color: 'var(--subtle)', flexShrink: 0 }}>
               Clients include
             </span>
             {LOGOS.map(logo => (
-              <span key={logo} className="font-medium text-[#051A24]/40 text-sm hover:text-[#051A24]/70 transition-colors cursor-default">
+              <span key={logo} style={{ fontSize: '14px', fontWeight: 500, color: 'var(--muted)', cursor: 'default', transition: 'color 0.2s' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'var(--text)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted)')}>
                 {logo}
               </span>
             ))}
@@ -185,7 +219,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* ── GRID ── */}
-      <section className="py-16 md:py-24 px-6 md:px-10">
+      <section style={{ padding: 'clamp(56px,6vw,96px) 24px', background: 'var(--bg)' }}>
         <div className="max-w-[1320px] mx-auto">
           <div className="columns-1 md:columns-2 lg:columns-3 gap-5 space-y-5">
             {TESTIMONIALS.map((t, i) => (
@@ -198,27 +232,23 @@ export default function TestimonialsPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-20 px-6 md:px-10 bg-[#F5F3EE] border-t border-[#D8D4CB]">
-        <div className="max-w-[1320px] mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <section style={{ padding: 'clamp(56px,6vw,88px) 24px', background: 'var(--text)', borderTop: '1px solid var(--border)' }}>
+        <div className="max-w-[1320px] mx-auto" style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
           <div>
-            <h2 className="text-[clamp(24px,4vw,48px)] leading-[1.1] tracking-tight text-[#051A24] max-w-[20ch]">
-              Want results like these?{' '}
-              <em className="font-mondwest text-[#C41E3A] not-italic">Let's talk.</em>
+            <p className="font-mono uppercase" style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'rgba(247,245,240,0.3)', marginBottom: '16px' }}>
+              <span style={{ color: 'var(--accent)', marginRight: '6px' }}>··</span>WANT RESULTS LIKE THESE?
+            </p>
+            <h2 className="font-syne uppercase" style={{ fontSize: 'clamp(28px,4.5vw,60px)', lineHeight: 0.92, letterSpacing: '-0.033em', fontWeight: 800, color: '#F7F5F0' }}>
+              LET'S SOLVE YOUR{' '}
+              <span style={{ color: 'var(--accent)' }}>SPECIFIC PROBLEM.</span>
             </h2>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 bg-[#051A24] text-white rounded-full px-7 py-4 text-sm font-medium hover:bg-[#C41E3A] transition-colors"
-            >
-              Start a project
-              <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+            <Link to="/contact" className="bracket-link" style={{ borderColor: 'var(--accent)', color: 'var(--accent)' }}>
+              [ START A PROJECT ]
             </Link>
-            <Link
-              to="/book"
-              className="inline-flex items-center gap-2 border border-[#D8D4CB] text-[#051A24] rounded-full px-7 py-4 text-sm font-medium hover:border-[#051A24] transition-colors"
-            >
-              Book a call first
+            <Link to="/book" className="bracket-link" style={{ borderColor: 'rgba(247,245,240,0.2)', color: '#F7F5F0' }}>
+              [ BOOK A CALL ]
             </Link>
           </div>
         </div>

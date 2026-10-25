@@ -33,7 +33,13 @@ function Input({
       <FieldLabel>{label}</FieldLabel>
       <input
         type={type} name={name} placeholder={placeholder} required={required}
-        className="w-full px-4 py-3.5 rounded-xl border border-[#D8D4CB] bg-white text-[#051A24] text-sm placeholder:text-[#C8C4BC] focus:outline-none focus:border-[#051A24] transition-colors"
+        style={{
+          width: '100%', padding: '14px 16px', borderRadius: '12px',
+          border: '1px solid var(--border-strong)', background: 'var(--surface)',
+          color: 'var(--text)', fontSize: '14px', outline: 'none', transition: 'border-color 0.2s',
+        }}
+        onFocus={e => (e.currentTarget.style.borderColor = 'var(--text)')}
+        onBlur={e => (e.currentTarget.style.borderColor = 'var(--border-strong)')}
       />
     </div>
   )
@@ -45,7 +51,11 @@ function Select({ label, name, options }: { label: string; name: string; options
       <FieldLabel>{label}</FieldLabel>
       <select
         name={name}
-        className="w-full px-4 py-3.5 rounded-xl border border-[#D8D4CB] bg-white text-[#051A24] text-sm focus:outline-none focus:border-[#051A24] transition-colors appearance-none"
+        style={{
+          width: '100%', padding: '14px 16px', borderRadius: '12px',
+          border: '1px solid var(--border-strong)', background: 'var(--surface)',
+          color: 'var(--text)', fontSize: '14px', outline: 'none', appearance: 'none',
+        }}
       >
         <option value="">Select…</option>
         {options.map(o => <option key={o} value={o}>{o}</option>)}
@@ -62,7 +72,13 @@ function Textarea({ label, name, placeholder, required }: {
       <FieldLabel>{label}</FieldLabel>
       <textarea
         name={name} placeholder={placeholder} required={required} rows={5}
-        className="w-full px-4 py-3.5 rounded-xl border border-[#D8D4CB] bg-white text-[#051A24] text-sm placeholder:text-[#C8C4BC] focus:outline-none focus:border-[#051A24] transition-colors resize-none"
+        style={{
+          width: '100%', padding: '14px 16px', borderRadius: '12px',
+          border: '1px solid var(--border-strong)', background: 'var(--surface)',
+          color: 'var(--text)', fontSize: '14px', outline: 'none', resize: 'none', transition: 'border-color 0.2s',
+        }}
+        onFocus={e => (e.currentTarget.style.borderColor = 'var(--text)')}
+        onBlur={e => (e.currentTarget.style.borderColor = 'var(--border-strong)')}
       />
     </div>
   )
@@ -177,16 +193,17 @@ export default function ContactPage() {
                         key={t.id}
                         type="button"
                         onClick={() => setType(t.id)}
-                        className={`text-left p-5 rounded-2xl border transition-all duration-200 ${
-                          type === t.id
-                            ? 'border-[#051A24] bg-[#051A24] text-white'
-                            : 'border-[#D8D4CB] bg-white text-[#051A24] hover:border-[#051A24]/50'
-                        }`}
+                        style={{
+                          textAlign: 'left', padding: '20px', borderRadius: '16px',
+                          border: type === t.id ? '1px solid var(--accent)' : '1px solid var(--border-strong)',
+                          background: type === t.id ? 'var(--accent)' : 'var(--surface)',
+                          cursor: 'pointer', transition: 'all 0.2s',
+                        }}
                       >
-                        <div className={`font-medium text-sm mb-1.5 ${type === t.id ? 'text-white' : 'text-[#051A24]'}`}>
+                        <div style={{ fontWeight: 500, fontSize: '14px', marginBottom: '6px', color: type === t.id ? '#fff' : 'var(--text)' }}>
                           {t.label}
                         </div>
-                        <div className={`text-xs leading-relaxed ${type === t.id ? 'text-white/55' : 'text-[#051A24]/45'}`}>
+                        <div style={{ fontSize: '12px', lineHeight: 1.5, color: type === t.id ? 'rgba(255,255,255,0.65)' : 'var(--muted)' }}>
                           {t.desc}
                         </div>
                       </button>
@@ -232,11 +249,9 @@ export default function ContactPage() {
                   <div className="flex items-center gap-4 pt-2">
                     <button
                       type="submit"
-                      className="inline-flex items-center gap-2 bg-[#051A24] text-white rounded-full px-7 py-4 text-sm font-medium hover:bg-[#C41E3A] transition-colors"
-                      style={{ boxShadow: '0 1px 2px rgba(5,26,36,0.1), 0 4px 4px rgba(5,26,36,0.09), inset 0 2px 8px rgba(255,255,255,0.05)' }}
+                      className="bracket-link accent"
                     >
-                      Send message
-                      <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
+                      [ Send Message ]
                     </button>
                     <span className="text-xs text-[#8A8780]">Opens in your email client</span>
                   </div>

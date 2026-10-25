@@ -23,17 +23,17 @@
   font-display: swap;
 }
 
-/* ─── Design tokens (light theme) ────────────────────────────── */
+/* ─── Design tokens (dark theme) ────────────────────────────── */
 :root {
-  --bg:           #F7F5F0;
-  --surface:      #EFEDE8;
-  --surface-2:    #E5E3DC;
-  --border:       rgba(0, 0, 0, 0.08);
-  --border-strong: rgba(0, 0, 0, 0.14);
+  --bg:           #0A0A0A;
+  --surface:      #141414;
+  --surface-2:    #1C1C1C;
+  --border:       rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
   --accent:       #C41E3A;
-  --text:         #0C0C0A;
-  --muted:        rgba(12, 12, 10, 0.45);
-  --subtle:       rgba(12, 12, 10, 0.22);
+  --text:         #F5F3EE;
+  --muted:        rgba(245, 243, 238, 0.45);
+  --subtle:       rgba(245, 243, 238, 0.22);
 
   --font-display: 'Syne', system-ui, sans-serif;
   --font-body:    'Inter', 'PP Neue Montreal', system-ui, sans-serif;
@@ -48,7 +48,7 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 body {
