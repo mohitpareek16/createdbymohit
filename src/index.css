@@ -23,21 +23,34 @@
   font-display: swap;
 }
 
-/* ─── Design tokens (dark theme) ────────────────────────────── */
+/* ─── Design tokens — paper & ink sketchbook ─────────────────── */
 :root {
-  --bg:           #0A0A0A;
-  --surface:      #141414;
-  --surface-2:    #1C1C1C;
-  --border:       rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.15);
-  --accent:       #C41E3A;
-  --text:         #F5F3EE;
-  --muted:        rgba(245, 243, 238, 0.45);
-  --subtle:       rgba(245, 243, 238, 0.22);
+  --paper:        #F4EFE6;
+  --paper-2:      #ECE5D8;
+  --card:         #FBF8F2;
+  --ink:          #1B1A17;
+  --ink-soft:     rgba(27, 26, 23, 0.66);
+  --ink-faint:    rgba(27, 26, 23, 0.38);
+  --rule:         rgba(43, 76, 155, 0.10);
+  --red:          #C41E3A;
+  --blue:         #2B4C9B;
+  --highlight:    #F6D365;
 
-  --font-display: 'Syne', system-ui, sans-serif;
-  --font-body:    'Inter', 'PP Neue Montreal', system-ui, sans-serif;
-  --font-mono:    ui-monospace, 'SF Mono', 'Fira Code', monospace;
+  /* aliases the rest of the site reads */
+  --bg:           var(--paper);
+  --surface:      var(--card);
+  --surface-2:    var(--paper-2);
+  --border:       rgba(27, 26, 23, 0.14);
+  --border-strong: rgba(27, 26, 23, 0.30);
+  --accent:       var(--red);
+  --text:         var(--ink);
+  --muted:        var(--ink-soft);
+  --subtle:       var(--ink-faint);
+
+  --font-display: 'Instrument Serif', 'Times New Roman', Georgia, serif;
+  --font-hand:    'Caveat', 'Bradley Hand', 'Segoe Print', cursive;
+  --font-body:    'Inter', system-ui, sans-serif;
+  --font-mono:    'Courier Prime', 'Courier New', ui-monospace, monospace;
 }
 
 * {
@@ -48,77 +61,97 @@
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
+  overflow-x: clip;
 }
 
 body {
   font-family: var(--font-body);
-  background: var(--bg);
-  color: var(--text);
+  background-color: var(--paper);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
-/* Subtle grain texture */
+/* Paper fibre grain */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1000;
-  opacity: 0.025;
-  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.09;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.28  0 0 0 0 0.18  0 0 0 0.55 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
   mix-blend-mode: multiply;
 }
 
 ::selection {
-  background: var(--accent);
-  color: #ffffff;
+  background: var(--highlight);
+  color: var(--ink);
 }
 
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
 /* ─── Typography helpers ─────────────────────────────────────── */
-.font-mondwest { font-family: 'PP Mondwest', Georgia, 'Times New Roman', serif; }
-.font-syne     { font-family: var(--font-display); }
-.font-inter    { font-family: var(--font-body); }
+.font-display, .font-syne, .font-mondwest {
+  font-family: var(--font-display) !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.02em;
+}
+.font-hand  { font-family: var(--font-hand); }
+.font-inter { font-family: var(--font-body); }
+.font-mono  { font-family: var(--font-mono) !important; }
+
+h1, h2, h3 { text-wrap: balance; }
 
 :lang(hi) { font-family: 'Noto Sans Devanagari', var(--font-body); }
 :lang(ar) { font-family: 'Noto Sans Arabic', var(--font-body); direction: rtl; }
 :lang(zh) { font-family: 'Noto Sans SC', var(--font-body); }
 :lang(ja) { font-family: 'Noto Sans JP', var(--font-body); }
 
-/* ─── Bracket link ───────────────────────────────────────────── */
+/* ─── Hand-drawn border (wobbly radius trick) ────────────────── */
+.sketch-border {
+  border: 1.6px solid var(--ink);
+  border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+}
+.sketch-border-alt {
+  border: 1.6px solid var(--ink);
+  border-radius: 18px 225px 18px 255px / 255px 18px 225px 18px;
+}
+
+/* ─── Bracket link → hand-drawn pill button ──────────────────── */
 .bracket-link {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  border: 1px solid var(--border-strong);
-  border-radius: 9999px;
-  padding: 10px 20px;
+  font-family: var(--font-hand);
+  font-size: 22px !important;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+  border: 1.8px solid var(--ink) !important;
+  border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+  padding: 10px 22px 12px !important;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  color: var(--ink) !important;
+  background: transparent;
+  box-shadow: 3px 4px 0 0 var(--ink);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
   cursor: pointer;
-  color: var(--text);
 }
 .bracket-link:hover {
-  background: var(--text);
-  color: var(--bg);
-  border-color: var(--text);
+  transform: translate(2px, 3px) rotate(-0.6deg);
+  box-shadow: 1px 1px 0 0 var(--ink);
+  background: var(--highlight);
 }
 .bracket-link.accent {
-  border-color: var(--accent);
-  color: var(--accent);
+  background: var(--red);
+  color: #FBF8F2 !important;
+  border-color: var(--ink) !important;
 }
-.bracket-link.accent:hover {
-  background: var(--accent);
-  color: #fff;
-}
+.bracket-link.accent:hover { background: #A8172F; }
 
 /* ─── GSAP clip containers ───────────────────────────────────── */
 .line-reveal    { overflow: hidden; display: block; }
@@ -210,8 +243,8 @@ img { max-width: 100%; display: block; }
 }
 
 /* ─── Scrollbar ──────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--paper); }
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
 
 /* ─── Hero pulse ─────────────────────────────────────────────── */
@@ -242,3 +275,70 @@ img { max-width: 100%; display: block; }
 }
 .snap-x-scroll::-webkit-scrollbar { display: none; }
 .snap-x-scroll > * { scroll-snap-align: start; flex-shrink: 0; }
+
+/* ─── Sketchbook utilities ───────────────────────────────────── */
+.ruled {
+  background-image:
+    linear-gradient(to right, transparent 0, transparent 46px, rgba(196,30,58,0.35) 46px, rgba(196,30,58,0.35) 47.5px, transparent 47.5px),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 31px, var(--rule) 31px, var(--rule) 32px);
+}
+.graph-paper {
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.tape {
+  position: absolute;
+  width: 92px;
+  height: 26px;
+  background: rgba(246, 211, 101, 0.55);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+  backdrop-filter: blur(1px);
+  clip-path: polygon(3% 0, 97% 4%, 100% 50%, 96% 100%, 2% 96%, 0 45%);
+  z-index: 3;
+}
+.paper-shadow { box-shadow: 0 1px 1px rgba(27,26,23,0.06), 0 10px 24px -8px rgba(27,26,23,0.18); }
+.ink-section { background: var(--ink); color: var(--paper); }
+
+.hand-label {
+  font-family: var(--font-hand);
+  color: var(--red);
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1;
+  font-weight: 500;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.sketch-link {
+  background-image: linear-gradient(var(--red), var(--red));
+  background-size: 0% 2px;
+  background-repeat: no-repeat;
+  background-position: 0 92%;
+  transition: background-size 0.35s ease;
+}
+.sketch-link:hover { background-size: 100% 2px; }
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-1.2deg); }
+  50%      { transform: rotate(1.2deg); }
+}
+.wobble { animation: wobble 3.6s ease-in-out infinite; }
+
+@keyframes boil {
+  0%   { filter: url(#boil-0); }
+  33%  { filter: url(#boil-1); }
+  66%  { filter: url(#boil-2); }
+  100% { filter: url(#boil-0); }
+}
+.boil { animation: boil 0.36s steps(1) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wobble, .boil, .marquee-track, .marquee-track-reverse { animation: none !important; }
+}

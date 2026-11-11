@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Check } from 'lucide-react'
-
-gsap.registerPlugin(ScrollTrigger)
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import RoughBox, { RED, INK } from './sketch/RoughBox'
+import Doodle from './sketch/Doodle'
+import Mark from './sketch/Mark'
 
 const CURRICULUM = [
   'Visual hierarchy & design psychology',
@@ -16,160 +15,92 @@ const CURRICULUM = [
 export default function CourseSection() {
   const [email, setEmail] = useState('')
   const [joined, setJoined] = useState(false)
-  const sectionRef = useRef<HTMLElement>(null)
-  const contentRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const children = contentRef.current?.children
-      if (children && children.length > 0) {
-        gsap.fromTo(
-          Array.from(children),
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            stagger: 0.1,
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 80%',
-              toggleActions: 'play none none none',
-            },
-          }
-        )
-      }
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
 
   return (
-    <section
-      id="course"
-      ref={sectionRef}
-      className="relative py-20 md:py-28 px-6 md:px-10 overflow-hidden"
-      style={{
-        background: '#0D0D0D',
-        borderTop: '1px solid rgba(255,255,255,0.06)',
-      }}
-    >
-      {/* Glow */}
-      <div
-        className="absolute top-0 right-0 pointer-events-none"
-        style={{
-          width: '500px',
-          height: '500px',
-          background: 'rgba(196,30,58,0.12)',
-          borderRadius: '50%',
-          filter: 'blur(100px)',
-          transform: 'translate(30%, -30%)',
-        }}
-      />
-
-      <div ref={contentRef} className="max-w-[1200px] mx-auto relative">
-        {/* Eyebrow */}
-        <div
-          className="flex items-center gap-3 font-mono uppercase text-[#C41E3A] mb-8 opacity-0"
-          style={{ fontSize: '10px', letterSpacing: '0.18em' }}
-        >
-          <span style={{ width: '24px', height: '1px', background: '#C41E3A', display: 'inline-block' }} />
-          LAUNCHING SOON · 2026
+    <section id="course" style={{ padding: 'clamp(80px, 9vw, 140px) 0', background: 'var(--paper-2)' }}>
+      <div style={{
+        maxWidth: 1280, margin: '0 auto',
+        paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
+        paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
+          <Doodle name="star" size={26} color={RED} fill={RED} strokeWidth={1.6} />
+          <span className="eyebrow" style={{ color: RED }}>Launching soon · 2026</span>
         </div>
-
-        {/* Heading */}
-        <h2
-          className="text-white font-bold uppercase tracking-tight mb-10 max-w-[15ch] opacity-0"
-          style={{
-            fontSize: 'clamp(36px, 6vw, 88px)',
-            lineHeight: 0.92,
-            letterSpacing: '-0.02em',
-          }}
-        >
-          THE UI/UX MASTERCLASS I WISH I HAD.
+        <h2 className="font-display" style={{ fontSize: 'clamp(46px, 6.5vw, 100px)', lineHeight: 0.95, letterSpacing: '-0.03em', maxWidth: '15ch', marginBottom: 'clamp(40px, 5vw, 72px)' }}>
+          The UI/UX masterclass <em><Mark type="highlight" iterations={1} padding={[0, 6]}>I wish I had.</Mark></em>
         </h2>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-12 md:gap-16 items-start opacity-0">
-          {/* Left */}
+        <div className="course-grid">
           <div>
-            <p
-              className="text-white/55 leading-relaxed mb-8"
-              style={{ fontSize: 'clamp(15px, 1.6vw, 18px)', lineHeight: 1.75 }}
-            >
+            <p style={{ fontSize: 'clamp(17px, 1.5vw, 19px)', lineHeight: 1.7, color: 'var(--ink-soft)', marginBottom: 32, maxWidth: '50ch' }}>
               A complete UI/UX course built from six years of shipping products and 5,000+ designs. No fluff — just the{' '}
-              <strong className="text-white font-medium">psychology, principles and process</strong>{' '}
+              <strong style={{ color: 'var(--ink)', fontWeight: 600 }}>psychology, principles and process</strong>{' '}
               that separate designers who get hired from designers who get scrolled past.
             </p>
-            <div className="flex flex-col gap-4">
-              {CURRICULUM.map((item) => (
-                <div key={item} className="flex items-center gap-3 text-white/65 text-sm">
-                  <span
-                    className="w-5 h-5 rounded-full flex items-center justify-center flex-none"
-                    style={{ background: 'rgba(196,30,58,0.18)' }}
-                  >
-                    <Check className="w-3 h-3 text-[#C41E3A]" strokeWidth={2.5} />
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {CURRICULUM.map((item, i) => (
+                <motion.li key={item}
+                  initial={{ opacity: 0, x: -14 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                  <span style={{ position: 'relative', width: 30, height: 30, flexShrink: 0 }}>
+                    <span className="sketch-border" style={{ position: 'absolute', inset: 3, borderWidth: 1.6 }} />
+                    <Doodle name="check" size={30} color={RED} strokeWidth={3} delay={0.3 + i * 0.15} duration={0.5}
+                      style={{ position: 'absolute', left: 4, top: -6 }} />
                   </span>
-                  {item}
-                </div>
+                  <span className="font-hand" style={{ fontSize: 'clamp(24px, 2.2vw, 28px)', lineHeight: 1.1 }}>{item}</span>
+                </motion.li>
               ))}
-            </div>
+            </ul>
           </div>
 
-          {/* Right - waitlist form */}
-          <div
-            style={{
-              border: '1px solid rgba(255,255,255,0.1)',
-              borderRadius: '20px',
-              padding: '32px',
-              background: 'rgba(255,255,255,0.03)',
-            }}
-          >
-            <label
-              className="block font-mono uppercase text-white/35 mb-4"
-              style={{ fontSize: '9px', letterSpacing: '0.2em' }}
-            >
-              Be first on the waitlist
-            </label>
-            <div className="flex gap-2 mb-4">
-              <input
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                className="flex-1 bg-transparent text-white text-sm placeholder-white/25 outline-none focus:border-[#C41E3A] transition-colors"
-                style={{
-                  border: '1px solid rgba(255,255,255,0.15)',
-                  borderRadius: '9999px',
-                  padding: '10px 18px',
-                }}
-              />
-              <button
-                onClick={() => { if (email) setJoined(true) }}
-                disabled={joined}
-                className="text-white text-sm font-medium transition-colors"
-                style={{
-                  background: joined ? 'rgba(196,30,58,0.5)' : '#C41E3A',
-                  borderRadius: '9999px',
-                  padding: '10px 22px',
-                  border: 'none',
-                  cursor: joined ? 'default' : 'pointer',
-                  whiteSpace: 'nowrap',
-                  opacity: joined ? 0.7 : 1,
-                }}
-              >
-                {joined ? "You're in ✓" : 'Join'}
-              </button>
-            </div>
-            <p
-              className="font-mono text-white/30 leading-relaxed"
-              style={{ fontSize: '9px', letterSpacing: '0.1em', lineHeight: 1.7 }}
-            >
-              Early access · Founding-member pricing · One email a week, never spam.
-            </p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30, rotate: 0 }}
+            whileInView={{ opacity: 1, y: 0, rotate: 1 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{ position: 'relative' }}>
+            <span className="tape" style={{ top: -12, left: 30, transform: 'rotate(-5deg)' }} />
+            <RoughBox fill="#FBF8F2" fillStyle="solid" strokeWidth={1.6}>
+              <form onSubmit={e => { e.preventDefault(); if (email) setJoined(true) }} style={{ padding: 'clamp(26px, 3vw, 38px)' }}>
+                <label htmlFor="waitlist-email" className="font-display" style={{ display: 'block', fontSize: 32, lineHeight: 1.05, marginBottom: 6 }}>
+                  Be first on the waitlist
+                </label>
+                <p className="font-hand" style={{ fontSize: 22, color: 'var(--ink-soft)', marginBottom: 22 }}>founding-member pricing, promise ✌</p>
+                {joined ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0' }}>
+                    <Doodle name="check" size={38} color={RED} strokeWidth={3.2} />
+                    <p className="font-hand" style={{ fontSize: 30 }}>You're in! Talk soon.</p>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                    <input id="waitlist-email" type="email" required value={email} onChange={e => setEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      style={{
+                        flex: '1 1 200px', minWidth: 0, background: 'transparent', outline: 'none',
+                        border: 'none', borderBottom: `2px solid ${INK}`,
+                        fontFamily: 'var(--font-hand)', fontSize: 26, padding: '6px 2px', color: INK,
+                      }} />
+                    <button type="submit" className="bracket-link accent" style={{ fontSize: 22 }}>Join →</button>
+                  </div>
+                )}
+                <p className="eyebrow" style={{ fontSize: 10, marginTop: 22, lineHeight: 1.8 }}>
+                  Early access · Founding-member pricing · One email a week, never spam.
+                </p>
+              </form>
+            </RoughBox>
+          </motion.div>
         </div>
       </div>
+
+      <style>{`
+        .course-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 88px); align-items: center; }
+        #waitlist-email::placeholder { color: rgba(27,26,23,0.35); }
+        @media (max-width: 900px) { .course-grid { grid-template-columns: 1fr; } }
+      `}</style>
     </section>
   )
 }

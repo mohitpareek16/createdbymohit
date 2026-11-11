@@ -1,166 +1,84 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { motion } from 'framer-motion'
+import Doodle from './sketch/Doodle'
+import { RED } from './sketch/RoughBox'
 
-gsap.registerPlugin(ScrollTrigger)
-
-// Update YOUTUBE_URL with your actual channel URL
 const YOUTUBE_URL = 'https://www.youtube.com/@createdbymohit'
 
 const EPISODES = [
-  {
-    num: '01',
-    title: 'How I Got My First Design Client Without a Portfolio',
-    duration: 'Watch on YouTube',
-  },
-  {
-    num: '02',
-    title: 'The Truth About Freelance Design in India',
-    duration: 'Watch on YouTube',
-  },
-  {
-    num: '03',
-    title: 'Design Systems for Startups: What Actually Works',
-    duration: 'Watch on YouTube',
-  },
-  {
-    num: '04',
-    title: 'Stop Learning Design. Start Doing Design.',
-    duration: 'Watch on YouTube',
-  },
-  {
-    num: '05',
-    title: 'How to Price Yourself as a Designer in 2024',
-    duration: 'Watch on YouTube',
-  },
-  {
-    num: '06',
-    title: 'From Student to Studio: Building Starting Core',
-    duration: 'Watch on YouTube',
-  },
+  { num: '01', title: 'How I Got My First Design Client Without a Portfolio' },
+  { num: '02', title: 'The Truth About Freelance Design in India' },
+  { num: '03', title: 'Design Systems for Startups: What Actually Works' },
+  { num: '04', title: 'Stop Learning Design. Start Doing Design.' },
+  { num: '05', title: 'How to Price Yourself as a Designer in 2024' },
+  { num: '06', title: 'From Student to Studio: Building Starting Core' },
 ]
 
+const PAPER = '#F4EFE6'
+
 export default function PodcastSection() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const headerRef = useRef<HTMLDivElement>(null)
-  const rowsRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        headerRef.current,
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: headerRef.current, start: 'top 85%', toggleActions: 'play none none none' },
-        }
-      )
-
-      const rows = rowsRef.current?.querySelectorAll('.ep-row')
-      if (rows && rows.length > 0) {
-        gsap.fromTo(
-          rows,
-          { opacity: 0, y: 16 },
-          {
-            opacity: 1, y: 0, duration: 0.55, ease: 'power3.out', stagger: 0.07,
-            scrollTrigger: { trigger: rowsRef.current, start: 'top 85%', toggleActions: 'play none none none' },
-          }
-        )
-      }
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section
-      id="podcast"
-      ref={sectionRef}
-      className="py-20 md:py-28 px-6 md:px-10"
-      style={{ borderTop: 'none', background: '#0C0C0A' }}
-    >
-      <div className="max-w-[1200px] mx-auto">
-        {/* Header */}
-        <div ref={headerRef} className="mb-12 opacity-0">
-          <p
-            className="font-mono uppercase mb-4"
-            style={{ fontSize: '10px', letterSpacing: '0.18em', color: 'rgba(255,255,255,0.45)' }}
-          >
-            <span style={{ marginRight: '0.5em', color: '#C41E3A' }}>··</span>YouTube · Podcast
-          </p>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
-            <h2
-              className="uppercase font-bold tracking-tight text-white"
-              style={{ fontSize: 'clamp(36px, 6vw, 80px)', lineHeight: 0.92, letterSpacing: '-0.02em' }}
-            >
-              ON THE<br />RECORD.
-            </h2>
-            <a
-              href={YOUTUBE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="self-start md:self-end font-mono uppercase transition-colors"
-              style={{
-                fontSize: '10px', letterSpacing: '0.15em',
-                border: '1px solid rgba(255,255,255,0.2)', borderRadius: '9999px',
-                padding: '10px 20px', color: '#fff',
-              }}
-            >
-              [ YOUTUBE CHANNEL ]
-            </a>
+    <section id="podcast" className="ink-section" style={{ padding: 'clamp(80px, 9vw, 140px) 0', position: 'relative', overflow: 'hidden' }}>
+      <div aria-hidden style={{
+        position: 'absolute', inset: 0, opacity: 0.5, pointerEvents: 'none',
+        backgroundImage: 'radial-gradient(rgba(244,239,230,0.07) 1px, transparent 1px)', backgroundSize: '22px 22px',
+      }} />
+      <div style={{
+        maxWidth: 1180, margin: '0 auto', position: 'relative',
+        paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
+        paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24, marginBottom: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 20 }}>
+            <div>
+              <p className="hand-label" style={{ marginBottom: 10, color: '#F6D365' }}>youtube · podcast —</p>
+              <h2 className="font-display" style={{ fontSize: 'clamp(50px, 7vw, 108px)', lineHeight: 0.9, letterSpacing: '-0.03em', color: PAPER }}>
+                On the <em>record.</em>
+              </h2>
+            </div>
+            <Doodle name="mic" size={56} color={PAPER} strokeWidth={2.2} style={{ marginBottom: 10 }} />
           </div>
-          <p
-            className="mt-4"
-            style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', color: 'rgba(255,255,255,0.45)' }}
-          >
-            Design conversations — real talk about the industry, careers, and building products that matter. 6 episodes and counting.
-          </p>
+          <a href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer" className="bracket-link"
+            style={{ color: '#1B1A17', background: PAPER, boxShadow: `3px 4px 0 0 ${RED}` }}>
+            YouTube channel ↗
+          </a>
         </div>
+        <p style={{ fontSize: 17, lineHeight: 1.6, color: 'rgba(244,239,230,0.6)', maxWidth: '58ch', marginBottom: 'clamp(40px, 5vw, 64px)' }}>
+          Design conversations — real talk about the industry, careers, and building products that matter. 6 episodes and counting.
+        </p>
 
-        {/* Episode list */}
-        <div ref={rowsRef}>
-          {EPISODES.map((ep) => (
-            <a
-              key={ep.num}
-              href={YOUTUBE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ep-row work-row group flex items-center gap-6 py-5 px-2 -mx-2 opacity-0"
-            >
-              <span
-                className="font-mono text-white/20 flex-shrink-0"
-                style={{ fontSize: '11px', letterSpacing: '0.1em', minWidth: '28px' }}
-              >
-                {ep.num}
+        <div>
+          {EPISODES.map((ep, i) => (
+            <motion.a key={ep.num} href={YOUTUBE_URL} target="_blank" rel="noopener noreferrer"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: '-30px' }}
+              transition={{ duration: 0.55, delay: i * 0.06 }}
+              className="ep-row">
+              <span className="font-hand" style={{ fontSize: 26, color: RED, minWidth: 40 }}>{ep.num}</span>
+              <span className="font-display ep-title" style={{ flex: 1, minWidth: 0, fontSize: 'clamp(22px, 2.6vw, 34px)', lineHeight: 1.15, color: PAPER }}>{ep.title}</span>
+              <span className="eyebrow hidden sm:inline" style={{ fontSize: 10, color: 'rgba(244,239,230,0.45)' }}>Watch on YouTube</span>
+              <span className="ep-play" aria-hidden>
+                <svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke={PAPER} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17 2.5 C 26 2, 31.5 8, 31.5 17 C 31.5 26, 25 31.5, 17 31.5 C 8 31.5, 2.5 25.5, 2.5 17 C 2.5 9, 8 2.8, 18 3" />
+                  <path d="M13.5 11 L 23.5 17 L 13.5 23 Z" fill={RED} stroke={RED} />
+                </svg>
               </span>
-
-              <div className="flex-1 min-w-0">
-                <h3
-                  className="text-white/75 group-hover:text-white transition-colors font-medium truncate"
-                  style={{ fontSize: 'clamp(14px, 1.5vw, 17px)' }}
-                >
-                  {ep.title}
-                </h3>
-              </div>
-
-              <span
-                className="font-mono text-white/25 group-hover:text-white/50 transition-colors flex-shrink-0 hidden sm:block"
-                style={{ fontSize: '9px', letterSpacing: '0.14em', textTransform: 'uppercase' }}
-              >
-                {ep.duration}
-              </span>
-
-              {/* Arrow */}
-              <span
-                className="row-arrow font-mono text-[#C41E3A] flex-shrink-0"
-                style={{ fontSize: '12px' }}
-              >
-                ↗
-              </span>
-            </a>
+              <svg aria-hidden width="100%" height="6" preserveAspectRatio="none" viewBox="0 0 1000 6" style={{ position: 'absolute', left: 0, bottom: -3 }}>
+                <path d={i % 2 ? 'M0 3 C 200 5, 400 1, 600 3 C 800 5, 900 2, 1000 3' : 'M0 3 C 150 1, 350 5, 550 3 C 750 1, 900 4, 1000 2'}
+                  stroke={PAPER} strokeOpacity="0.22" strokeWidth="1.2" fill="none" vectorEffect="non-scaling-stroke" />
+              </svg>
+            </motion.a>
           ))}
         </div>
       </div>
+
+      <style>{`
+        .ep-row { position: relative; display: flex; align-items: center; gap: clamp(14px, 2vw, 28px); padding: 22px 0; transition: padding .3s ease; }
+        .ep-row:hover { padding-left: 14px; }
+        .ep-row:hover .ep-title { font-style: italic; }
+        .ep-play { transition: transform .3s ease; flex-shrink: 0; }
+        .ep-row:hover .ep-play { transform: rotate(-12deg) scale(1.1); }
+      `}</style>
     </section>
   )
 }

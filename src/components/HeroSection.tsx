@@ -1,6 +1,8 @@
-import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import gsap from 'gsap'
+import { motion } from 'framer-motion'
+import Doodle from './sketch/Doodle'
+import Mark from './sketch/Mark'
+import { RED } from './sketch/RoughBox'
 
 const SOCIALS = [
   { label: 'Instagram', href: 'https://www.instagram.com/createdbymohit/' },
@@ -16,283 +18,186 @@ const STATS = [
   { v: '₹50L+', l: 'Value Built' },
 ]
 
+const ease = [0.16, 1, 0.3, 1] as const
+const up = (d: number) => ({
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.9, ease, delay: d },
+})
+
 export default function HeroSection() {
-  const sectionRef  = useRef<HTMLElement>(null)
-  const leftRef     = useRef<HTMLDivElement>(null)
-  const photoRef    = useRef<HTMLDivElement>(null)
-  const statsBarRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.1 })
-
-      if (leftRef.current) {
-        tl.fromTo(
-          Array.from(leftRef.current.children),
-          { opacity: 0, y: 28 },
-          { opacity: 1, y: 0, duration: 0.85, stagger: 0.09, ease: 'power3.out' }
-        )
-      }
-
-      tl.fromTo(
-        photoRef.current,
-        { opacity: 0, scale: 0.96, y: 20 },
-        { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: 'power3.out' },
-        '-=0.6'
-      )
-
-      tl.fromTo(
-        statsBarRef.current,
-        { opacity: 0, y: 12 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
-        '-=0.3'
-      )
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section ref={sectionRef} style={{
-      minHeight: '100svh',
-      background: 'var(--bg)',
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '96px 24px 0',
-      position: 'relative',
-      overflow: 'hidden',
-    }}>
+    <section style={{ position: 'relative', overflow: 'hidden', paddingTop: 'clamp(110px, 14vw, 150px)' }}>
+      <Doodle name="asterisk" size={28} color={RED} strokeWidth={2.2} delay={1.6}
+        style={{ position: 'absolute', top: '18%', right: '46%', opacity: 0.8 }} />
+      <Doodle name="spark" size={22} delay={1.9}
+        style={{ position: 'absolute', bottom: '26%', left: '3%', opacity: 0.5 }} />
 
-      {/* Red glow top-right */}
-      <div aria-hidden style={{
-        position: 'absolute', top: '-15%', right: '-8%',
-        width: '65vw', height: '65vw',
-        background: 'radial-gradient(circle, rgba(196,30,58,0.14) 0%, transparent 60%)',
-        pointerEvents: 'none', zIndex: 0,
-      }} />
-
-      {/* Subtle dot grid */}
-      <div aria-hidden style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0,
-        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)',
-        backgroundSize: '48px 48px',
-      }} />
-
-      <div style={{
-        maxWidth: '1200px', width: '100%', margin: '0 auto',
-        flex: 1, display: 'flex', flexDirection: 'column',
-        justifyContent: 'center', position: 'relative', zIndex: 1,
-        paddingBottom: '48px',
+      <div className="hero-wrap" style={{
+        maxWidth: 1280, margin: '0 auto',
+        paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
+        paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
       }}>
+        <div className="hero-grid">
+          {/* ── Left ── */}
+          <div style={{ minWidth: 0 }}>
+            <motion.div {...up(0.1)} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 28 }}>
+              <span style={{ width: 9, height: 9, borderRadius: '50%', background: RED, animation: 'heroPulse 2.2s infinite' }} />
+              <span className="eyebrow">Available for projects · Q4 2026</span>
+            </motion.div>
 
-        {/* ── Two-column grid ── */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(0, 1fr) auto',
-          gap: 'clamp(32px, 5vw, 80px)',
-          alignItems: 'center',
-        }}>
+            <motion.p {...up(0.2)} className="font-hand"
+              style={{ fontSize: 'clamp(26px, 3vw, 36px)', color: RED, transform: 'rotate(-4deg)', transformOrigin: 'left', marginBottom: -6, marginLeft: 6 }}>
+              hi, I'm —
+            </motion.p>
 
-          {/* Left column */}
-          <div ref={leftRef} style={{ display: 'flex', flexDirection: 'column' }}>
-
-            {/* Badge */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '32px' }}>
-              <span style={{
-                width: '8px', height: '8px', borderRadius: '50%',
-                background: 'var(--accent)', display: 'inline-block',
-                boxShadow: '0 0 0 0 rgba(196,30,58,0.4)',
-                animation: 'heroPulse 2.2s infinite',
-              }} />
-              <span className="font-mono uppercase" style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'var(--muted)' }}>
-                Available for Projects · Q4 2026
-              </span>
-            </div>
-
-            {/* Name — mixed case, large Syne */}
-            <h1 className="font-syne" style={{
-              fontSize: 'clamp(52px, 8.5vw, 116px)',
-              lineHeight: 0.9,
-              letterSpacing: '-0.04em',
-              fontWeight: 800,
-              color: 'var(--text)',
-              marginBottom: '20px',
-            }}>
+            <motion.h1 {...up(0.3)} className="font-display"
+              style={{ fontSize: 'clamp(76px, 12.5vw, 184px)', lineHeight: 0.84, letterSpacing: '-0.035em', color: 'var(--ink)' }}>
               Mohit<br />
-              <span style={{ color: 'var(--accent)' }}>Pareek.</span>
-            </h1>
+              <span style={{ position: 'relative', display: 'inline-block', fontStyle: 'italic' }}>
+                Pareek.
+                <Doodle name="underline" size="100%" color={RED} strokeWidth={3} delay={1.1} duration={0.9}
+                  style={{ position: 'absolute', left: '2%', bottom: '-0.06em', width: '96%' }} />
+              </span>
+            </motion.h1>
 
-            {/* Role tags */}
-            <p className="font-mono uppercase" style={{
-              fontSize: '10px', letterSpacing: '0.18em',
-              color: 'var(--muted)', marginBottom: '24px',
-              lineHeight: 1.8,
-            }}>
+            <motion.p {...up(0.45)} className="eyebrow" style={{ marginTop: 34, lineHeight: 1.9 }}>
               UI/UX Designer · Custom Software · AI Builder<br />
               Founder, Starting Core · Jaipur, India
-            </p>
+            </motion.p>
 
-            {/* Description */}
-            <p style={{
-              fontSize: 'clamp(15px, 1.5vw, 18px)',
-              lineHeight: 1.7, color: 'var(--muted)',
-              maxWidth: '46ch', marginBottom: '36px',
-            }}>
+            <motion.p {...up(0.55)} style={{ fontSize: 'clamp(17px, 1.6vw, 20px)', lineHeight: 1.65, color: 'var(--ink-soft)', maxWidth: '44ch', marginTop: 20 }}>
               I design and build custom software, AI systems, and digital products that solve{' '}
-              <em style={{ color: 'var(--text)', fontStyle: 'normal', fontWeight: 500 }}>your specific problem</em>
+              <Mark type="highlight" delay={1400} duration={900} iterations={1} padding={[2, 4]}>
+                <span style={{ color: 'var(--ink)', fontWeight: 500 }}>your specific problem</span>
+              </Mark>
               {' '}— not a generic template. 6 years of real results.
-            </p>
+            </motion.p>
 
-            {/* CTAs */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginBottom: '40px' }}>
-              <Link to="/contact" className="bracket-link accent">
-                [ Start a Project ]
-              </Link>
-              <Link to="/work" className="bracket-link">
-                [ View Work ]
-              </Link>
-            </div>
+            <motion.div {...up(0.65)} style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginTop: 34 }}>
+              <Link to="/contact" className="bracket-link accent">Start a project →</Link>
+              <Link to="/work" className="bracket-link">View work</Link>
+            </motion.div>
 
-            {/* Social links */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px 28px', alignItems: 'center' }}>
-              <span className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '0.16em', color: 'var(--subtle)' }}>
-                Follow
-              </span>
+            <motion.div {...up(0.75)} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '10px 22px', marginTop: 34 }}>
+              <span className="font-hand" style={{ fontSize: 22, color: 'var(--ink-faint)' }}>follow along →</span>
               {SOCIALS.map(s => (
                 <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                  className="font-mono uppercase"
-                  style={{ fontSize: '9px', letterSpacing: '0.14em', color: 'var(--muted)', transition: 'color 0.2s', textDecoration: 'none' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted)')}>
+                  className="sketch-link" style={{ fontSize: 15, fontWeight: 500, color: 'var(--ink)' }}>
                   {s.label} ↗
                 </a>
               ))}
-            </div>
+            </motion.div>
           </div>
 
-          {/* Right column — stats + photo */}
-          <div ref={photoRef} style={{
-            display: 'flex', flexDirection: 'column', gap: '16px',
-            width: 'clamp(260px, 28vw, 400px)',
-            flexShrink: 0,
-          }}>
+          {/* ── Right: polaroid ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 40, rotate: 8 }}
+            animate={{ opacity: 1, y: 0, rotate: 2.5 }}
+            transition={{ duration: 1.2, ease, delay: 0.35 }}
+            className="hero-photo"
+            style={{ position: 'relative', justifySelf: 'center' }}>
 
-            {/* 2×2 Stats bento */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-              {STATS.map(s => (
-                <div key={s.l} style={{
-                  padding: '16px 18px',
-                  background: 'var(--surface)',
-                  borderRadius: '14px',
-                  border: '1px solid var(--border)',
-                }}>
-                  <div className="font-syne" style={{
-                    fontSize: 'clamp(22px, 2.5vw, 32px)',
-                    fontWeight: 800, letterSpacing: '-0.03em',
-                    color: 'var(--accent)', lineHeight: 1,
-                  }}>
-                    {s.v}
-                  </div>
-                  <div className="font-mono uppercase" style={{
-                    fontSize: '8px', letterSpacing: '0.14em',
-                    color: 'var(--muted)', marginTop: '5px',
-                  }}>
-                    {s.l}
-                  </div>
+            <div className="paper-shadow" style={{ background: 'var(--card)', padding: '14px 14px 18px', position: 'relative' }}>
+              <span className="tape" style={{ top: -13, left: '50%', transform: 'translateX(-50%) rotate(-3deg)' }} />
+              <div style={{ aspectRatio: '4 / 5', overflow: 'hidden', background: 'var(--paper-2)' }}>
+                <img src="/mohit-pareek.jpg" alt="Mohit Pareek — UI/UX Designer & Custom Software Developer"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'contrast(1.04) saturate(0.92)' }} />
+              </div>
+              <div style={{ paddingTop: 14, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 8 }}>
+                <div>
+                  <p className="font-hand" style={{ fontSize: 28, lineHeight: 1, color: 'var(--ink)' }}>Founder, Starting Core</p>
+                  <p className="eyebrow" style={{ fontSize: 10, marginTop: 6 }}>Jaipur · India · UTC +5:30</p>
                 </div>
-              ))}
+                <Doodle name="heart" size={26} color={RED} strokeWidth={2.2} delay={2.1} />
+              </div>
             </div>
 
-            {/* Photo card */}
-            <div style={{
-              borderRadius: '20px',
-              overflow: 'hidden',
-              position: 'relative',
-              aspectRatio: '3/4',
-              boxShadow: '0 0 80px rgba(196,30,58,0.18), 0 0 160px rgba(196,30,58,0.06)',
-              border: '1px solid var(--border)',
-            }}>
-              <img
-                src="/mohit-pareek.jpg"
-                alt="Mohit Pareek — UI/UX Designer & Custom Software Developer"
-                style={{
-                  width: '100%', height: '100%',
-                  objectFit: 'cover', objectPosition: 'center top',
-                  display: 'block',
-                }}
-              />
-              {/* Bottom gradient */}
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.2) 45%, transparent 75%)',
-                pointerEvents: 'none',
-              }} />
-              {/* Caption overlay */}
-              <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px' }}>
-                <p style={{ fontSize: '13px', fontWeight: 500, color: '#F5F3EE', letterSpacing: '-0.01em' }}>
-                  Founder, Starting Core
-                </p>
-                <p className="font-mono uppercase" style={{
-                  fontSize: '8px', letterSpacing: '0.16em',
-                  color: 'rgba(245,243,238,0.4)', marginTop: '4px',
-                }}>
-                  Jaipur · India · UTC +5:30
-                </p>
+            {/* Red stamp */}
+            <motion.div
+              initial={{ opacity: 0, scale: 1.6, rotate: -30 }}
+              animate={{ opacity: 1, scale: 1, rotate: -12 }}
+              transition={{ duration: 0.5, ease: [0.2, 1.4, 0.4, 1], delay: 1.5 }}
+              style={{ position: 'absolute', top: -40, left: -46, width: 118, height: 118, zIndex: 4, color: RED }}>
+              <svg viewBox="0 0 120 120" width="118" height="118" aria-hidden style={{ position: 'absolute', inset: 0 }}
+                fill="none" stroke={RED} strokeLinecap="round">
+                <circle cx="60" cy="60" r="53" fill="#FBF8F2" stroke="none" />
+                <path d="M60 6 C 92 5, 114 28, 114 60 C 114 92, 90 115, 58 114 C 26 113, 6 90, 6 60 C 6 30, 28 7, 64 7" strokeWidth="2.6" />
+                <path d="M60 16 C 85 15, 104 34, 104 60 C 104 86, 85 104, 59 104 C 34 104, 16 86, 16 60 C 16 35, 34 16, 62 16.5" strokeWidth="1.3" strokeDasharray="3 4" />
+              </svg>
+              <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center', textAlign: 'center' }}>
+                <div>
+                  <div className="font-mono" style={{ fontSize: 11, letterSpacing: '0.22em', fontWeight: 700 }}>OPEN</div>
+                  <div className="font-display" style={{ fontSize: 38, lineHeight: 1, fontStyle: 'italic', margin: '2px 0' }}>Q4</div>
+                  <div className="font-mono" style={{ fontSize: 11, letterSpacing: '0.22em', fontWeight: 700 }}>2026</div>
+                </div>
               </div>
-              {/* Top badge */}
-              <div style={{
-                position: 'absolute', top: '16px', left: '16px',
-                display: 'flex', alignItems: 'center', gap: '6px',
-                background: 'rgba(10,10,10,0.7)',
-                backdropFilter: 'blur(12px)',
-                borderRadius: '999px', padding: '6px 12px',
-                border: '1px solid rgba(255,255,255,0.1)',
-              }}>
-                <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)', display: 'inline-block' }} />
-                <span className="font-mono uppercase" style={{ fontSize: '8px', letterSpacing: '0.14em', color: '#F5F3EE' }}>
-                  Open Q4 2026
-                </span>
-              </div>
+            </motion.div>
+
+            {/* "that's me" note */}
+            <div className="hero-note" style={{ position: 'absolute', left: -150, bottom: 110, width: 150, pointerEvents: 'none' }}>
+              <p className="font-hand" style={{ fontSize: 26, color: RED, transform: 'rotate(-8deg)', marginBottom: 2 }}>that's me!</p>
+              <Doodle name="arrowCurve" size={110} color={RED} strokeWidth={2.4} delay={1.8} style={{ marginLeft: 30 }} />
             </div>
-          </div>
+          </motion.div>
         </div>
+
+        {/* ── Stats row ── */}
+        <motion.div {...up(0.9)} className="hero-stats">
+          {STATS.map((s, i) => (
+            <div key={s.l} style={{ position: 'relative', padding: '8px 4px' }}>
+              {i === 1 && (
+                <Doodle name="circle" size="100%" color={RED} strokeWidth={2.4} delay={2.2} stretch
+                  style={{ position: 'absolute', left: '-14%', top: '-6%', width: '112%', height: '112%', pointerEvents: 'none' }} />
+              )}
+              <div className="font-display" style={{ fontSize: 'clamp(44px, 5.5vw, 76px)', lineHeight: 1, color: 'var(--ink)' }}>{s.v}</div>
+              <div className="font-hand" style={{ fontSize: 22, color: 'var(--ink-soft)', marginTop: 4 }}>{s.l}</div>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
-      {/* Bottom stats bar */}
-      <div ref={statsBarRef} style={{
-        borderTop: '1px solid var(--border)',
-        padding: '16px 24px',
-        position: 'relative', zIndex: 1,
-      }}>
+      {/* ── Bottom strip ── */}
+      <div style={{ marginTop: 'clamp(40px, 6vw, 72px)', position: 'relative' }}>
+        <svg aria-hidden width="100%" height="8" preserveAspectRatio="none" viewBox="0 0 1000 8" style={{ display: 'block' }}>
+          <path d="M0 4 C 120 2, 260 6, 400 4 C 560 2, 700 6, 1000 3" stroke="#1B1A17" strokeOpacity="0.4" strokeWidth="1.2" fill="none" vectorEffect="non-scaling-stroke" />
+        </svg>
         <div style={{
-          maxWidth: '1200px', margin: '0 auto',
-          display: 'flex', alignItems: 'center',
-          justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px',
+          maxWidth: 1280, margin: '0 auto', padding: '14px 0',
+          paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
+          paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10,
         }}>
-          <span className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '0.16em', color: 'var(--subtle)' }}>
-            CREATEDBYMOHIT.COM
-          </span>
-          <span className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '0.16em', color: 'var(--subtle)' }}>
-            CUSTOM SOFTWARE · AI SYSTEMS · UI/UX DESIGN · INDIA
-          </span>
-          <a href="mailto:hello@createdbymohit.com"
-            className="font-mono uppercase"
-            style={{ fontSize: '9px', letterSpacing: '0.14em', color: 'var(--muted)', textDecoration: 'none', transition: 'color 0.2s' }}
-            onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted)')}>
+          <span className="eyebrow" style={{ fontSize: 11 }}>createdbymohit.com</span>
+          <span className="eyebrow hidden md:inline" style={{ fontSize: 11 }}>Custom Software · AI Systems · UI/UX Design · India</span>
+          <a href="mailto:hello@createdbymohit.com" className="eyebrow sketch-link" style={{ fontSize: 11, textTransform: 'none', letterSpacing: '0.04em' }}>
             hello@createdbymohit.com ↗
           </a>
         </div>
       </div>
 
       <style>{`
-        @keyframes heroPulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(196,30,58,0.5); }
-          50%       { box-shadow: 0 0 0 8px rgba(196,30,58,0); }
+        .hero-grid {
+          display: grid;
+          grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+          gap: clamp(32px, 6vw, 96px);
+          align-items: center;
         }
-        @media (max-width: 768px) {
-          .hero-grid { grid-template-columns: 1fr !important; }
-          .hero-photo-col { display: none !important; }
+        .hero-photo { width: min(100%, 380px); }
+        .hero-stats {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 24px;
+          margin-top: clamp(48px, 7vw, 88px);
+          max-width: 860px;
+        }
+        @media (max-width: 1100px) { .hero-note { display: none; } }
+        @media (max-width: 860px) {
+          .hero-grid { grid-template-columns: 1fr; }
+          .hero-photo { width: min(78%, 340px); margin-top: 24px; }
+        }
+        @media (max-width: 560px) {
+          .hero-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 28px; }
         }
       `}</style>
     </section>

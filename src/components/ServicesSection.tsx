@@ -1,152 +1,91 @@
-import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { motion } from 'framer-motion'
+import RoughBox, { RED } from './sketch/RoughBox'
+import Doodle from './sketch/Doodle'
 
 const SERVICES = [
   {
     num: '01',
     title: 'Custom Development',
-    short: 'SOLVE THE SPECIFIC PROBLEM',
+    short: 'Solve the specific problem',
     desc: "Every company has different processes, different tools, different bottlenecks. We don't sell pre-packaged solutions. We diagnose what's actually broken and build exactly what fixes it — whether that's a custom integration, a purpose-built tool, or a full system redesign.",
     href: '/services',
   },
   {
     num: '02',
     title: 'Business Audit',
-    short: 'UNDERSTAND EVERYTHING FIRST',
+    short: 'Understand everything first',
     desc: "Before writing a single line of code or touching any AI tool, we map your entire operation. Every workflow, every handoff, every manual step that shouldn't be manual. The audit is the foundation. It's why the solutions we build actually stick.",
     href: '/services',
   },
   {
     num: '03',
     title: 'AI Integration',
-    short: 'THE RIGHT AI FOR YOUR BUSINESS',
+    short: 'The right AI for your business',
     desc: "Not every business needs a custom AI agent. Sometimes a pre-built tool configured correctly does the job. Sometimes it needs to be built from scratch. We figure out which, then implement it — WhatsApp bots, workflow automations, CRM intelligence.",
     href: '/services',
   },
 ]
 
+const TILT = [-1.2, 0.8, -0.4]
+
 export default function ServicesSection() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const headerRef  = useRef<HTMLDivElement>(null)
-  const rowsRef    = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(headerRef.current,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: headerRef.current, start: 'top 86%' } })
-
-      const rows = rowsRef.current?.querySelectorAll('.service-row')
-      if (rows && rows.length > 0) {
-        gsap.fromTo(rows,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.12,
-            scrollTrigger: { trigger: rowsRef.current, start: 'top 86%' } })
-      }
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section ref={sectionRef} id="services"
-      style={{
-        background: 'var(--surface)',
-        borderTop: '1px solid var(--border)',
-        padding: 'clamp(72px,8vw,120px) 24px',
+    <section id="services" style={{ padding: 'clamp(80px, 9vw, 140px) 0' }}>
+      <div style={{
+        maxWidth: 1280, margin: '0 auto',
+        paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
+        paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
       }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-
-        {/* Header */}
-        <div ref={headerRef} className="flex items-end justify-between mb-12 md:mb-16 opacity-0"
-          style={{ flexWrap: 'wrap', gap: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24, marginBottom: 'clamp(48px, 6vw, 80px)' }}>
           <div>
-            <p className="font-mono uppercase mb-4"
-              style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'var(--muted)' }}>
-              <span style={{ marginRight: '0.5em', color: 'var(--accent)' }}>··</span>WHAT WE DO
-            </p>
-            <h2 className="font-syne uppercase"
-              style={{
-                fontSize: 'clamp(36px, 6vw, 80px)', lineHeight: 0.92,
-                letterSpacing: '-0.035em', fontWeight: 800, color: 'var(--text)',
-              }}>
-              THREE WAYS<br />WE HELP.
+            <p className="hand-label" style={{ marginBottom: 10 }}>what we do —</p>
+            <h2 className="font-display" style={{ fontSize: 'clamp(50px, 7vw, 108px)', lineHeight: 0.9, letterSpacing: '-0.03em' }}>
+              Three ways<br /><em>we help.</em>
             </h2>
           </div>
-          <Link to="/services" className="hidden md:inline-flex bracket-link">
-            [ ALL SERVICES ]
-          </Link>
+          <Link to="/services" className="bracket-link">All services</Link>
         </div>
 
-        {/* Rows */}
-        <div ref={rowsRef}>
-          {SERVICES.map(service => (
-            <Link key={service.num} to={service.href}
-              className="service-row block opacity-0 group"
-              style={{
-                borderTop: '1px solid var(--border)',
-                cursor: 'pointer',
-                transition: 'background 0.2s ease',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.background = 'var(--surface-2)')}
-              onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}>
-              <div className="py-7 md:py-9 grid grid-cols-1 md:grid-cols-[80px_1fr_1fr_40px] gap-4 md:gap-8 items-start">
-
-                {/* Number */}
-                <div className="flex items-start gap-3 md:block">
-                  <span className="font-mono" style={{ fontSize: '11px', letterSpacing: '0.1em', color: 'var(--accent)', marginTop: '4px' }}>
-                    {service.num}
-                  </span>
-                  <p className="md:hidden font-syne font-bold uppercase" style={{
-                    fontSize: 'clamp(22px, 5.5vw, 32px)', lineHeight: 1,
-                    letterSpacing: '-0.02em', color: 'var(--text)',
-                  }}>
-                    {service.title}
-                  </p>
-                </div>
-
-                {/* Title (desktop) + short */}
-                <div>
-                  <p className="hidden md:block font-syne font-bold uppercase mb-2"
-                    style={{
-                      fontSize: 'clamp(26px, 2.8vw, 44px)', lineHeight: 1,
-                      letterSpacing: '-0.02em', color: 'var(--text)',
-                      transition: 'color 0.2s ease',
-                    }}>
-                    {service.title}
-                  </p>
-                  <span className="font-mono uppercase" style={{ fontSize: '9px', letterSpacing: '0.18em', color: 'var(--muted)' }}>
-                    {service.short}
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p style={{
-                  fontSize: 'clamp(13px, 1.25vw, 15px)', lineHeight: 1.75,
-                  color: 'var(--muted)', maxWidth: '50ch',
-                }}>
-                  {service.desc}
-                </p>
-
-                {/* Arrow */}
-                <span className="hidden md:flex items-start justify-end pt-2 row-arrow"
-                  style={{ fontSize: '18px', color: 'var(--accent)' }}>
-                  →
-                </span>
-              </div>
-            </Link>
+        <div className="svc-grid">
+          {SERVICES.map((s, i) => (
+            <motion.div key={s.num}
+              initial={{ opacity: 0, y: 40, rotate: 0 }}
+              whileInView={{ opacity: 1, y: 0, rotate: TILT[i] }}
+              whileHover={{ rotate: 0, y: -6 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+              style={{ position: 'relative' }}>
+              <span className="tape" style={{ top: -12, left: 28, transform: 'rotate(-6deg)' }} />
+              <Link to={s.href} style={{ display: 'block', color: 'var(--ink)', height: '100%' }}>
+                <RoughBox fill={i === 1 ? '#F6D365' : '#FBF8F2'} fillStyle="solid" roughness={1.3} strokeWidth={1.6} style={{ height: '100%' }}>
+                  <div style={{ padding: 'clamp(26px, 3vw, 36px)', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'clamp(40px, 5vw, 72px)' }}>
+                      <span className="font-hand" style={{ fontSize: 40, color: RED, lineHeight: 1 }}>{s.num}</span>
+                      <Doodle name="arrowRight" size={58} color="#1B1A17" strokeWidth={2} />
+                    </div>
+                    <h3 className="font-display" style={{ fontSize: 'clamp(34px, 3.2vw, 46px)', lineHeight: 1, letterSpacing: '-0.02em' }}>{s.title}</h3>
+                    <p className="eyebrow" style={{ fontSize: 11, marginTop: 12, color: i === 1 ? 'var(--ink)' : undefined }}>{s.short}</p>
+                    <p style={{ fontSize: 15, lineHeight: 1.7, color: 'var(--ink-soft)', marginTop: 18, flex: 1 }}>{s.desc}</p>
+                    <span className="font-hand" style={{ fontSize: 24, marginTop: 24, color: 'var(--ink)' }}>
+                      read more <span style={{ color: RED }}>→</span>
+                    </span>
+                  </div>
+                </RoughBox>
+              </Link>
+            </motion.div>
           ))}
-          <div style={{ height: '1px', background: 'var(--border)' }} />
-        </div>
-
-        <div className="mt-8 md:hidden">
-          <Link to="/services" className="bracket-link inline-flex">[ ALL SERVICES ]</Link>
         </div>
       </div>
+
+      <style>{`
+        .svc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 40px); align-items: stretch; }
+        .svc-grid > div:nth-child(2) { margin-top: 40px; }
+        @media (max-width: 900px) {
+          .svc-grid { grid-template-columns: 1fr; }
+          .svc-grid > div:nth-child(2) { margin-top: 0; }
+        }
+      `}</style>
     </section>
   )
 }
