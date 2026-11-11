@@ -1,13 +1,13 @@
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import RoughBox, { RED } from './sketch/RoughBox'
+import Mark from './sketch/Mark'
+import Doodle from './sketch/Doodle'
 
 const STATS = [
-  { value: '6+',   label: 'Years Experience' },
-  { value: '80+',  label: 'Projects Delivered' },
-  { value: '30+',  label: 'AI Systems Built' },
+  { value: '6+',    label: 'Years Experience' },
+  { value: '80+',   label: 'Projects Delivered' },
+  { value: '30+',   label: 'AI Systems Built' },
   { value: '₹50L+', label: 'Value Generated' },
 ]
 
@@ -19,131 +19,86 @@ const STORY = [
 ]
 
 export default function AboutSection() {
-  const sectionRef  = useRef<HTMLElement>(null)
-  const labelRef    = useRef<HTMLDivElement>(null)
-  const headRef     = useRef<HTMLHeadingElement>(null)
-  const textRef     = useRef<HTMLDivElement>(null)
-  const statsRef    = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo([labelRef.current, headRef.current],
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1,
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' } })
-
-      const paras = textRef.current?.querySelectorAll('p')
-      if (paras && paras.length) {
-        gsap.fromTo(paras, { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.1,
-            scrollTrigger: { trigger: textRef.current, start: 'top 80%' } })
-      }
-
-      const statItems = statsRef.current?.querySelectorAll('.stat-item')
-      if (statItems && statItems.length) {
-        gsap.fromTo(statItems, { opacity: 0, y: 24 },
-          { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.1,
-            scrollTrigger: { trigger: statsRef.current, start: 'top 85%' } })
-      }
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section id="about" ref={sectionRef}
-      style={{
-        background: 'var(--bg)',
-        borderTop: '1px solid var(--border)',
-        padding: 'clamp(72px,8vw,120px) 24px',
+    <section id="about" style={{ padding: 'clamp(80px, 9vw, 140px) 0' }}>
+      <div style={{
+        maxWidth: 1280, margin: '0 auto',
+        paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
+        paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
       }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-
-        <div ref={labelRef} className="mb-6 opacity-0">
-          <p className="font-mono uppercase" style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'var(--muted)' }}>
-            <span style={{ marginRight: '0.5em', color: 'var(--accent)' }}>··</span>THE FOUNDER
-          </p>
-        </div>
-
-        <h2 ref={headRef}
-          className="font-syne uppercase mb-14 md:mb-16 opacity-0"
-          style={{
-            fontSize: 'clamp(28px, 5vw, 64px)', lineHeight: 1.0,
-            letterSpacing: '-0.035em', fontWeight: 800, maxWidth: '22ch',
-            color: 'var(--text)',
-          }}>
-          AUDIT FIRST.<br />BUILD SECOND.<br />
-          <span style={{ color: 'var(--accent)' }}>RESULTS ALWAYS.</span>
+        <p className="hand-label" style={{ marginBottom: 10 }}>the founder —</p>
+        <h2 className="font-display" style={{ fontSize: 'clamp(46px, 6.5vw, 100px)', lineHeight: 0.95, letterSpacing: '-0.03em', maxWidth: '14ch', marginBottom: 'clamp(48px, 6vw, 80px)' }}>
+          Audit first.<br />Build second.<br />
+          <em style={{ color: RED }}><Mark type="underline" iterations={2} strokeWidth={2.4} padding={2}>Results always.</Mark></em>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-[1.1fr_1fr] gap-14 md:gap-20 items-start">
+        <div className="about-grid">
+          {/* Notebook page */}
+          <motion.div
+            initial={{ opacity: 0, y: 30, rotate: 0 }}
+            whileInView={{ opacity: 1, y: 0, rotate: -0.6 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="ruled paper-shadow"
+            style={{ background: 'var(--card)', padding: '40px clamp(20px, 3vw, 40px) 32px 72px', position: 'relative', backgroundPositionY: 24 }}>
+            <div aria-hidden style={{ position: 'absolute', left: 16, top: 0, bottom: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+              {[0, 1, 2].map(n => <span key={n} style={{ width: 14, height: 14, borderRadius: '50%', background: 'var(--paper-2)', boxShadow: 'inset 1px 1px 2px rgba(0,0,0,0.18)' }} />)}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+              {STORY.map((p, i) => (
+                <p key={i} style={{ fontSize: 16.5, lineHeight: '32px', color: 'var(--ink)', opacity: 0.86 }}>{p}</p>
+              ))}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 32, flexWrap: 'wrap', gap: 16 }}>
+              <Link to="/about" className="bracket-link">About Mohit</Link>
+              <span className="font-hand" style={{ fontSize: 34, color: 'var(--ink)', transform: 'rotate(-4deg)' }}>— Mohit P.</span>
+            </div>
+          </motion.div>
 
-          {/* Story */}
-          <div ref={textRef} className="flex flex-col gap-6">
-            {STORY.map((para, i) => (
-              <p key={i} className="opacity-0"
-                style={{ fontSize: 'clamp(15px, 1.5vw, 18px)', lineHeight: 1.75, color: 'var(--muted)' }}>
-                {para}
-              </p>
-            ))}
-            <a href="/about" className="bracket-link self-start mt-4">
-              [ ABOUT MOHIT ]
-            </a>
-          </div>
-
-          {/* Stats + quote */}
-          <div ref={statsRef}>
-            <div className="grid grid-cols-2 gap-px"
-              style={{
-                border: '1px solid var(--border)',
-                borderRadius: '16px',
-                overflow: 'hidden',
-              }}>
-              {STATS.map(stat => (
-                <div key={stat.label} className="stat-item opacity-0 p-6 md:p-8"
-                  style={{
-                    background: 'var(--surface)',
-                    borderRight: '1px solid var(--border)',
-                    borderBottom: '1px solid var(--border)',
-                  }}>
-                  <p className="font-syne font-bold leading-none mb-2"
-                    style={{
-                      fontSize: 'clamp(32px, 4.5vw, 52px)',
-                      letterSpacing: '-0.03em', color: 'var(--text)',
-                    }}>
-                    {stat.value}
-                  </p>
-                  <p className="font-mono uppercase"
-                    style={{ fontSize: '9px', letterSpacing: '0.16em', color: 'var(--muted)' }}>
-                    {stat.label}
-                  </p>
-                </div>
+          {/* Stats + sticky note */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+            <div className="about-stats">
+              {STATS.map((s, i) => (
+                <motion.div key={s.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.6, delay: i * 0.08 }}>
+                  <RoughBox roughness={1.6} strokeWidth={1.3} fill={i === 3 ? RED : undefined} fillStyle="solid" style={{ height: '100%' }}>
+                    <div style={{ padding: '22px 20px' }}>
+                      <p className="font-display" style={{ fontSize: 'clamp(42px, 4.6vw, 64px)', lineHeight: 1, color: i === 3 ? '#FBF8F2' : 'var(--ink)' }}>{s.value}</p>
+                      <p className="font-hand" style={{ fontSize: 22, color: i === 3 ? 'rgba(251,248,242,0.8)' : 'var(--ink-soft)', marginTop: 6, lineHeight: 1 }}>{s.label}</p>
+                    </div>
+                  </RoughBox>
+                </motion.div>
               ))}
             </div>
 
-            <div className="mt-8 p-6 rounded-2xl"
-              style={{
-                border: '1px solid rgba(196,30,58,0.2)',
-                background: 'rgba(196,30,58,0.04)',
-              }}>
-              <p className="font-mono uppercase mb-3"
-                style={{ fontSize: '9px', letterSpacing: '0.16em', color: 'var(--accent)' }}>
-                The Starting Core Principle
-              </p>
-              <p className="italic leading-relaxed"
-                style={{ fontSize: 'clamp(14px, 1.4vw, 16px)', color: 'var(--muted)', lineHeight: 1.7 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 30, rotate: 0 }}
+              whileInView={{ opacity: 1, y: 0, rotate: 1.8 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              style={{ background: '#F6D365', padding: '30px 28px 26px', position: 'relative', boxShadow: '0 18px 30px -16px rgba(27,26,23,0.45)' }}>
+              <span className="tape" style={{ top: -12, left: '40%', background: 'rgba(251,248,242,0.7)' }} />
+              <Doodle name="quote" size={44} color={RED} strokeWidth={2.4} style={{ marginBottom: 6 }} />
+              <p className="eyebrow" style={{ color: 'var(--ink)', marginBottom: 12, fontSize: 11 }}>The Starting Core Principle</p>
+              <p className="font-hand" style={{ fontSize: 'clamp(24px, 2.2vw, 29px)', lineHeight: 1.22, color: 'var(--ink)' }}>
                 "Every company is built differently — a D2C brand, a B2B SaaS, a local service business. The problems look the same on the surface. They almost never are. That's why we audit before we build."
               </p>
-              <a href="/starting-core"
-                className="inline-block mt-4 font-mono uppercase transition-colors"
-                style={{ fontSize: '9px', letterSpacing: '0.14em', color: 'var(--muted)' }}
-                onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'var(--muted)')}>
+              <Link to="/starting-core" className="sketch-link" style={{ display: 'inline-block', marginTop: 18, fontSize: 15, fontWeight: 500, color: 'var(--ink)' }}>
                 Learn about Starting Core →
-              </a>
-            </div>
+              </Link>
+            </motion.div>
           </div>
         </div>
       </div>
+
+      <style>{`
+        .about-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 88px); align-items: start; }
+        .about-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+        @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+      `}</style>
     </section>
   )
 }

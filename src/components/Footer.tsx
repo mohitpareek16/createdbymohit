@@ -1,151 +1,98 @@
 import { Link } from 'react-router-dom'
+import Doodle from './sketch/Doodle'
+import { RED } from './sketch/RoughBox'
+
+const PAPER = '#F4EFE6'
+const FADED = 'rgba(244,239,230,0.55)'
+
+const internalLinks = [
+  { label: 'Work',     href: '/work' },
+  { label: 'About',    href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Courses',  href: '/courses' },
+  { label: 'Blog',     href: '/blog' },
+]
+const socialLinks = [
+  { label: 'Instagram', href: 'https://www.instagram.com/createdbymohit/' },
+  { label: 'LinkedIn',  href: 'https://www.linkedin.com/in/mohit-pareek-b8a676204' },
+  { label: 'Dribbble',  href: 'https://dribbble.com/mohit_pareek16' },
+  { label: 'YouTube',   href: 'https://www.youtube.com/@createdbymohit' },
+]
 
 export default function Footer() {
-  const internalLinks = [
-    { label: 'WORK',     href: '/work' },
-    { label: 'ABOUT',    href: '/about' },
-    { label: 'SERVICES', href: '/services' },
-    { label: 'COURSES',  href: '/courses' },
-    { label: 'BLOG',     href: '/blog' },
-  ]
-  const socialLinks = [
-    { label: 'INSTAGRAM', href: 'https://www.instagram.com/createdbymohit/' },
-    { label: 'LINKEDIN',  href: 'https://www.linkedin.com/in/mohit-pareek-b8a676204' },
-    { label: 'DRIBBBLE',  href: 'https://dribbble.com/mohit_pareek16' },
-    { label: 'YOUTUBE',   href: 'https://www.youtube.com/@createdbymohit' },
-  ]
-
   return (
-    <footer style={{ background: '#0C0C0A', position: 'relative', overflow: 'hidden' }}>
+    <footer className="ink-section" style={{ position: 'relative', overflow: 'hidden' }}>
+      <svg aria-hidden width="100%" height="18" preserveAspectRatio="none" viewBox="0 0 1000 18" style={{ display: 'block', background: 'var(--paper)' }}>
+        <path d="M0 18 L0 9 C 40 4, 70 14, 110 8 C 150 2, 190 13, 240 9 C 290 5, 330 15, 380 8 C 430 2, 470 12, 520 9 C 570 6, 610 15, 660 8 C 710 3, 750 12, 800 9 C 850 5, 900 14, 950 8 C 970 6, 985 9, 1000 8 L1000 18 Z" fill="#1B1A17" />
+      </svg>
 
-      {/* Giant watermark */}
-      <div aria-hidden style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0,
-        pointerEvents: 'none', overflow: 'hidden',
+      <div aria-hidden className="font-hand" style={{
+        position: 'absolute', right: '-2vw', bottom: '-6vw', fontSize: 'clamp(160px, 30vw, 440px)', lineHeight: 1,
+        color: PAPER, opacity: 0.05, pointerEvents: 'none', transform: 'rotate(-6deg)', whiteSpace: 'nowrap',
       }}>
-        <p className="font-syne uppercase whitespace-nowrap leading-none text-white"
-          style={{
-            fontSize: 'clamp(100px, 20vw, 300px)',
-            fontWeight: 800, opacity: 0.035,
-            transform: 'translateY(30%)', letterSpacing: '-0.03em',
-          }}>
-          MOHIT
-        </p>
+        Mohit
       </div>
 
-      <div style={{ position: 'relative', zIndex: 1, padding: 'clamp(64px,8vw,112px) 24px 32px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{
+        position: 'relative', maxWidth: 1280, margin: '0 auto',
+        padding: 'clamp(72px, 9vw, 130px) 0 32px',
+        paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
+        paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
+      }}>
+        <p className="hand-label" style={{ color: '#F6D365', marginBottom: 14 }}>so, what's broken? —</p>
+        <h2 className="font-display" style={{ fontSize: 'clamp(54px, 9vw, 140px)', lineHeight: 0.9, letterSpacing: '-0.035em', color: PAPER, maxWidth: '12ch' }}>
+          Let's solve your specific{' '}
+          <em style={{ color: RED, position: 'relative', display: 'inline-block' }}>
+            problem.
+            <Doodle name="circle" size="100%" color={PAPER} strokeWidth={2.4} stretch
+              style={{ position: 'absolute', left: '-7%', top: '2%', width: '114%', height: '100%', opacity: 0.85 }} />
+          </em>
+        </h2>
+        <p style={{ fontSize: 'clamp(16px, 1.5vw, 19px)', lineHeight: 1.65, color: FADED, maxWidth: '46ch', marginTop: 28 }}>
+          Every company is different. So is the solution. Tell us what's broken and we'll figure out the right fix together.
+        </p>
+        <Link to="/contact" className="bracket-link" style={{ marginTop: 32, color: '#1B1A17', background: PAPER, boxShadow: `3px 4px 0 0 ${RED}` }}>
+          Get in touch →
+        </Link>
 
-          {/* CTA */}
-          <h2 className="font-syne uppercase text-white mb-4"
-            style={{
-              fontSize: 'clamp(36px, 7.5vw, 96px)',
-              lineHeight: 0.9, letterSpacing: '-0.035em',
-              fontWeight: 800, maxWidth: '16ch',
-            }}>
-            LET'S SOLVE<br />YOUR SPECIFIC<br />
-            <span style={{ color: '#C41E3A' }}>PROBLEM.</span>
-          </h2>
-
-          <p style={{
-            fontSize: 'clamp(14px, 1.4vw, 17px)', lineHeight: 1.65,
-            color: 'rgba(255,255,255,0.4)', maxWidth: '44ch', marginBottom: '32px',
-          }}>
-            Every company is different. So is the solution. Tell us what's broken and we'll figure out the right fix together.
-          </p>
-
-          <Link to="/contact" className="inline-flex mb-16 md:mb-20 font-mono uppercase transition-all"
-            style={{
-              fontSize: '10px', letterSpacing: '0.15em',
-              border: '1px solid rgba(255,255,255,0.2)',
-              borderRadius: '9999px', padding: '12px 24px',
-              color: '#fff',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#0C0C0A' }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#fff' }}>
-            [ GET IN TOUCH ]
-          </Link>
-
-          {/* Divider */}
-          <div style={{ height: '1px', background: 'rgba(255,255,255,0.07)', marginBottom: '48px' }} />
-
-          {/* 3 columns */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-16 mb-14">
-            <div>
-              <p className="font-mono uppercase mb-5 text-white/30" style={{ fontSize: '9px', letterSpacing: '0.2em' }}>
-                Navigation
-              </p>
-              <ul className="flex flex-col gap-3">
-                {internalLinks.map(item => (
-                  <li key={item.label}>
-                    <Link to={item.href}
-                      className="font-mono text-white/45 transition-colors uppercase"
-                      style={{ fontSize: '11px', letterSpacing: '0.12em' }}
-                      onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-                      onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}>
-                      [{item.label}]
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="font-mono uppercase mb-5 text-white/30" style={{ fontSize: '9px', letterSpacing: '0.2em' }}>
-                Social
-              </p>
-              <ul className="flex flex-col gap-3">
-                {socialLinks.map(item => (
-                  <li key={item.label}>
-                    <a href={item.href} target="_blank" rel="noopener noreferrer"
-                      className="font-mono text-white/45 transition-colors uppercase"
-                      style={{ fontSize: '11px', letterSpacing: '0.12em' }}
-                      onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-                      onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}>
-                      [{item.label}]
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="col-span-2 md:col-span-1">
-              <p className="font-mono uppercase mb-5 text-white/30" style={{ fontSize: '9px', letterSpacing: '0.2em' }}>
-                Get in Touch
-              </p>
-              <a href="mailto:hello@createdbymohit.com"
-                className="font-mono text-white/45 transition-colors block mb-2 uppercase"
-                style={{ fontSize: '11px', letterSpacing: '0.1em' }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
-                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}>
-                hello@createdbymohit.com
-              </a>
-              <div className="flex items-center gap-2 mt-4">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#C41E3A]"
-                  style={{ animation: 'heroPulse 2.2s infinite' }} />
-                <span className="font-mono uppercase text-white/30" style={{ fontSize: '9px', letterSpacing: '0.14em' }}>
-                  Open for New Projects · 2026
-                </span>
-              </div>
+        <div className="foot-grid">
+          <div>
+            <p className="font-hand" style={{ fontSize: 24, color: '#F6D365', marginBottom: 14 }}>wander around</p>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {internalLinks.map(l => (
+                <li key={l.label}><Link to={l.href} className="font-display sketch-link" style={{ fontSize: 26, color: PAPER }}>{l.label}</Link></li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="font-hand" style={{ fontSize: 24, color: '#F6D365', marginBottom: 14 }}>say hi on</p>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {socialLinks.map(l => (
+                <li key={l.label}>
+                  <a href={l.href} target="_blank" rel="noopener noreferrer" className="font-display sketch-link" style={{ fontSize: 26, color: PAPER }}>{l.label} ↗</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="font-hand" style={{ fontSize: 24, color: '#F6D365', marginBottom: 14 }}>get in touch</p>
+            <a href="mailto:hello@createdbymohit.com" className="font-display sketch-link" style={{ fontSize: 26, color: PAPER, wordBreak: 'break-word' }}>hello@createdbymohit.com</a>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 18 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: RED, animation: 'heroPulse 2.2s infinite' }} />
+              <span className="eyebrow" style={{ color: FADED, fontSize: 11 }}>Open for new projects · 2026</span>
             </div>
           </div>
+        </div>
 
-          {/* Bottom bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-6"
-            style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-            <span className="font-mono text-white/20" style={{ fontSize: '9px', letterSpacing: '0.12em' }}>
-              © 2026 Mohit Pareek · createdbymohit.com
-            </span>
-            <span className="font-mono uppercase text-white/20" style={{ fontSize: '9px', letterSpacing: '0.12em' }}>
-              DESIGNED &amp; BUILT IN INDIA
-            </span>
-          </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginTop: 56, paddingTop: 22, borderTop: '1px dashed rgba(244,239,230,0.25)' }}>
+          <span className="eyebrow" style={{ fontSize: 10, color: FADED }}>© 2026 Mohit Pareek · createdbymohit.com</span>
+          <span className="font-hand" style={{ fontSize: 22, color: FADED }}>designed &amp; built by hand, in India ✶</span>
         </div>
       </div>
 
       <style>{`
-        @keyframes heroPulse {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(196,30,58,0.5); }
-          50%       { box-shadow: 0 0 0 8px rgba(196,30,58,0); }
-        }
+        .foot-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin-top: clamp(64px, 8vw, 110px); }
+        @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr 1fr; } .foot-grid > div:last-child { grid-column: 1 / -1; } }
       `}</style>
     </footer>
   )

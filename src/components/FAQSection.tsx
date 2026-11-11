@@ -1,6 +1,7 @@
-import { useState, useRef } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Plus, Minus } from 'lucide-react'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Doodle from './sketch/Doodle'
+import { RED, INK } from './sketch/RoughBox'
 
 const FAQ_ITEMS = [
   {
@@ -37,145 +38,88 @@ const FAQ_ITEMS = [
   },
 ]
 
+function Rule({ seed }: { seed: number }) {
+  const d = seed % 2
+    ? 'M0 3 C 180 1, 380 5, 560 3 C 740 1, 880 4, 1000 2.5'
+    : 'M0 2.5 C 160 4.5, 340 1, 520 3 C 720 5, 860 1.5, 1000 3'
+  return (
+    <svg aria-hidden width="100%" height="6" preserveAspectRatio="none" viewBox="0 0 1000 6" style={{ display: 'block' }}>
+      <path d={d} stroke={INK} strokeOpacity="0.5" strokeWidth="1.3" fill="none" vectorEffect="non-scaling-stroke" />
+    </svg>
+  )
+}
+
 function FAQItem({ item, index }: { item: typeof FAQ_ITEMS[0]; index: number }) {
   const [open, setOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-40px' })
-
   return (
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.05, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-      style={{ borderBottom: '1px solid var(--border)' }}
-    >
-      <button
-        onClick={() => setOpen(!open)}
-        style={{
-          width: '100%', display: 'flex', alignItems: 'flex-start',
-          justifyContent: 'space-between', gap: '20px',
-          padding: '24px 0', background: 'none', border: 'none',
-          cursor: 'pointer', textAlign: 'left',
-        }}
-      >
-        <span style={{
-          fontSize: 'clamp(15px, 1.5vw, 17px)',
-          fontWeight: 500, color: open ? 'var(--text)' : 'var(--text)',
-          lineHeight: 1.4, flex: 1,
-          transition: 'color 0.2s',
-        }}>
-          {item.q}
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-30px' }}
+      transition={{ delay: index * 0.04, duration: 0.5 }}>
+      <button onClick={() => setOpen(!open)} aria-expanded={open}
+        style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, padding: '24px 0', background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left', color: INK }}>
+        <span style={{ display: 'flex', alignItems: 'baseline', gap: 18, minWidth: 0 }}>
+          <span className="font-hand" style={{ fontSize: 24, color: RED, flexShrink: 0, width: 30 }}>{String(index + 1).padStart(2, '0')}</span>
+          <span className="font-display" style={{ fontSize: 'clamp(22px, 2.4vw, 32px)', lineHeight: 1.15, fontStyle: open ? 'italic' : 'normal' }}>{item.q}</span>
         </span>
-        <span style={{
-          width: '28px', height: '28px', borderRadius: '50%',
-          border: '1px solid var(--border-strong)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          flexShrink: 0, marginTop: '2px',
-          background: open ? 'var(--accent)' : 'transparent',
-          borderColor: open ? 'var(--accent)' : 'var(--border-strong)',
-          transition: 'all 0.2s ease',
-        }}>
-          {open
-            ? <Minus size={13} color="#fff" strokeWidth={2} />
-            : <Plus size={13} color="var(--muted)" strokeWidth={2} />
-          }
+        <span style={{ flexShrink: 0, transition: 'transform .35s ease', transform: open ? 'rotate(180deg)' : 'none', display: 'grid', placeItems: 'center' }}>
+          <Doodle key={open ? 'm' : 'p'} name={open ? 'minus' : 'plus'} size={30} color={open ? RED : INK} strokeWidth={2.4} duration={0.35} />
         </span>
       </button>
-
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            style={{ overflow: 'hidden' }}
-          >
-            <p style={{
-              fontSize: 'clamp(14px, 1.3vw, 15px)',
-              lineHeight: 1.75, color: 'var(--muted)',
-              paddingBottom: '24px', maxWidth: '72ch',
-            }}>
-              {item.a}
-            </p>
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            style={{ overflow: 'hidden' }}>
+            <p style={{ fontSize: 16, lineHeight: 1.75, color: 'var(--ink-soft)', padding: '0 0 28px 48px', maxWidth: '70ch' }}>{item.a}</p>
           </motion.div>
         )}
       </AnimatePresence>
+      <Rule seed={index} />
     </motion.div>
   )
 }
 
 export default function FAQSection() {
-  const headRef = useRef<HTMLDivElement>(null)
-  const headInView = useInView(headRef, { once: true })
-
   return (
-    <section style={{
-      padding: 'clamp(72px,8vw,120px) 24px',
-      background: 'var(--bg)',
-      borderTop: '1px solid var(--border)',
-    }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-
-        <div ref={headRef} style={{ marginBottom: '56px' }}>
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={headInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.45 }}
-            className="font-mono uppercase"
-            style={{ fontSize: '10px', letterSpacing: '0.2em', color: 'var(--muted)', marginBottom: '16px' }}
-          >
-            <span style={{ color: 'var(--accent)', marginRight: '6px' }}>··</span>FREQUENTLY ASKED
-          </motion.p>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            animate={headInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="font-syne"
-            style={{
-              fontSize: 'clamp(32px, 4.5vw, 60px)',
-              fontWeight: 800, letterSpacing: '-0.035em',
-              lineHeight: 0.95, color: 'var(--text)',
-            }}
-          >
-            Questions people<br />
-            <span style={{ color: 'var(--accent)' }}>actually ask.</span>
-          </motion.h2>
-        </div>
-
-        <div style={{ maxWidth: '800px' }}>
-          {FAQ_ITEMS.map((item, i) => (
-            <FAQItem key={i} item={item} index={i} />
-          ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div style={{
-          marginTop: '56px', padding: '32px 36px',
-          background: 'var(--surface)',
-          borderRadius: '20px',
-          border: '1px solid var(--border)',
-          display: 'flex', flexWrap: 'wrap',
-          alignItems: 'center', justifyContent: 'space-between',
-          gap: '20px', maxWidth: '800px',
-        }}>
-          <div>
-            <p style={{ fontSize: '16px', fontWeight: 500, color: 'var(--text)', marginBottom: '6px' }}>
-              Still have questions?
+    <section style={{ padding: 'clamp(80px, 9vw, 140px) 0' }}>
+      <div className="faq-wrap" style={{
+        maxWidth: 1280, margin: '0 auto',
+        paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
+        paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
+      }}>
+        <div className="faq-head">
+          <p className="hand-label" style={{ marginBottom: 10 }}>frequently asked —</p>
+          <h2 className="font-display" style={{ fontSize: 'clamp(46px, 6vw, 88px)', lineHeight: 0.95, letterSpacing: '-0.03em' }}>
+            Questions people <em style={{ color: RED }}>actually ask.</em>
+          </h2>
+          <div style={{ marginTop: 40, position: 'relative', maxWidth: 320 }} className="faq-note">
+            <p className="font-hand" style={{ fontSize: 28, lineHeight: 1.15, transform: 'rotate(-3deg)' }}>
+              Still have questions? Write directly — I reply within 24 hours.
             </p>
-            <p style={{ fontSize: '14px', color: 'var(--muted)' }}>
-              Write directly — I reply within 24 hours.
-            </p>
+            <Doodle name="arrowLoop" size={130} color={RED} strokeWidth={2.2} style={{ marginTop: 6, marginLeft: 30 }} />
+            <a href="mailto:hello@createdbymohit.com" className="bracket-link" style={{ marginTop: 10, fontSize: 20 }}>
+              hello@createdbymohit.com
+            </a>
           </div>
-          <a href="mailto:hello@createdbymohit.com"
-            className="bracket-link"
-            style={{ borderColor: 'var(--accent)', color: 'var(--accent)', textDecoration: 'none' }}>
-            [ hello@createdbymohit.com ]
-          </a>
         </div>
-
+        <div style={{ minWidth: 0 }}>
+          <Rule seed={9} />
+          {FAQ_ITEMS.map((item, i) => <FAQItem key={i} item={item} index={i} />)}
+        </div>
       </div>
+      <style>{`
+        .faq-wrap { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
+        .faq-head { position: sticky; top: 110px; }
+        @media (max-width: 900px) {
+          .faq-wrap { grid-template-columns: 1fr; }
+          .faq-head { position: static; }
+        }
+      `}</style>
     </section>
   )
 }

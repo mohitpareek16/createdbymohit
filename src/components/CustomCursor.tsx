@@ -13,6 +13,8 @@ export default function CustomCursor() {
     let rx = -100, ry = -100
     let raf = 0
 
+    if (window.matchMedia('(pointer: coarse)').matches) { dot.style.display = 'none'; ring.style.display = 'none'; return }
+
     const onMove = (e: MouseEvent) => {
       mx = e.clientX
       my = e.clientY
@@ -35,7 +37,7 @@ export default function CustomCursor() {
       ring.style.marginLeft  = '-28px'
       ring.style.marginTop   = '-28px'
       ring.style.borderColor = '#C41E3A'
-      ring.style.opacity     = '0.6'
+      ring.style.opacity     = '0.9'
     }
 
     const onLeave = () => {
@@ -43,7 +45,7 @@ export default function CustomCursor() {
       ring.style.height = '38px'
       ring.style.marginLeft  = '0'
       ring.style.marginTop   = '0'
-      ring.style.borderColor = 'rgba(12,12,10,0.4)'
+      ring.style.borderColor = 'rgba(27,26,23,0.55)'
       ring.style.opacity     = '1'
     }
 
@@ -85,7 +87,7 @@ export default function CustomCursor() {
       <div ref={ringRef} aria-hidden style={{
         position: 'fixed', top: 0, left: 0, width: '38px', height: '38px',
         borderRadius: '50%',
-        border: '1px solid rgba(12,12,10,0.4)',
+        border: '1.5px dashed rgba(27,26,23,0.55)',
         pointerEvents: 'none', zIndex: 99998,
         willChange: 'transform',
         transition: 'width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease',

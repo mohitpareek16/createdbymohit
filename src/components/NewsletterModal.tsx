@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, ArrowRight, Sparkles } from 'lucide-react'
+import Doodle from './sketch/Doodle'
 
 const SESSION_KEY = 'cbm_newsletter_seen'
 
@@ -11,10 +11,12 @@ export default function NewsletterModal() {
   const triggered = useRef(false)
 
   const trigger = () => {
-    if (triggered.current || sessionStorage.getItem(SESSION_KEY)) return
+    let seen = false
+    try { seen = !!sessionStorage.getItem(SESSION_KEY) } catch { seen = true }
+    if (triggered.current || seen) return
     triggered.current = true
     setOpen(true)
-    sessionStorage.setItem(SESSION_KEY, '1')
+    try { sessionStorage.setItem(SESSION_KEY, '1') } catch { /* private mode */ }
   }
 
   useEffect(() => {
@@ -51,108 +53,71 @@ export default function NewsletterModal() {
     <AnimatePresence>
       {open && (
         <>
-          {/* Backdrop */}
           <motion.div
             key="backdrop"
-            className="fixed inset-0 z-[9000] bg-[#051A24]/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[9000]"
+            style={{ background: 'rgba(27,26,23,0.45)' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={close}
           />
-
-          {/* Card */}
-          <motion.div
-            key="modal"
-            className="fixed z-[9001] bottom-0 left-0 right-0 sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-[480px]"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 24 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="bg-white rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl">
-              {/* Red header strip */}
-              <div className="bg-[#C41E3A] px-8 pt-8 pb-6 relative">
-                <button
-                  onClick={close}
-                  className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/15 flex items-center justify-center text-white hover:bg-white/25 transition-colors"
-                  aria-label="Close"
-                >
-                  <X size={14} />
-                </button>
-
-                <div className="flex items-center gap-2 mb-3">
-                  <Sparkles className="w-3.5 h-3.5 text-white/60" strokeWidth={1.5} />
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-white/60">
-                    Design for Founders
-                  </span>
+          <div className="fixed inset-0 z-[9001] grid place-items-center pointer-events-none" style={{ padding: 16 }}>
+            <motion.div
+              key="modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="nl-title"
+              className="ruled pointer-events-auto"
+              initial={{ opacity: 0, y: 40, rotate: 4 }}
+              animate={{ opacity: 1, y: 0, rotate: -1.2 }}
+              exit={{ opacity: 0, y: 24, rotate: 3 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              style={{ position: 'relative', width: 'min(100%, 460px)', background: 'var(--card)', padding: '40px 32px 28px 64px', boxShadow: '0 30px 60px -20px rgba(27,26,23,0.5)' }}>
+              <span className="tape" style={{ top: -12, left: '42%', transform: 'rotate(-4deg)' }} />
+              <button onClick={close} aria-label="Close"
+                style={{ position: 'absolute', top: 14, right: 14, background: 'none', border: 'none', cursor: 'pointer', padding: 6 }}>
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#C41E3A" strokeWidth="2.2" strokeLinecap="round">
+                  <path d="M3 3 C 7 7, 11 11, 15 15" /><path d="M15 3 C 11 7, 7 11, 3 15" />
+                </svg>
+              </button>
+              <p className="hand-label" style={{ marginBottom: 8 }}>design for founders —</p>
+              <h2 id="nl-title" className="font-display" style={{ fontSize: 'clamp(34px, 7vw, 44px)', lineHeight: 1, color: 'var(--ink)' }}>
+                Get the weekly<br /><em style={{ color: 'var(--red)' }}>design drop.</em>
+              </h2>
+              {sent ? (
+                <div style={{ marginTop: 24 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <Doodle name="check" size={34} color="#C41E3A" strokeWidth={3} />
+                    <p className="font-hand" style={{ fontSize: 30 }}>You're in.</p>
+                  </div>
+                  <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink-soft)', marginTop: 8 }}>
+                    Your email client should have opened — just hit send. I'll add you to the list manually.
+                  </p>
+                  <button onClick={close} className="font-hand" style={{ marginTop: 14, fontSize: 22, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ink-soft)' }}>
+                    close ×
+                  </button>
                 </div>
-
-                <h2 className="font-mondwest text-[clamp(28px,6vw,38px)] text-white leading-tight">
-                  Get the weekly<br />
-                  <em>design drop.</em>
-                </h2>
-              </div>
-
-              {/* Body */}
-              <div className="px-8 py-7">
-                {sent ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col gap-3 py-2"
-                  >
-                    <div className="w-10 h-10 rounded-full bg-[#C41E3A] flex items-center justify-center">
-                      <Sparkles className="w-4 h-4 text-white" strokeWidth={1.5} />
-                    </div>
-                    <p className="text-[#051A24] font-medium">You're in.</p>
-                    <p className="text-sm text-[#051A24]/60 leading-relaxed">
-                      Your email client should have opened — just hit send. I'll add you to the list manually.
-                    </p>
-                    <button
-                      onClick={close}
-                      className="mt-2 font-mono text-[10px] uppercase tracking-widest text-[#8A8780] hover:text-[#051A24] transition-colors"
-                    >
-                      Close ×
-                    </button>
-                  </motion.div>
-                ) : (
-                  <>
-                    <p className="text-sm text-[#051A24]/65 leading-relaxed mb-6">
-                      Every week: one design principle, one real case study, one thing worth stealing.
-                      No fluff. Unsubscribe whenever.
-                    </p>
-
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                      <input
-                        type="email"
-                        required
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        placeholder="your@email.com"
-                        className="w-full px-4 py-3.5 rounded-xl border border-[#D8D4CB] bg-[#F7F5F2] text-[#051A24] text-sm placeholder:text-[#C8C4BC] focus:outline-none focus:border-[#051A24] transition-colors"
-                      />
-                      <button
-                        type="submit"
-                        className="w-full inline-flex items-center justify-center gap-2 bg-[#051A24] text-white rounded-xl px-6 py-3.5 text-sm font-medium hover:bg-[#C41E3A] transition-colors"
-                      >
-                        Subscribe
-                        <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
-                      </button>
-                    </form>
-
-                    <button
-                      onClick={close}
-                      className="mt-4 w-full text-center font-mono text-[10px] uppercase tracking-widest text-[#C8C4BC] hover:text-[#8A8780] transition-colors"
-                    >
-                      No thanks
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-          </motion.div>
+              ) : (
+                <>
+                  <p style={{ fontSize: 15, lineHeight: '32px', color: 'var(--ink-soft)', marginTop: 16 }}>
+                    Every week: one design principle, one real case study, one thing worth stealing.
+                    No fluff. Unsubscribe whenever.
+                  </p>
+                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 18, marginTop: 14 }}>
+                    <input type="email" required value={email} onChange={e => setEmail(e.target.value)} placeholder="your@email.com"
+                      aria-label="Email address"
+                      style={{ background: 'transparent', border: 'none', borderBottom: '2px solid var(--ink)', outline: 'none', fontFamily: 'var(--font-hand)', fontSize: 26, padding: '4px 2px', color: 'var(--ink)' }} />
+                    <button type="submit" className="bracket-link accent" style={{ alignSelf: 'flex-start' }}>Subscribe →</button>
+                  </form>
+                  <button onClick={close} className="font-hand" style={{ marginTop: 14, fontSize: 20, background: 'none', border: 'none', cursor: 'pointer', color: 'var(--ink-faint)' }}>
+                    no thanks
+                  </button>
+                </>
+              )}
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
