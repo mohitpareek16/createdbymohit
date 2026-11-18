@@ -1,4 +1,4 @@
-export const WHATSAPP_NUMBER = '91635066685'
+export const WHATSAPP_NUMBER = '916350666858'
 export const CALENDAR_URL = ''
 export const EMAIL = 'hello@createdbymohit.com'
 
