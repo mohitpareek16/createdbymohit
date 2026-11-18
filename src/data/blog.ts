@@ -10,16 +10,18 @@ export interface BlogPost {
   published: boolean
 }
 
-export const POSTS: BlogPost[] = [
+import { NEW_POSTS } from './articles-new'
+
+const EXISTING: BlogPost[] = [
   {
     slug: 'why-your-portfolio-isnt-working',
     title: "Why Your Portfolio Isn't Getting You Work",
     subtitle: 'The real reason clients pass — and how to fix it before your next pitch.',
-    category: 'Career',
+    category: 'Design & Digital Products',
     readTime: '5 min read',
     date: 'July 2026',
     cover: '/blog/portfolio.jpg',
-    published: true,
+    published: false,
     body: `Most designers think their portfolio isn't working because the work isn't good enough. That's almost never the reason.
 
 The real problem is narrative. Clients don't hire process — they hire outcomes. When they open your portfolio, they're asking one question: "Can this person solve a problem like mine?" If the answer isn't obvious in the first 30 seconds, you've already lost them.
@@ -56,7 +58,7 @@ Your portfolio isn't a resume. It's a pitch. Make it for one specific person wit
     slug: 'the-one-thing-startups-get-wrong',
     title: 'The One Thing Startups Get Wrong About Design',
     subtitle: "They hire a designer to make things beautiful. They should be hiring one to make decisions fast.",
-    category: 'Product',
+    category: 'Design & Digital Products',
     readTime: '4 min read',
     date: 'June 2026',
     cover: '/blog/startups.jpg',
@@ -95,11 +97,11 @@ Great design at an early startup means fewer bad bets. That's it.`,
     slug: 'pricing-yourself-as-a-freelance-designer',
     title: 'Pricing Yourself as a Freelance Designer',
     subtitle: "You're probably charging 40% less than you should. Here's how to change that.",
-    category: 'Business',
+    category: 'Business Problem Solving',
     readTime: '7 min read',
     date: 'May 2026',
     cover: '/blog/pricing.jpg',
-    published: true,
+    published: false,
     body: `The conversation every freelance designer dreads: the client asks for your rate. You say a number. They say nothing. The silence feels like judgment. You immediately want to say "but I'm flexible."
 
 Stop.
@@ -148,7 +150,7 @@ Raise your prices every year whether you feel ready or not. The market moves up.
     slug: 'design-systems-for-startups',
     title:"Design Systems for Startups That Think They Don't Need One",
     subtitle: "You don't need a design system. Until you do. Then you needed it two years ago.",
-    category: 'Design',
+    category: 'Design & Digital Products',
     readTime: '6 min read',
     date: 'April 2026',
     cover: '/blog/systems.jpg',
@@ -206,7 +208,7 @@ That's the moment everything is still small enough to fix properly.`,
     slug: 'giving-design-feedback',
     title: 'How to Give Design Feedback That Actually Helps',
     subtitle: "Most feedback kills momentum. This is what good feedback looks like — and how to get it from clients.",
-    category: 'Process',
+    category: 'Design & Digital Products',
     readTime: '5 min read',
     date: 'March 2026',
     cover: '/blog/feedback.jpg',
@@ -254,6 +256,8 @@ You've now told them: there's a goal, there are options, there's a rationale, an
 It moves the conversation from subjective reaction to stated requirements. It gives the designer something to respond to. And it usually surfaces the real concern — which is almost never about the design itself.`,
   },
 ]
+
+export const POSTS: BlogPost[] = [...NEW_POSTS, ...EXISTING]
 
 export function getPost(slug: string) {
   return POSTS.find(p => p.slug === slug && p.published)

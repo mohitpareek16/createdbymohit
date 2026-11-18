@@ -1,142 +1,91 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import Doodle from './sketch/Doodle'
-import { LeakCheckLink } from './CtaLinks'
 
-const NAV_LINKS = [
-  { label: 'Clinics',     href: '/clinics' },
-  { label: 'Real estate', href: '/real-estate' },
-  { label: 'Pricing',     href: '/services' },
-  { label: 'Work',        href: '/work' },
-  { label: 'About',       href: '/about' },
+const LINKS = [
+  { label: 'Work',     to: '/#work' },
+  { label: 'Approach', to: '/#approach' },
+  { label: 'About',    to: '/#about' },
+  { label: 'Insights', to: '/blog' },
 ]
 
-const MENU = [
-  { label: 'Clinics',         href: '/clinics' },
-  { label: 'Real estate',     href: '/real-estate' },
-  { label: 'Pricing',         href: '/services' },
-  { label: 'Leak calculator', href: '/leak-calculator' },
-  { label: 'Work',            href: '/work' },
-  { label: 'About',           href: '/about' },
-  { label: 'Contact',         href: '/contact' },
-]
-
-function Wordmark() {
+export function Wordmark({ light = false }: { light?: boolean }) {
   return (
-    <Link to="/" aria-label="Starting Core — home" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--ink)' }}>
-      <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-        <span className="font-hand" style={{ fontSize: 30, fontWeight: 700, letterSpacing: '-0.01em' }}>
-          starting <span style={{ color: 'var(--red)' }}>core</span>
-        </span>
-        <span className="eyebrow" style={{ fontSize: 9, letterSpacing: '0.18em', marginTop: 1 }}>by Mohit Pareek</span>
-      </span>
-      <Doodle name="spark" size={16} color="#C41E3A" strokeWidth={2} fill="#C41E3A" animate={false} style={{ marginTop: -14 }} />
-    </Link>
+    <span className="font-display" style={{ fontSize: 25, lineHeight: 1, letterSpacing: '-0.02em', color: light ? 'var(--paper)' : 'var(--ink)' }}>
+      CreatedBy<em>Mohit</em><span style={{ color: 'var(--red)' }}>.</span>
+    </span>
   )
 }
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const { pathname } = useLocation()
+  const [open, setOpen] = useState(false)
+  const { pathname, hash } = useLocation()
 
-  useEffect(() => { setMenuOpen(false) }, [pathname])
+  useEffect(() => { setOpen(false) }, [pathname, hash])
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
-  }, [menuOpen])
+  }, [open])
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    const on = () => setScrolled(window.scrollY > 12)
+    on()
+    window.addEventListener('scroll', on, { passive: true })
+    return () => window.removeEventListener('scroll', on)
   }, [])
 
   return (
     <>
       <header style={{
         position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        transition: 'background 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease',
-        background: scrolled ? 'rgba(244,239,230,0.92)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(10px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(10px)' : 'none',
-        padding: scrolled ? '10px 0' : '18px 0',
+        background: scrolled || open ? 'rgba(246,245,241,0.9)' : 'transparent',
+        backdropFilter: scrolled ? 'saturate(1.4) blur(14px)' : 'none',
+        WebkitBackdropFilter: scrolled ? 'saturate(1.4) blur(14px)' : 'none',
+        borderBottom: `1px solid ${scrolled ? 'var(--rule)' : 'transparent'}`,
+        transition: 'background .3s ease, border-color .3s ease',
+        paddingTop: 'env(safe-area-inset-top, 0px)',
       }}>
-        <div style={{
-          maxWidth: 1280, margin: '0 auto',
-          paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
-          paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        }}>
-          <Wordmark />
+        <div className="wrap" style={{ height: 68, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Link to="/" aria-label="CreatedByMohit home"><Wordmark /></Link>
 
-          <nav className="hidden lg:flex items-center" style={{ gap: 28 }}>
-            {NAV_LINKS.map(link => {
-              const active = pathname.startsWith(link.href)
-              return (
-                <Link key={link.label} to={link.href} className="sketch-link"
-                  style={{
-                    fontSize: 15, fontWeight: 500, color: 'var(--ink)',
-                    backgroundSize: active ? '100% 2px' : undefined,
-                  }}>
-                  {link.label}
-                </Link>
-              )
-            })}
-            <LeakCheckLink style={{ fontSize: 20, padding: '8px 18px 10px' }}>Free Leak Check →</LeakCheckLink>
+          <nav className="nav-desk" aria-label="Main">
+            {LINKS.map(l => (
+              <Link key={l.label} to={l.to} className="link-u" style={{ fontSize: 14.5, color: 'var(--ink)' }}>{l.label}</Link>
+            ))}
+            <Link to="/#contact" className="btn btn-solid">
+              Let's talk <span className="arrow">↗</span>
+            </Link>
           </nav>
 
-          <button onClick={() => setMenuOpen(true)} className="lg:hidden sketch-border nav-burger"
-            style={{ width: 46, height: 40, background: 'transparent', cursor: 'pointer', placeItems: 'center' }}
-            aria-label="Open menu">
-            <svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke="#1B1A17" strokeWidth="2" strokeLinecap="round">
-              <path d="M2 3 C 8 2, 14 4, 20 2.5" /><path d="M2 8.5 C 9 7.5, 13 9, 20 8" /><path d="M2 14 C 7 13, 15 14.5, 20 13.5" />
+          <button className="nav-burger" onClick={() => setOpen(o => !o)} aria-expanded={open} aria-label={open ? 'Close menu' : 'Open menu'}
+            style={{ width: 44, height: 44, display: 'grid', placeItems: 'center', background: 'none', border: '1px solid var(--rule)', borderRadius: 999, cursor: 'pointer' }}>
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="#121212" strokeWidth="1.6" strokeLinecap="round">
+              {open ? <><path d="M3 1 L15 11" /><path d="M15 1 L3 11" /></> : <><path d="M1 2h16" /><path d="M1 10h16" /></>}
             </svg>
           </button>
         </div>
-        {scrolled && (
-          <svg aria-hidden width="100%" height="6" preserveAspectRatio="none" viewBox="0 0 1000 6"
-            style={{ position: 'absolute', left: 0, bottom: -3, display: 'block' }}>
-            <path d="M0 3 C 150 1, 300 5, 500 3 C 700 1, 850 5, 1000 2.5" stroke="#1B1A17" strokeOpacity="0.35" strokeWidth="1.2" fill="none" vectorEffect="non-scaling-stroke" />
-          </svg>
-        )}
-        <style>{`.nav-burger { display: grid; } @media (min-width: 1024px) { .nav-burger { display: none; } }`}</style>
       </header>
 
-      {menuOpen && (
-        <div className="ruled" style={{
-          position: 'fixed', inset: 0, zIndex: 60, background: 'var(--card)',
-          display: 'flex', flexDirection: 'column',
-          paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
-          paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '18px 0' }}>
-            <Wordmark />
-            <button onClick={() => setMenuOpen(false)} className="sketch-border"
-              style={{ width: 46, height: 40, background: 'transparent', cursor: 'pointer', display: 'grid', placeItems: 'center' }}
-              aria-label="Close menu">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#C41E3A" strokeWidth="2.2" strokeLinecap="round">
-                <path d="M3 3 C 7 7, 11 11, 15 15" /><path d="M15 3 C 11 7, 7 11, 3 15" />
-              </svg>
-            </button>
-          </div>
-
-          <nav style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingLeft: 56 }}>
-            {MENU.map((item, i) => (
-              <Link key={item.label} to={item.href} onClick={() => setMenuOpen(false)}
-                style={{ display: 'flex', alignItems: 'baseline', gap: 14, padding: '6px 0', color: 'var(--ink)' }}>
-                <span className="font-hand" style={{ fontSize: 22, color: 'var(--red)', width: 28 }}>{String(i + 1).padStart(2, '0')}</span>
-                <span className="font-display" style={{ fontSize: 'clamp(36px, 10vw, 54px)', lineHeight: 1.05 }}>{item.label}</span>
+      {open && (
+        <div style={{ position: 'fixed', inset: '68px 0 0', zIndex: 49, background: 'var(--paper)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <nav className="wrap" style={{ paddingTop: 32, display: 'flex', flexDirection: 'column' }} aria-label="Mobile">
+            {[...LINKS, { label: "Let's talk", to: '/#contact' }].map((l, i) => (
+              <Link key={l.label} to={l.to} style={{ display: 'flex', alignItems: 'baseline', gap: 16, padding: '14px 0', borderBottom: '1px solid var(--rule)' }}>
+                <span className="label" style={{ color: 'var(--red)' }}>0{i + 1}</span>
+                <span className="font-display" style={{ fontSize: 42, lineHeight: 1 }}>{l.label}</span>
               </Link>
             ))}
           </nav>
-
-          <div style={{ padding: '20px 0 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
-            <span className="eyebrow" style={{ textTransform: 'none', letterSpacing: '0.02em' }}>hello@createdbymohit.com</span>
-            <LeakCheckLink style={{ fontSize: 20, padding: '8px 18px 10px' }}>Free Leak Check →</LeakCheckLink>
+          <div className="wrap" style={{ paddingBottom: 'calc(28px + env(safe-area-inset-bottom, 0px))' }}>
+            <a href="mailto:hello@createdbymohit.com" className="label" style={{ textTransform: 'none', letterSpacing: 0, fontSize: 14 }}>hello@createdbymohit.com</a>
           </div>
         </div>
       )}
+
+      <style>{`
+        .nav-desk { display: none; align-items: center; gap: 30px; }
+        .nav-desk .btn { padding: 11px 18px !important; font-size: 14px !important; }
+        @media (min-width: 860px) { .nav-desk { display: flex; } .nav-burger { display: none !important; } }
+      `}</style>
     </>
   )
 }
