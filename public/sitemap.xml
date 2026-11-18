@@ -1,147 +1,215 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- Core pages -->
-  <url>
-    <loc>https://createdbymohit.com/clinics</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://createdbymohit.com/real-estate</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://createdbymohit.com/leak-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
   <url>
     <loc>https://createdbymohit.com/</loc>
-    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://createdbymohit.com/starting-core</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://createdbymohit.com/about</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://createdbymohit.com/work</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://createdbymohit.com/services</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://createdbymohit.com/contact</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://createdbymohit.com/blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://createdbymohit.com/media</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://createdbymohit.com/book</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <!-- Case studies -->
-  <url>
-    <loc>https://createdbymohit.com/work/evr</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://createdbymohit.com/work/automation-machines</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://createdbymohit.com/work/xportfolio</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- FAQ pages -->
   <url>
     <loc>https://createdbymohit.com/faq</loc>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://createdbymohit.com/faq/ai-automation-cost-india</loc>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://createdbymohit.com/faq/what-can-be-automated-with-ai</loc>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://createdbymohit.com/faq/ai-automation-vs-rpa</loc>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://createdbymohit.com/faq/how-long-to-build-ai-workflow</loc>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://createdbymohit.com/faq/ai-automation-whatsapp-zoho-shopify</loc>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-
-  <!-- Glossary pages -->
   <url>
     <loc>https://createdbymohit.com/glossary</loc>
-    <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://createdbymohit.com/glossary/what-is-an-ai-agent</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://createdbymohit.com/glossary/what-is-workflow-automation</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://createdbymohit.com/glossary/what-is-business-process-automation</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://createdbymohit.com/glossary/what-is-rpa</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://createdbymohit.com/glossary/what-is-no-code-ai-workflow</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.6</priority>
   </url>
-
+  <url>
+    <loc>https://createdbymohit.com/blog/the-one-thing-startups-get-wrong</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/blog/design-systems-for-startups</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/blog/giving-design-feedback</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/blog/hidden-cost-of-repetitive-business-operations</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/blog/where-should-a-founder-start-with-ai-automation</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/blog/ai-automation-vs-traditional-automation</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/blog/how-to-replace-spreadsheets-with-connected-systems</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/blog/why-most-business-software-is-hard-to-use</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/growumedia</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/kontentmedia</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/multiphasedigital</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/kiventures</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/cipherschools</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/jammer</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/vhrwf</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/babaazam</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/mehakepunjab</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/rentaroom</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/dartbharat</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/happywomenglobal</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/sdrf</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/kasbahagafay</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/aahvaan</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/cup-of-smiles</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/brocode</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/banarsilassi</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/daamji</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/sanatanvishwa</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/aepgroup</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/minaximarketing</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/thesoulroot</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/ops-kontentmedia</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/infumarket</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/agrivia</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/bookcloud</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/jyotishhvaastu</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/shivamresort</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/raasrangdance</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://createdbymohit.com/work/site/yolotrips</loc>
+    <priority>0.6</priority>
+  </url>
 </urlset>
