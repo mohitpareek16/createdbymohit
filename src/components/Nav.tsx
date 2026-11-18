@@ -1,28 +1,34 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Doodle from './sketch/Doodle'
+import { LeakCheckLink } from './CtaLinks'
 
 const NAV_LINKS = [
-  { label: 'About',    href: '/about' },
-  { label: 'Work',     href: '/work' },
-  { label: 'Services', href: '/services' },
-  { label: 'Blog',     href: '/blog' },
+  { label: 'Clinics',     href: '/clinics' },
+  { label: 'Real estate', href: '/real-estate' },
+  { label: 'Pricing',     href: '/services' },
+  { label: 'Work',        href: '/work' },
+  { label: 'About',       href: '/about' },
 ]
 
 const MENU = [
-  { label: 'Work',     href: '/work' },
-  { label: 'Services', href: '/services' },
-  { label: 'About',    href: '/about' },
-  { label: 'Blog',     href: '/blog' },
-  { label: 'Courses',  href: '/courses' },
-  { label: 'Contact',  href: '/contact' },
+  { label: 'Clinics',         href: '/clinics' },
+  { label: 'Real estate',     href: '/real-estate' },
+  { label: 'Pricing',         href: '/services' },
+  { label: 'Leak calculator', href: '/leak-calculator' },
+  { label: 'Work',            href: '/work' },
+  { label: 'About',           href: '/about' },
+  { label: 'Contact',         href: '/contact' },
 ]
 
 function Wordmark() {
   return (
-    <Link to="/" aria-label="Created by Mohit — home" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--ink)' }}>
-      <span className="font-hand" style={{ fontSize: 30, fontWeight: 700, lineHeight: 1, letterSpacing: '-0.01em' }}>
-        created by <span style={{ color: 'var(--red)' }}>mohit</span>
+    <Link to="/" aria-label="Starting Core — home" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--ink)' }}>
+      <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+        <span className="font-hand" style={{ fontSize: 30, fontWeight: 700, letterSpacing: '-0.01em' }}>
+          starting <span style={{ color: 'var(--red)' }}>core</span>
+        </span>
+        <span className="eyebrow" style={{ fontSize: 9, letterSpacing: '0.18em', marginTop: 1 }}>by Mohit Pareek</span>
       </span>
       <Doodle name="spark" size={16} color="#C41E3A" strokeWidth={2} fill="#C41E3A" animate={false} style={{ marginTop: -14 }} />
     </Link>
@@ -64,7 +70,7 @@ export default function Nav() {
         }}>
           <Wordmark />
 
-          <nav className="hidden md:flex items-center" style={{ gap: 32 }}>
+          <nav className="hidden lg:flex items-center" style={{ gap: 28 }}>
             {NAV_LINKS.map(link => {
               const active = pathname.startsWith(link.href)
               return (
@@ -77,12 +83,10 @@ export default function Nav() {
                 </Link>
               )
             })}
-            <Link to="/contact" className="bracket-link accent" style={{ fontSize: 20, padding: '8px 18px 10px' }}>
-              Start a project →
-            </Link>
+            <LeakCheckLink style={{ fontSize: 20, padding: '8px 18px 10px' }}>Free Leak Check →</LeakCheckLink>
           </nav>
 
-          <button onClick={() => setMenuOpen(true)} className="md:hidden sketch-border nav-burger"
+          <button onClick={() => setMenuOpen(true)} className="lg:hidden sketch-border nav-burger"
             style={{ width: 46, height: 40, background: 'transparent', cursor: 'pointer', placeItems: 'center' }}
             aria-label="Open menu">
             <svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke="#1B1A17" strokeWidth="2" strokeLinecap="round">
@@ -96,7 +100,7 @@ export default function Nav() {
             <path d="M0 3 C 150 1, 300 5, 500 3 C 700 1, 850 5, 1000 2.5" stroke="#1B1A17" strokeOpacity="0.35" strokeWidth="1.2" fill="none" vectorEffect="non-scaling-stroke" />
           </svg>
         )}
-        <style>{`.nav-burger { display: grid; } @media (min-width: 768px) { .nav-burger { display: none; } }`}</style>
+        <style>{`.nav-burger { display: grid; } @media (min-width: 1024px) { .nav-burger { display: none; } }`}</style>
       </header>
 
       {menuOpen && (
@@ -122,14 +126,14 @@ export default function Nav() {
               <Link key={item.label} to={item.href} onClick={() => setMenuOpen(false)}
                 style={{ display: 'flex', alignItems: 'baseline', gap: 14, padding: '6px 0', color: 'var(--ink)' }}>
                 <span className="font-hand" style={{ fontSize: 22, color: 'var(--red)', width: 28 }}>{String(i + 1).padStart(2, '0')}</span>
-                <span className="font-display" style={{ fontSize: 'clamp(44px, 12vw, 64px)', lineHeight: 1.05 }}>{item.label}</span>
+                <span className="font-display" style={{ fontSize: 'clamp(36px, 10vw, 54px)', lineHeight: 1.05 }}>{item.label}</span>
               </Link>
             ))}
           </nav>
 
           <div style={{ padding: '20px 0 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
             <span className="eyebrow" style={{ textTransform: 'none', letterSpacing: '0.02em' }}>hello@createdbymohit.com</span>
-            <span className="hand-label" style={{ fontSize: 20 }}>open for projects ✶</span>
+            <LeakCheckLink style={{ fontSize: 20, padding: '8px 18px 10px' }}>Free Leak Check →</LeakCheckLink>
           </div>
         </div>
       )}

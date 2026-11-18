@@ -144,10 +144,10 @@ export default function StartingCorePage() {
           gap: '1px', background: 'var(--border)',
         }}>
           {[
-            { num: '80+', label: 'Problems solved' },
-            { num: '6+', label: 'Years building' },
-            { num: '3', label: 'Active retainers' },
-            { num: '₹40K', label: 'Audit starts at' },
+            { num: '< 60s', label: 'First reply' },
+            { num: '5', label: 'Follow-ups per enquiry' },
+            { num: '3 wks', label: 'To go live' },
+            { num: '₹15K', label: 'Leak Audit' },
           ].map(({ num, label }) => (
             <div key={label} style={{ background: 'var(--surface)', padding: '28px 24px', textAlign: 'center' }}>
               <p className="font-syne" style={{ fontSize: 'clamp(28px,3.5vw,44px)', fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--text)', lineHeight: 1, marginBottom: '6px' }}>
@@ -376,8 +376,8 @@ export default function StartingCorePage() {
             {[
               { label: 'Jaipur, Rajasthan', sub: 'India · Remote-first' },
               { label: 'Q4 2026', sub: 'Open for projects' },
-              { label: '₹40,000', sub: 'Audit starts at' },
-              { label: '2–3 weeks', sub: 'Average response time' },
+              { label: '₹15,000', sub: 'Leak Audit' },
+              { label: 'Same day', sub: 'Reply to every enquiry' },
             ].map(item => (
               <div key={item.label} style={{ background: 'rgba(247,245,240,0.05)', borderRadius: '12px', padding: '20px 18px', border: '1px solid rgba(247,245,240,0.08)' }}>
                 <p style={{ fontSize: '14px', fontWeight: 600, color: '#F7F5F0', marginBottom: '4px' }}>

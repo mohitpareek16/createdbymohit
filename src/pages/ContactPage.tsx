@@ -1,19 +1,22 @@
 import { useState, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
+import { whatsappLink } from '../data/offer'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Check } from 'lucide-react'
 import Nav from '../components/Nav'
 import SEO from '../components/SEO'
 import Footer from '../components/Footer'
 
-type InquiryType = 'project' | 'review' | 'consultation' | 'other'
+type InquiryType = 'leak-check' | 'audit' | 'build' | 'other'
 
 const INQUIRY_TYPES: { id: InquiryType; label: string; desc: string }[] = [
-  { id: 'project',      label: 'Custom Development', desc: 'Build something specific that doesn\'t exist yet' },
-  { id: 'review',       label: 'Business Audit',     desc: 'Map your operation and find what\'s holding you back' },
-  { id: 'consultation', label: 'AI Integration',     desc: 'Add AI or automation to your existing workflows' },
-  { id: 'other',        label: 'Something else',     desc: 'Courses, press, partnerships, general questions' },
+  { id: 'leak-check', label: 'Free Leak Check',       desc: '20 minutes on how your enquiries are handled today' },
+  { id: 'audit',      label: 'Leak Audit · ₹15,000',  desc: '5 days, a rupee leak estimate and a 30-day fix plan' },
+  { id: 'build',      label: 'Lead Recovery System',  desc: '₹75,000–1,25,000 · live in 2–3 weeks' },
+  { id: 'other',      label: 'Something else',        desc: 'Website design, courses, press, partnerships' },
 ]
+
+const isType = (t: string | null): t is InquiryType => !!t && INQUIRY_TYPES.some(x => x.id === t)
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
   return (
@@ -85,7 +88,9 @@ function Textarea({ label, name, placeholder, required }: {
 }
 
 export default function ContactPage() {
-  const [type, setType] = useState<InquiryType>('project')
+  const [params] = useSearchParams()
+  const initial = params.get('type')
+  const [type, setType] = useState<InquiryType>(isType(initial) ? initial : 'leak-check')
   const [submitted, setSubmitted] = useState(false)
   const heroRef = useRef<HTMLDivElement>(null)
   const heroInView = useInView(heroRef, { once: true })
@@ -97,7 +102,9 @@ export default function ContactPage() {
       `Inquiry type: ${type}`,
       `Name: ${data.get('name')}`,
       `Email: ${data.get('email')}`,
-      data.get('company')  ? `Company: ${data.get('company')}` : '',
+      data.get('company')  ? `Business: ${data.get('company')}` : '',
+      data.get('url')      ? `Website / Instagram: ${data.get('url')}` : '',
+      data.get('volume')   ? `Enquiries a month: ${data.get('volume')}` : '',
       data.get('budget')   ? `Budget: ${data.get('budget')}` : '',
       data.get('timeline') ? `Timeline: ${data.get('timeline')}` : '',
       '',
@@ -116,8 +123,8 @@ export default function ContactPage() {
   return (
     <main>
       <SEO
-        title="Start a Project | Starting Core · Mohit Pareek"
-        description="Tell us what's broken. We audit your business, find the real problem, then build the exact solution. Custom software, AI integration, automation tools. Jaipur, India."
+        title="Get a free Leak Check | Starting Core"
+        description="Book a free 20-minute Leak Check. We look at how your WhatsApp and enquiry flow loses leads and tell you honestly whether it is worth fixing. Starting Core, Jaipur."
         canonical="/contact"
       />
       <Nav />
@@ -141,8 +148,8 @@ export default function ContactPage() {
             className="font-syne uppercase mb-6"
             style={{ fontSize: 'clamp(40px,6.5vw,88px)', lineHeight: 0.9, letterSpacing: '-0.035em', fontWeight: 800, color: 'var(--text)' }}
           >
-            TELL US WHAT'S{' '}
-            <span style={{ color: 'var(--accent)' }}>BROKEN.</span>
+            LET'S FIND{' '}
+            <span style={{ color: 'var(--accent)' }}>YOUR LEAK.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
@@ -150,7 +157,7 @@ export default function ContactPage() {
             transition={{ delay: 0.3, duration: 0.6 }}
             style={{ fontSize: 'clamp(14px,1.4vw,17px)', lineHeight: 1.7, color: 'var(--muted)', maxWidth: '50ch' }}
           >
-            We audit first, understand the real problem, then build exactly what fixes it. Audits from ₹40,000. Custom builds from ₹80,000. 2–3 new projects per quarter.
+            Twenty minutes, free. We look at how your enquiries are handled today and tell you honestly whether it is worth fixing. Leak Audit ₹15,000. Lead Recovery System from ₹75,000. Prefer WhatsApp? Use the green button.
           </motion.p>
         </div>
       </section>
@@ -219,29 +226,28 @@ export default function ContactPage() {
                     <Input label="Email" name="email" type="email" placeholder="rahul@startup.com" required />
                   </div>
 
-                  {type === 'project' && (
+                  {type !== 'other' && (
                     <>
-                      <Input label="Company / Product" name="company" placeholder="Your startup or product name" />
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <Select label="Monthly budget" name="budget" options={['₹50k – ₹1L', '₹1L – ₹2L', '₹2L – ₹5L', '₹5L+', 'Not sure yet']} />
-                        <Select label="Start date" name="timeline" options={['ASAP', 'Within 1 month', '1–3 months', 'Just exploring']} />
+                        <Input label="Business name" name="company" placeholder="Your clinic, brokerage or company" />
+                        <Input label="Website or Instagram" name="url" placeholder="instagram.com/yourbusiness" />
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <Select label="Enquiries a month" name="volume" options={['Under 20', '20 – 50', '50 – 150', '150 – 500', '500+']} />
+                        {type === 'build'
+                          ? <Select label="Budget" name="budget" options={['₹75k – ₹1L', '₹1L – ₹1.25L', '₹1.25L+', 'Not sure yet']} />
+                          : <Select label="Start date" name="timeline" options={['ASAP', 'Within 1 month', '1–3 months', 'Just exploring']} />}
                       </div>
                     </>
                   )}
 
-                  {type === 'review' && (
-                    <Input label="Product URL" name="url" type="url" placeholder="https://yourproduct.com" />
-                  )}
-
                   <Textarea
-                    label={type === 'project' ? 'Tell me about your project' : 'Your message'}
+                    label={type === 'other' ? 'Your message' : 'How do enquiries reach you today?'}
                     name="message"
                     placeholder={
-                      type === 'project'
-                        ? "What are you building? Who is it for? What's the biggest design challenge right now?"
-                        : type === 'review'
-                        ? "What do you want me to focus on? What's not working as well as you'd like?"
-                        : "Tell me what's on your mind."
+                      type === 'other'
+                        ? "Tell me what's on your mind."
+                        : 'Where do leads come from (ads, portals, Instagram)? Who replies, and how fast? What happens after 8pm?'
                     }
                     required
                   />
@@ -271,7 +277,7 @@ export default function ContactPage() {
                 </span>
               </div>
               <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>
-                Taking 2–3 new projects this quarter. Audits can start within 1 week. I respond to every inquiry within 24–48 hours.
+                Taking 2–3 new clients this quarter. Audits start within a week. I reply to every enquiry the same working day.
               </p>
             </div>
 
@@ -288,6 +294,7 @@ export default function ContactPage() {
               </a>
               <div className="flex flex-col gap-2">
                 {[
+                  { label: 'WhatsApp', href: whatsappLink() },
                   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mohit-pareek-b8a676204' },
                   { label: 'Instagram', href: 'https://www.instagram.com/createdbymohit/' },
                   { label: 'Dribbble', href: 'https://dribbble.com/mohit_pareek16' },

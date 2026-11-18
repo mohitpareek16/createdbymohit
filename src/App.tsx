@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { ThemeProvider } from './context/ThemeContext'
@@ -5,32 +6,36 @@ import CustomCursor from './components/CustomCursor'
 import IntroScreen from './components/IntroScreen'
 import NewsletterModal from './components/NewsletterModal'
 import ScrollToTop from './components/ScrollToTop'
+import WhatsAppButton from './components/WhatsAppButton'
 import PageWrapper from './components/PageWrapper'
 import HomePage from './pages/HomePage'
-import AboutPage from './pages/AboutPage'
-import WorkPage from './pages/WorkPage'
-import CaseStudy from './pages/CaseStudy'
-import CourseCatalog from './pages/CourseCatalog'
-import CourseDetail from './pages/CourseDetail'
-import ContactPage from './pages/ContactPage'
-import BookPage from './pages/BookPage'
-import ServicesPage from './pages/ServicesPage'
-import BlogList from './pages/BlogList'
-import BlogPost from './pages/BlogPost'
-import StartingCorePage from './pages/StartingCorePage'
-import TestimonialsPage from './pages/TestimonialsPage'
-import MediaPage from './pages/MediaPage'
-import WebsiteCase from './pages/WebsiteCase'
-import FaqIndex from './pages/FaqIndex'
-import FaqPost from './pages/FaqPost'
-import GlossaryIndex from './pages/GlossaryIndex'
-import GlossaryPost from './pages/GlossaryPost'
+const AboutPage = lazy(() => import('./pages/AboutPage'))
+const WorkPage = lazy(() => import('./pages/WorkPage'))
+const CaseStudy = lazy(() => import('./pages/CaseStudy'))
+const CourseCatalog = lazy(() => import('./pages/CourseCatalog'))
+const CourseDetail = lazy(() => import('./pages/CourseDetail'))
+const ContactPage = lazy(() => import('./pages/ContactPage'))
+const BookPage = lazy(() => import('./pages/BookPage'))
+const ServicesPage = lazy(() => import('./pages/ServicesPage'))
+const BlogList = lazy(() => import('./pages/BlogList'))
+const BlogPost = lazy(() => import('./pages/BlogPost'))
+const StartingCorePage = lazy(() => import('./pages/StartingCorePage'))
+const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage'))
+const MediaPage = lazy(() => import('./pages/MediaPage'))
+const WebsiteCase = lazy(() => import('./pages/WebsiteCase'))
+const VerticalPage = lazy(() => import('./pages/VerticalPage'))
+const LeakCalculatorPage = lazy(() => import('./pages/LeakCalculatorPage'))
+const FaqIndex = lazy(() => import('./pages/FaqIndex'))
+const FaqPost = lazy(() => import('./pages/FaqPost'))
+const GlossaryIndex = lazy(() => import('./pages/GlossaryIndex'))
+const GlossaryPost = lazy(() => import('./pages/GlossaryPost'))
 
 function AnimatedRoutes() {
   const location = useLocation()
   return (
     <AnimatePresence mode="wait" initial={false}>
-      <Routes location={location} key={location.pathname}>
+      <Suspense fallback={<div style={{ minHeight: '100vh' }} />} key={location.pathname}>
+      <Routes location={location}>
         <Route path="/" element={<PageWrapper><HomePage /></PageWrapper>} />
         <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
         <Route path="/work" element={<PageWrapper><WorkPage /></PageWrapper>} />
@@ -50,7 +55,11 @@ function AnimatedRoutes() {
         <Route path="/faq/:slug" element={<PageWrapper><FaqPost /></PageWrapper>} />
         <Route path="/glossary" element={<PageWrapper><GlossaryIndex /></PageWrapper>} />
         <Route path="/glossary/:slug" element={<PageWrapper><GlossaryPost /></PageWrapper>} />
+        <Route path="/clinics" element={<PageWrapper><VerticalPage /></PageWrapper>} />
+        <Route path="/real-estate" element={<PageWrapper><VerticalPage /></PageWrapper>} />
+        <Route path="/leak-calculator" element={<PageWrapper><LeakCalculatorPage /></PageWrapper>} />
       </Routes>
+      </Suspense>
     </AnimatePresence>
   )
 }
@@ -63,6 +72,7 @@ export default function App() {
       <CustomCursor />
       <ScrollToTop />
       <AnimatedRoutes />
+      <WhatsAppButton />
     </ThemeProvider>
   )
 }

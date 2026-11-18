@@ -1,90 +1,91 @@
-import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import RoughBox, { RED } from './sketch/RoughBox'
 import Doodle from './sketch/Doodle'
+import { OFFERS, ADD_ONS } from '../data/offer'
+import { LeakCheckLink } from './CtaLinks'
 
-const SERVICES = [
-  {
-    num: '01',
-    title: 'Custom Development',
-    short: 'Solve the specific problem',
-    desc: "Every company has different processes, different tools, different bottlenecks. We don't sell pre-packaged solutions. We diagnose what's actually broken and build exactly what fixes it — whether that's a custom integration, a purpose-built tool, or a full system redesign.",
-    href: '/services',
-  },
-  {
-    num: '02',
-    title: 'Business Audit',
-    short: 'Understand everything first',
-    desc: "Before writing a single line of code or touching any AI tool, we map your entire operation. Every workflow, every handoff, every manual step that shouldn't be manual. The audit is the foundation. It's why the solutions we build actually stick.",
-    href: '/services',
-  },
-  {
-    num: '03',
-    title: 'AI Integration',
-    short: 'The right AI for your business',
-    desc: "Not every business needs a custom AI agent. Sometimes a pre-built tool configured correctly does the job. Sometimes it needs to be built from scratch. We figure out which, then implement it — WhatsApp bots, workflow automations, CRM intelligence.",
-    href: '/services',
-  },
-]
+const TILT = [-1, 0.6, -0.4, 0.9]
 
-const TILT = [-1.2, 0.8, -0.4]
-
-export default function ServicesSection() {
+export default function ServicesSection({ showHeading = true }: { showHeading?: boolean }) {
   return (
-    <section id="services" style={{ padding: 'clamp(80px, 9vw, 140px) 0' }}>
+    <section id="pricing" style={{ padding: 'clamp(80px, 9vw, 140px) 0' }}>
       <div style={{
         maxWidth: 1280, margin: '0 auto',
         paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
         paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
       }}>
-        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24, marginBottom: 'clamp(48px, 6vw, 80px)' }}>
-          <div>
-            <p className="hand-label" style={{ marginBottom: 10 }}>what we do —</p>
-            <h2 className="font-display" style={{ fontSize: 'clamp(50px, 7vw, 108px)', lineHeight: 0.9, letterSpacing: '-0.03em' }}>
-              Three ways<br /><em>we help.</em>
-            </h2>
+        {showHeading && (
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 24, marginBottom: 'clamp(48px, 6vw, 80px)' }}>
+            <div>
+              <p className="hand-label" style={{ marginBottom: 10 }}>offers & prices —</p>
+              <h2 className="font-display" style={{ fontSize: 'clamp(48px, 6.5vw, 100px)', lineHeight: 0.92, letterSpacing: '-0.03em' }}>
+                Fixed scope.<br /><em>Prices on the page.</em>
+              </h2>
+            </div>
+            <p style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--ink-soft)', maxWidth: '36ch' }}>
+              Start free, measure for ₹15,000, or go straight to the build. WhatsApp and platform fees are paid by you, at cost.
+            </p>
           </div>
-          <Link to="/services" className="bracket-link">All services</Link>
-        </div>
+        )}
 
-        <div className="svc-grid">
-          {SERVICES.map((s, i) => (
-            <motion.div key={s.num}
+        <div className="offer-grid">
+          {OFFERS.map((o, i) => (
+            <motion.div key={o.id}
               initial={{ opacity: 0, y: 40, rotate: 0 }}
               whileInView={{ opacity: 1, y: 0, rotate: TILT[i] }}
               whileHover={{ rotate: 0, y: -6 }}
               viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
               style={{ position: 'relative' }}>
-              <span className="tape" style={{ top: -12, left: 28, transform: 'rotate(-6deg)' }} />
-              <Link to={s.href} style={{ display: 'block', color: 'var(--ink)', height: '100%' }}>
-                <RoughBox fill={i === 1 ? '#F6D365' : '#FBF8F2'} fillStyle="solid" roughness={1.3} strokeWidth={1.6} style={{ height: '100%' }}>
-                  <div style={{ padding: 'clamp(26px, 3vw, 36px)', display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'clamp(40px, 5vw, 72px)' }}>
-                      <span className="font-hand" style={{ fontSize: 40, color: RED, lineHeight: 1 }}>{s.num}</span>
-                      <Doodle name="arrowRight" size={58} color="#1B1A17" strokeWidth={2} />
-                    </div>
-                    <h3 className="font-display" style={{ fontSize: 'clamp(34px, 3.2vw, 46px)', lineHeight: 1, letterSpacing: '-0.02em' }}>{s.title}</h3>
-                    <p className="eyebrow" style={{ fontSize: 11, marginTop: 12, color: i === 1 ? 'var(--ink)' : undefined }}>{s.short}</p>
-                    <p style={{ fontSize: 15, lineHeight: 1.7, color: 'var(--ink-soft)', marginTop: 18, flex: 1 }}>{s.desc}</p>
-                    <span className="font-hand" style={{ fontSize: 24, marginTop: 24, color: 'var(--ink)' }}>
-                      read more <span style={{ color: RED }}>→</span>
-                    </span>
-                  </div>
-                </RoughBox>
-              </Link>
+              {o.featured && (
+                <span className="font-hand" style={{ position: 'absolute', top: -34, right: 14, fontSize: 24, color: RED, transform: 'rotate(4deg)', zIndex: 3 }}>
+                  most clients start here ↓
+                </span>
+              )}
+              <span className="tape" style={{ top: -12, left: 24, transform: 'rotate(-6deg)' }} />
+              <RoughBox fill={o.featured ? '#F6D365' : '#FBF8F2'} fillStyle="solid" roughness={1.3} strokeWidth={o.featured ? 2.2 : 1.5} style={{ height: '100%' }}>
+                <div style={{ padding: 'clamp(24px, 2.6vw, 32px)', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                  <p className="font-hand" style={{ fontSize: 24, color: RED, lineHeight: 1 }}>{String(i + 1).padStart(2, '0')} · {o.role}</p>
+                  <h3 className="font-display" style={{ fontSize: 'clamp(30px, 2.6vw, 38px)', lineHeight: 1, letterSpacing: '-0.02em', marginTop: 18 }}>{o.name}</h3>
+                  <p className="font-display" style={{ fontSize: 'clamp(30px, 2.8vw, 40px)', lineHeight: 1.05, marginTop: 18, fontStyle: 'italic' }}>{o.price}</p>
+                  <p className="eyebrow" style={{ fontSize: 10, marginTop: 8, lineHeight: 1.7, textTransform: 'none', letterSpacing: '0.03em', color: o.featured ? 'var(--ink)' : undefined }}>{o.priceNote}</p>
+                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 10, marginTop: 22, flex: 1 }}>
+                    {o.includes.map(item => (
+                      <li key={item} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14.5, lineHeight: 1.5, color: 'var(--ink)' }}>
+                        <Doodle name="check" size={16} color={RED} strokeWidth={2.6} animate={false} style={{ marginTop: 3, flexShrink: 0 }} />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="font-hand" style={{ fontSize: 22, marginTop: 22, color: 'var(--ink-soft)' }}>⏱ {o.time}</p>
+                </div>
+              </RoughBox>
             </motion.div>
           ))}
+        </div>
+
+        <div className="addon-row">
+          <p className="font-hand" style={{ fontSize: 28, color: 'var(--ink)' }}>add-ons, once you're live:</p>
+          <ul style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: '10px 28px' }}>
+            {ADD_ONS.map(a => (
+              <li key={a.name} style={{ fontSize: 15, color: 'var(--ink-soft)' }}>
+                {a.name} <span className="font-hand" style={{ fontSize: 21, color: RED }}>{a.price}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 18, marginTop: 40 }}>
+          <LeakCheckLink />
+          <span className="font-hand" style={{ fontSize: 22, color: 'var(--ink-soft)' }}>not sure which? the free Leak Check tells you.</span>
         </div>
       </div>
 
       <style>{`
-        .svc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 40px); align-items: stretch; }
-        .svc-grid > div:nth-child(2) { margin-top: 40px; }
-        @media (max-width: 900px) {
-          .svc-grid { grid-template-columns: 1fr; }
-          .svc-grid > div:nth-child(2) { margin-top: 0; }
-        }
+        .offer-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 32px); align-items: stretch; margin-top: 20px; }
+        .addon-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px 24px; margin-top: clamp(40px, 5vw, 64px); padding-top: 22px; border-top: 1.4px dashed rgba(27,26,23,0.3); }
+        @media (max-width: 1100px) { .offer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 56px; } }
+        @media (max-width: 640px) { .offer-grid { grid-template-columns: 1fr; } }
       `}</style>
     </section>
   )

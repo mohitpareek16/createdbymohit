@@ -1,12 +1,12 @@
 const BANDS = [
-  { items: ['Custom development', 'Every problem is different', 'So is the solution'], reverse: false, tilt: -1.6, bg: 'var(--ink)', fg: 'var(--paper)' },
-  { items: ['Business audit', 'AI integration', 'Starting Core', 'Mohit Pareek'], reverse: true, tilt: 1.2, bg: 'var(--red)', fg: '#FBF8F2' },
-  { items: ['We build AI that fits your business', 'Jaipur · India', 'Open for projects'], reverse: false, tilt: -0.6, bg: 'var(--card)', fg: 'var(--ink)' },
+  { items: ['Reply in under 60 seconds', 'Five follow-ups, every time', 'Bookings, not chats'], reverse: false, tilt: -1.6, bg: 'var(--ink)', fg: 'var(--paper)' },
+  { items: ['Leak Audit', 'Lead Recovery System', 'Growth Ops', 'Starting Core'], reverse: true, tilt: 1.2, bg: 'var(--red)', fg: '#FBF8F2' },
+  { items: ['A monthly rupee report', 'You own every account', 'Clinics · Real estate', 'Jaipur · India'], reverse: false, tilt: -0.6, bg: 'var(--card)', fg: 'var(--ink)' },
 ]
 
 export default function MarqueeSection() {
   return (
-    <div aria-label="Custom development, business audit, AI integration — Starting Core, Jaipur, India"
+    <div aria-label="Reply in under 60 seconds, five follow-ups, a monthly rupee report — Starting Core, Jaipur"
       style={{ padding: 'clamp(40px, 6vw, 72px) 0', overflow: 'hidden' }}>
       {BANDS.map((band, i) => (
         <div key={i} className="paper-shadow" style={{
