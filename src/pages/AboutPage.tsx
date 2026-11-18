@@ -384,10 +384,10 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 gap-4">
             {[
-              { num: '80+', label: 'Problems solved' },
+              { num: '31', label: 'Websites shipped' },
               { num: '6+', label: 'Years building' },
-              { num: '30+', label: 'AI systems built' },
-              { num: '₹40k', label: 'Audit starts at' },
+              { num: '< 60s', label: 'First reply we guarantee' },
+              { num: '₹15k', label: 'Leak Audit' },
             ].map(stat => (
               <div key={stat.label} style={{ background: 'rgba(247,245,240,0.05)', borderRadius: '16px', padding: '24px', border: '1px solid rgba(247,245,240,0.08)' }}>
                 <p className="font-syne" style={{ fontSize: 'clamp(24px,3vw,36px)', fontWeight: 800, letterSpacing: '-0.03em', color: '#F7F5F0', marginBottom: '6px' }}>{stat.num}</p>
@@ -409,7 +409,7 @@ export default function AboutPage() {
             <span style={{ color: 'var(--accent)' }}>BROKEN.</span>
           </h2>
           <p style={{ fontSize: 'clamp(14px,1.4vw,16px)', lineHeight: 1.75, color: 'var(--muted)', marginBottom: '40px' }}>
-            Audits start at ₹40,000. Custom builds from ₹80,000. We take on 2–3 new projects per quarter so every client gets full attention.
+            The Leak Check is free. The Leak Audit is ₹15,000. Lead Recovery Systems start at ₹75,000. We take on 2–3 new clients a quarter so each one gets full attention.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link to="/contact" className="bracket-link accent">[ START A PROJECT ]</Link>

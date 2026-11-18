@@ -4,11 +4,11 @@ import RoughBox, { RED } from './sketch/RoughBox'
 import Mark from './sketch/Mark'
 import Doodle from './sketch/Doodle'
 
-const STATS = [
-  { value: '6+',    label: 'Years Experience' },
-  { value: '80+',   label: 'Projects Delivered' },
-  { value: '30+',   label: 'AI Systems Built' },
-  { value: '₹50L+', label: 'Value Generated' },
+const RULES = [
+  { t: 'You own every account.', d: 'Number, CRM, data and domain stay in your business name.' },
+  { t: 'Narrow beats clever.', d: 'One job per agent: answer, qualify, book, remind, reactivate.' },
+  { t: 'Always a human handoff.', d: 'Written rules for what the AI must never say or promise.' },
+  { t: 'We guarantee what we control.', d: 'Reply time, follow-ups and the report. Not your revenue.' },
 ]
 
 const STORY = [
@@ -26,10 +26,10 @@ export default function AboutSection() {
         paddingLeft: 'max(20px, env(safe-area-inset-left, 0px))',
         paddingRight: 'max(20px, env(safe-area-inset-right, 0px))',
       }}>
-        <p className="hand-label" style={{ marginBottom: 10 }}>the founder —</p>
+        <p className="hand-label" style={{ marginBottom: 10 }}>the founder, Mohit Pareek —</p>
         <h2 className="font-display" style={{ fontSize: 'clamp(46px, 6.5vw, 100px)', lineHeight: 0.95, letterSpacing: '-0.03em', maxWidth: '14ch', marginBottom: 'clamp(48px, 6vw, 80px)' }}>
           Audit first.<br />Build second.<br />
-          <em style={{ color: RED }}><Mark type="underline" iterations={2} strokeWidth={2.4} padding={2}>Results always.</Mark></em>
+          <em style={{ color: RED }}><Mark type="underline" iterations={2} strokeWidth={2.4} padding={2}>Report every month.</Mark></em>
         </h2>
 
         <div className="about-grid">
@@ -57,22 +57,22 @@ export default function AboutSection() {
 
           {/* Stats + sticky note */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
-            <div className="about-stats">
-              {STATS.map((s, i) => (
-                <motion.div key={s.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-40px' }}
-                  transition={{ duration: 0.6, delay: i * 0.08 }}>
-                  <RoughBox roughness={1.6} strokeWidth={1.3} fill={i === 3 ? RED : undefined} fillStyle="solid" style={{ height: '100%' }}>
-                    <div style={{ padding: '22px 20px' }}>
-                      <p className="font-display" style={{ fontSize: 'clamp(42px, 4.6vw, 64px)', lineHeight: 1, color: i === 3 ? '#FBF8F2' : 'var(--ink)' }}>{s.value}</p>
-                      <p className="font-hand" style={{ fontSize: 22, color: i === 3 ? 'rgba(251,248,242,0.8)' : 'var(--ink-soft)', marginTop: 6, lineHeight: 1 }}>{s.label}</p>
-                    </div>
-                  </RoughBox>
-                </motion.div>
-              ))}
-            </div>
+            <RoughBox roughness={1.4} strokeWidth={1.4} fill="#FBF8F2" fillStyle="solid">
+              <div style={{ padding: 'clamp(22px, 2.6vw, 32px)' }}>
+                <p className="font-hand" style={{ fontSize: 28, color: RED, lineHeight: 1 }}>the rules we work by</p>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 16, marginTop: 20 }}>
+                  {RULES.map(r => (
+                    <li key={r.t} style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                      <Doodle name="check" size={20} color={RED} strokeWidth={2.6} animate={false} style={{ marginTop: 4, flexShrink: 0 }} />
+                      <span>
+                        <strong className="font-display" style={{ fontSize: 23, fontWeight: 400, display: 'block', lineHeight: 1.15 }}>{r.t}</strong>
+                        <span style={{ fontSize: 14.5, lineHeight: 1.55, color: 'var(--ink-soft)' }}>{r.d}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </RoughBox>
 
             <motion.div
               initial={{ opacity: 0, y: 30, rotate: 0 }}
@@ -96,7 +96,6 @@ export default function AboutSection() {
 
       <style>{`
         .about-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 88px); align-items: start; }
-        .about-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
         @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
       `}</style>
     </section>
