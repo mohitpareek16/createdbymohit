@@ -11,6 +11,7 @@ export interface BlogPost {
 }
 
 import { NEW_POSTS } from './articles-new'
+import { AGENT_SKILLS_POST } from './article-agent-skills'
 
 const EXISTING: BlogPost[] = [
   {
@@ -20,7 +21,7 @@ const EXISTING: BlogPost[] = [
     category: 'Design & Digital Products',
     readTime: '5 min read',
     date: 'July 2026',
-    cover: '/blog/portfolio.jpg',
+    cover: '',
     published: false,
     body: `Most designers think their portfolio isn't working because the work isn't good enough. That's almost never the reason.
 
@@ -61,7 +62,7 @@ Your portfolio isn't a resume. It's a pitch. Make it for one specific person wit
     category: 'Design & Digital Products',
     readTime: '4 min read',
     date: 'June 2026',
-    cover: '/blog/startups.jpg',
+    cover: '',
     published: true,
     body: `When a startup finally decides to "invest in design," the brief is usually some version of: make this look better, fix the UI, make us look like a real company.
 
@@ -100,7 +101,7 @@ Great design at an early startup means fewer bad bets. That's it.`,
     category: 'Business Problem Solving',
     readTime: '7 min read',
     date: 'May 2026',
-    cover: '/blog/pricing.jpg',
+    cover: '',
     published: false,
     body: `The conversation every freelance designer dreads: the client asks for your rate. You say a number. They say nothing. The silence feels like judgment. You immediately want to say "but I'm flexible."
 
@@ -153,7 +154,7 @@ Raise your prices every year whether you feel ready or not. The market moves up.
     category: 'Design & Digital Products',
     readTime: '6 min read',
     date: 'April 2026',
-    cover: '/blog/systems.jpg',
+    cover: '',
     published: true,
     body: `"We're moving too fast to think about a design system right now."
 
@@ -211,7 +212,7 @@ That's the moment everything is still small enough to fix properly.`,
     category: 'Design & Digital Products',
     readTime: '5 min read',
     date: 'March 2026',
-    cover: '/blog/feedback.jpg',
+    cover: '',
     published: true,
     body: `Design feedback is one of the most expensive things a team does badly. A single poorly run feedback session can send a designer down a week-long rabbit hole, produce a worse outcome than before, and damage the trust between design and the rest of the business.
 
@@ -257,7 +258,7 @@ It moves the conversation from subjective reaction to stated requirements. It gi
   },
 ]
 
-export const POSTS: BlogPost[] = [...NEW_POSTS, ...EXISTING]
+export const POSTS: BlogPost[] = [AGENT_SKILLS_POST, ...NEW_POSTS, ...EXISTING]
 
 export function getPost(slug: string) {
   return POSTS.find(p => p.slug === slug && p.published)

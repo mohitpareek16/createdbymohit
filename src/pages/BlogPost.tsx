@@ -10,8 +10,16 @@ import { ArticleCard } from '../components/home/Insights'
 import { getPost, getAllPosts } from '../data/blog'
 
 function inline(text: string): ReactNode[] {
-  return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g).map((part, i) => {
+  return text.split(/(\*\*[^*]+\*\*|`[^`]+`|\[[^\]]+\]\([^)]+\)|\*[^*]+\*)/g).map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) return <strong key={i} style={{ color: 'var(--ink)', fontWeight: 600 }}>{part.slice(2, -2)}</strong>
+    if (part.startsWith('`') && part.endsWith('`')) return <code key={i}>{part.slice(1, -1)}</code>
+    const link = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
+    if (link) {
+      const external = /^https?:/.test(link[2])
+      return external
+        ? <a key={i} href={link[2]} target="_blank" rel="noopener noreferrer">{link[1]}</a>
+        : <Link key={i} to={link[2]}>{link[1]}</Link>
+    }
     if (part.startsWith('*') && part.endsWith('*') && part.length > 2) return <em key={i}>{part.slice(1, -1)}</em>
     return <Fragment key={i}>{part}</Fragment>
   })
@@ -22,10 +30,19 @@ function Body({ text }: { text: string }) {
     <div className="prose">
       {text.trim().split('\n\n').map((block, i) => {
         if (block.startsWith('## ')) return <h2 key={i}>{block.slice(3)}</h2>
+        if (block.startsWith('### ')) return <h3 key={i}>{block.slice(4)}</h3>
+        if (block.startsWith('```')) return <pre key={i}><code>{block.replace(/^```\w*\n?/, '').replace(/\n?```$/, '')}</code></pre>
+        const img = block.match(/^!\[([^\]]*)\]\(([^)]+)\)(?:\n(.+))?$/)
+        if (img) return (
+          <figure key={i}>
+            <img src={img[2]} alt={img[1]} loading="lazy" decoding="async" />
+            {img[3] && <figcaption>{inline(img[3])}</figcaption>}
+          </figure>
+        )
         const lines = block.split('\n')
         if (lines.every(l => l.startsWith('- '))) return <ul key={i}>{lines.map((l, j) => <li key={j}>{inline(l.slice(2))}</li>)}</ul>
         if (lines.every(l => /^\d+\.\s/.test(l))) return <ol key={i}>{lines.map((l, j) => <li key={j}>{inline(l.replace(/^\d+\.\s/, ''))}</li>)}</ol>
-        return <p key={i}>{inline(block)}</p>
+        return <p key={i}>{lines.map((l, j) => <Fragment key={j}>{j > 0 && <br />}{inline(l)}</Fragment>)}</p>
       })}
     </div>
   )
@@ -52,12 +69,12 @@ export default function BlogPost() {
     publisher: { '@type': 'Organization', name: 'CreatedByMohit', url: 'https://createdbymohit.com/' },
     mainEntityOfPage: url,
     datePublished: post.date,
-    image: 'https://createdbymohit.com/mohit-pareek.jpg',
+    image: post.cover ? `https://createdbymohit.com${post.cover}` : 'https://createdbymohit.com/mohit-pareek.jpg',
   }
 
   return (
     <main style={{ background: 'var(--bg)', minHeight: '100vh' }}>
-      <SEO title={`${post.title} | CreatedByMohit`} description={post.subtitle} canonical={`/blog/${post.slug}`} type="article" />
+      <SEO title={`${post.title} | CreatedByMohit`} description={post.subtitle} canonical={`/blog/${post.slug}`} type="article" image={post.cover ? `https://createdbymohit.com${post.cover}` : undefined} />
       <Helmet><script type="application/ld+json">{JSON.stringify(schema)}</script></Helmet>
       <motion.div aria-hidden style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 2, background: 'var(--red)', transformOrigin: '0 50%', zIndex: 60, scaleX }} />
       <Nav />
@@ -65,7 +82,7 @@ export default function BlogPost() {
       <article style={{ paddingTop: 'clamp(120px, 14vw, 160px)' }}>
         <header className="wrap" style={{ maxWidth: 900 }}>
           <Link to="/blog" className="label link-u">← Insights</Link>
-          <p className="label" style={{ marginTop: 28 }}><span className="label-num">{post.category}</span>{post.readTime} · {post.date}</p>
+          <p className="label" style={{ marginTop: 28 }}><span className="label-num">{post.category}</span>· {post.readTime} · {post.date}</p>
           <h1 className="font-display" style={{ fontSize: 'clamp(42px, 6vw, 84px)', lineHeight: 1, letterSpacing: '-0.03em', marginTop: 18 }}>{post.title}</h1>
           <p style={{ fontSize: 'clamp(18px, 1.8vw, 22px)', lineHeight: 1.55, color: 'var(--ink-soft)', marginTop: 20, maxWidth: '46ch' }}>{post.subtitle}</p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 28 }}>
@@ -105,6 +122,14 @@ export default function BlogPost() {
         .prose h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 3vw, 36px); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink); margin-top: 22px; }
         .prose ul, .prose ol { padding-left: 1.2em; display: grid; gap: 10px; }
         .prose li::marker { color: var(--red); }
+        .prose h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(24px, 2.4vw, 30px); line-height: 1.15; color: var(--ink); margin-top: 14px; }
+        .prose a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: 3px; }
+        .prose code { font-family: var(--font-mono); font-size: 0.82em; background: var(--paper-2); padding: 2px 6px; border-radius: 6px; color: var(--ink); overflow-wrap: anywhere; }
+        .prose pre { background: var(--ink); color: var(--paper); border-radius: 12px; padding: 16px 18px; overflow-x: auto; font-size: 14px; line-height: 1.6; }
+        .prose pre code { background: none; color: inherit; padding: 0; font-size: 14px; }
+        .prose figure { margin: 10px 0 6px; }
+        .prose figure img { width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--rule); background: var(--paper-2); }
+        .prose figcaption { font-size: 13.5px; line-height: 1.5; color: var(--ink-faint); margin-top: 10px; }
         .rel-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 40px); }
         @media (max-width: 860px) { .rel-grid { grid-template-columns: 1fr; } }
       `}</style>

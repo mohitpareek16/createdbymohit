@@ -8,6 +8,14 @@ const TINT: Record<string, { bg: string; fg: string }> = {
 
 export default function ArticleCover({ post, large = false }: { post: BlogPost; large?: boolean }) {
   const t = TINT[post.category] ?? TINT['Design & Digital Products']
+  if (post.cover) {
+    return (
+      <div style={{ aspectRatio: large ? '16 / 10' : '16 / 10', borderRadius: large ? 16 : 12, overflow: 'hidden', background: '#121212', maxWidth: '100%' }}>
+        <img src={post.cover} alt={large ? `${post.title}: cover image` : ''} loading={large ? 'eager' : 'lazy'} decoding="async"
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      </div>
+    )
+  }
   return (
     <div aria-hidden style={{ aspectRatio: large ? '21 / 9' : '16 / 10', background: t.bg, color: t.fg, borderRadius: large ? 16 : 12, position: 'relative', overflow: 'hidden', maxWidth: '100%' }}>
       <svg viewBox="0 0 400 250" preserveAspectRatio="xMaxYMid slice" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.22 }}
