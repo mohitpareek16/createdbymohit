@@ -2,3 +2,7 @@ node_modules/
 dist/
 .DS_Store
 *.local
+
+# Agent skills are restored from skills-lock.json: npx skills experimental_install
+.claude/skills/
+.agents/
